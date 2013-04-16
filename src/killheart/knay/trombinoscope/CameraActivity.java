@@ -1,20 +1,241 @@
 package killheart.knay.trombinoscope;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
-import android.view.Menu;
+import android.graphics.PixelFormat;
+import android.hardware.Camera;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-public class CameraActivity extends Activity {
+/**
+ * @author David et Jonathan
+ *
+ * Classe permet de gérer une caméra sous Android.
+ * Cette classe permet de d'afficher la caméra à l'écran 
+ * et de prendre des photos. Les photos sont enregistrées
+ * dans le dossier de l'application avec le nom donné en 
+ * paramètre.
+ * 
+ * @todo Ajouter le un attribut pour le chemin de la photo
+ * @todo Lancer l'activity qui propose de reprendre une photo ou non
+ * @todo Ajouter un accesseur pour savoir si la caméra marche ou non (is preview)
+ * @todo Créer une Image android à partir de la photo prise
+ */
+public class CameraActivity extends Activity implements SurfaceHolder.Callback {
+	// ----- ----- Les classes Android ----- ----- 
+	private Camera camera = null;                           //< La caméra Android
+	private SurfaceView surfaceCamera = null;               //< La view sur laquelle on va afficher une preview de la caméra
+	private ImageButton boutonPrendrePhoto = null;          //< Le bouton qui permet de prendre une photo
+	private Camera.PictureCallback callBackPhoto = null;    //< La fonction de callback lors de la prise d'une photo    
+	
+	// ----- ----- Les classes et variables classiques ----- ----- 
+	private FileOutputStream stream = null;                 //< Le flux vers le fichier ou sera enregistrée la photo
+	private Boolean isPreview;                              //< Booleen permettant de savoir si la caméra est en mode preview ou non (pause de l'application)
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Cette fonction est appelée à la création de l'activité Android.
+	 * Elle initialise les paramètres de la classe et affiche la caméra.
+	 * 
+	 * @param savedInstanceState L'état de l'application.
+	 */
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState); //< Appel au super-constructeur
+		
+		// On met l'application en plein écran et sans barre de titre
+		getWindow().setFormat(PixelFormat.TRANSLUCENT);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+		setContentView(R.layout.activity_camera); //< On applique le layout prévue pour la caméra
+		
+		boutonPrendrePhoto = (ImageButton) findViewById(R.id.boutonPhoto); //< On recherche le bouton pour prendre la photo pour lui appliquer un listener
+
+		// Listener du bouton pour prendre une photo
+		boutonPrendrePhoto.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				PrendrePhoto("maphoto.jpg");
+			}
+		});
+
+		surfaceCamera = (SurfaceView) findViewById(R.id.surfaceViewCamera); //< On recherche la surface prévue pour heberger la prévisualisation de la caméra
+
+		InitialiserCamera(); //< Initialisation de la caméra !
+	}
+
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet d'initialiser les paramètres de la caméra.
+	 */
+	@SuppressWarnings("deprecation") //< On enleve les warnings pour deprecated car setType() nécessaire pour android 3.0
+    public void InitialiserCamera() {
+		isPreview = false; //< Au démarrage la caméra n'est pas en mode preview
+		
+		surfaceCamera.getHolder().addCallback(this); //< On attache les retours du holder à notre activité
+
+		surfaceCamera.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); //< On spécifie le type du holder en mode SURFACE_TYPE_PUSH_BUFFERS
+		
+		// On initialise la callback pour la prise de photo
+		callBackPhoto = new Camera.PictureCallback() {
+			/**
+			 * @author David et Jonathan
+			 * 
+			 * Permet de définir le traitement à faire après une prise de photo : 
+			 * sauvegarde la photo dans le fichier ciblé par la variable stream.
+			 * 
+			 * @param data L'image sous forme de tableau d'octet.
+			 * @param camera La caméra ayant pris la photo.
+			 */
+			public void onPictureTaken(byte[] data, Camera camera) {
+				// Si il y a des datas, on essaie d'enregistrer l'image sur un stream déjà renseigné
+				if (data != null) {
+					try {
+						if (stream != null) {
+							stream.write(data); //< Ecriture des datas dans le buffer
+							stream.flush();     //< Flush pour vider le buffer
+							stream.close();     //< On ferme le fichier
+						}
+					} 
+					catch (Exception e) {
+						// Si une exception à lieu on affiche un Toast d'erreur
+						Toast.makeText(getApplicationContext(), "Erreur écriture fichier : " + e.getMessage(), Toast.LENGTH_LONG).show();
+					}
+					camera.startPreview(); //< On relance la caméra
+				}
+			}
+		};
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de réagir lorsqu'il y a eu un changement d'état sur la surface (à la création 
+	 * de la surface, etc.).
+	 * 
+	 * @param holder Le holder de la surface.
+	 * @param format Le nouveau PixelFormat de la surface.
+	 * @param width La largeur de la surface de la surface.
+	 * @param height La hauteur de la surface de la surface.
+	 */
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+		// Si le mode preview est lancé alors on le stop, pour éviter tout problèmes
+		if (isPreview) {
+			camera.stopPreview();
+		}
+		
+		Camera.Parameters parameters = camera.getParameters(); //< On récupère les paramètres de la caméra
+
+		parameters.setPreviewSize(width, height); //< On change la taille de la prévisualisation
+
+		camera.setParameters(parameters); //< On applique nos nouveaux paramètres
+
+		try {
+			camera.setPreviewDisplay(surfaceCamera.getHolder()); //< On redirige le preview de la caméra vers notre surface
+		} catch (IOException e) {
+			// Si une exception à lieu on affiche un Toast d'erreur
+			Toast.makeText(getApplicationContext(), "Erreur prévisualisation caméra : " + e.getMessage(), Toast.LENGTH_LONG).show();
+		}
+
+		camera.startPreview(); //< On lance la preview
+
+		isPreview = true; //< La preview est démarrée, on le signale en actualisant la variable
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Quand la surface (où on affiche la preview) est créée 
+	 * on démarre la caméra.
+	 * 
+	 * @param holder Le holder de la surface créée.
+	 */
+	public void surfaceCreated(SurfaceHolder holder) {
+		// On prend le controle de la camera
+		if (camera == null) {
+			camera = Camera.open();
+		}
     }
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction appelée lors de la desctruction du holder.
+	 * La fonction arrête la prévisualisation de la caméra
+	 * et la libère.
+	 * 
+	 * @param holder Le holder de la surface détruite.
+	 */
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// On arrête la caméra et on la libère
+		if (camera != null) {
+			camera.stopPreview();
+			isPreview = false;
+			camera.release();
+		}
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de définir le comportement de l'activité lorsque l'utilisateur
+	 * retourne dessus (après avoir quitté le focus de celle-ci).
+	 */
+	public void onResume() {
+		super.onResume();
+		
+		camera = Camera.open(); //< On relance la caméra
+		isPreview = true;
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_camera, menu);
-        return true;
-    }
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de définir le comportement de l'activité lorsque l'utilisateur quitte
+	 * l'application (quitte le focus).
+	 */
+	public void onPause() {
+		super.onPause();
+
+		// Si la caméra était lancée on l'arrête et on la libère 
+		if (camera != null) {
+			camera.release();
+			camera = null;
+			isPreview = false;
+		}
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction permettant de prendre une photo, et de l'enregistrer dans le dossier 
+	 * de l'application.
+	 * 
+	 * @param nom Le nom du fichier dans lequel vous souhaitez enregistrer la photo.
+	 */
+	public void PrendrePhoto(String nom) {
+		try {
+			File file = new File(Environment.getExternalStorageDirectory().toString(), nom); //< On créait un file descriptor où on va aller écrire
+			
+			stream = new FileOutputStream(file); //< Ouverture du flux pour la sauvegarde
+ 
+			camera.takePicture(null, callBackPhoto, callBackPhoto); //< On prend une photo avec la caméra
+		} 
+		catch (Exception e) {
+			// Si une exception à lieu on affiche un Toast d'erreur
+			Toast.makeText(getApplicationContext(), "Erreur prise de photo : " + e.getMessage(), Toast.LENGTH_LONG).show();
+		}
+	}	
 }

@@ -173,7 +173,7 @@ public class Pupil {
 	 * 
 	 * @param ph L'image Android de la photo.
 	 */
-	public void setPhoto (Images ph) {
+	public void setPhoto(Images ph) {
 		if (ph != null)
 			photo = ph;
 	}
@@ -203,7 +203,7 @@ public class Pupil {
 	 * @return PAS_DE_PHOTO si tout s'est bien passé mais que la photo de l'élève n'est pas définie.
 	 * @return FAILLURE Si un problème a eu lieu.
 	 */
-	public int Affiche (LinearLayout layout, int mode) {
+	public int afficher(LinearLayout layout, int mode) {
 		// Si le mode n'existe pas... FAIL !
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null)
 			return FAILLURE;
@@ -228,6 +228,20 @@ public class Pupil {
 			}
 			return SUCCESS;
 		}
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de savoir si deux élèves sont les mêmes.
+	 * 
+	 * @param e L'élève avec lequel vous souhaitez le comparer.
+	 * 
+	 * @return true Si les deux élèves sont les mêmes
+	 * @return false Sinon
+	 */
+	public Boolean equals(Pupil e) {
+		return (nom == e.getNom() && prenom == e.getPrenom() && dateNaissance == e.getDateNaissance() && id == e.getId()) ? true : false;
 	}
 	
 	/**

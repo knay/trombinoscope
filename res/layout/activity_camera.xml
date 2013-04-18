@@ -5,7 +5,8 @@
     android:layout_height="fill_parent">
     
     <RelativeLayout
-    android:layout_width="480dp"
+    android:layout_width="0dp"
+    android:layout_weight=".90"
     android:layout_height="fill_parent">
     
         <SurfaceView android:id="@+id/surfaceViewCamera" 
@@ -23,7 +24,8 @@
     <ImageButton android:id="@+id/boutonPhoto"
         android:contentDescription="@string/prendre_Photo_str"
         android:src="@drawable/iconephoto"
-        android:layout_width="30sp"
+        android:layout_width="0dp"
+        android:layout_weight=".10"
         android:layout_height="fill_parent">
         
     </ImageButton>

@@ -1,14 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".MainActivity" />
-
-</RelativeLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <RelativeLayout
+    android:layout_width="440sp"
+    android:layout_height="fill_parent">
+    	<Button 
+	    android:id="@+id/Format_Liste"
+	    android:layout_width="8000sp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="right"
+	    android:layout_marginBottom="4sp"
+	    android:layout_marginRight="4sp"
+	    android:hint="Jouer"
+	    
+	    />
+        
+    </RelativeLayout>
+    
+    
+</LinearLayout> 

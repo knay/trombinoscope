@@ -14,7 +14,7 @@
 	    android:layout_gravity="right"
 	    android:layout_marginBottom="4sp"
 	    android:layout_marginRight="4sp"
-	    android:hint="Joueraaaaa"
+	    android:hint="Jouer"
 	    
 	    />
         

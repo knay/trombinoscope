@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         
         /*Test de la création de repertoire*/
         String FolderXml = "Xml";//< Variable FolderXml contenant le nom du dossier ou sont stocké les Xml.
-        CreateRepertory();//< appel a la fonction CreateRepertory().
+        CreateRepertory();//< appel a la fonction CreateRepertory()
         CreateFolder(FolderXml);
         
         

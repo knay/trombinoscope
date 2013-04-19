@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 	 * 
 	 * Cette fonction est appelée à la création de nouveau Dossier.
 	 * Ex:Si l'on prend une photo on l'enregistre dans le dossier "Picture".
-	 * Il faut donc faire appel à la fonction CreateRepertory.
+	 * Il faut donc faire appel à la fonction CreateFolder.
 	 * Si le dossier existe déjà elle ne le crée pas.
 	 * 
 	 * @param NameFolder Nom du dossier.

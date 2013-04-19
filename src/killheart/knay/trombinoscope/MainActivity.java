@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
     	File Racine = Environment.getExternalStorageDirectory();
     	File FileRepertory = new File(Racine+"/trombiscol/");//< Creation du repertoire principal.
     	if (!FileRepertory.exists()) {//< Si il n'existe pas.
-    		FileRepertory.mkdir();//< On le crée.
+    		FileRepertory.mkdir();//< On le crée
     	}
     	
     }

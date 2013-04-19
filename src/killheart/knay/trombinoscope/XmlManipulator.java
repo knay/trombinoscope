@@ -25,36 +25,36 @@ public class XmlManipulator {
 	 *  @param File chemin d'acces du fichier.
 	 */
 	public XmlManipulator(String File){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = null;
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();//< Creer un arbre d'objet DOM appartir du fichier Xml.
+		DocumentBuilder builder = null;//< declaration de variable et initialisation.
 		Document dom = null;
 		
 		try {
-			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
+			builder = factory.newDocumentBuilder();//< Définit l'API DOM pour obtenir des instances de documents à partir d'un document XML. 
+		} catch (ParserConfigurationException e) {//< exception cas d'erreur.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 		try {
-			FileInputStream Path = new FileInputStream(File);
-		} catch (FileNotFoundException e) {
+			FileInputStream Path = new FileInputStream(File);//< FileInputStream lecture de flux d'octets bruts.
+		} catch (FileNotFoundException e) {//< exception cas d'erreur.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 		try {
-			dom = builder.parse(File);
-		} catch (SAXException e) {
+			dom = builder.parse(File);//< parse le fichier Xml.
+		} catch (SAXException e) {//< exception cas d'erreur.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException e) {//< exception cas d'erreur.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Element root = dom.getDocumentElement();
+		Element root = dom.getDocumentElement();//< Racine de l'arbre du document, et fournit l'accès principal aux données du document.
 			
 	}
 }

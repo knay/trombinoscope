@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.R.string;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.Menu;
 
@@ -38,16 +39,18 @@ public class MainActivity extends Activity {
 	 * Il faut donc faire appel à la fonction CreateRepertory.
 	 * Si le dossier existe déjà elle ne le crée pas.
 	 * 
-	 * @param string.
 	 * @param NameFolder Nom du dossier.
-	 * @return void
 	 */
     public void CreateRepertory(String NameFolder){
-    	File f = new File("/sdcard/trombiscol/"+NameFolder+"");//< Variable File contenant le chemin du repertoire.
-    	if (!f.exists()) {//< Si il n'existe pas.
-    	  f.mkdir();//< On le crée.
+    	File Racine = Environment.getExternalStorageDirectory();
+    	File PremierChemin = new File(Racine+"/trombiscol/");//< Creation du premier chemin.
+    	if (!PremierChemin.exists()) {//< Si il n'existe pas.
+    		PremierChemin.mkdir();//< On le crée.
     	}
-    	
+    	File DeuxiemeChemin = new File(Racine+"/trombiscol/"+NameFolder+"");
+    	if (!DeuxiemeChemin.exists()) {//< Si il n'existe pas.
+    		DeuxiemeChemin.mkdir();//< On le crée.
+    	}
     }
     
     

@@ -4,21 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <RelativeLayout
-    android:layout_width="440sp"
-    android:layout_height="fill_parent">
-    	<Button 
-	    android:id="@+id/Format_Liste"
-	    android:layout_width="8000sp"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="right"
-	    android:layout_marginBottom="4sp"
-	    android:layout_marginRight="4sp"
-	    android:hint="Joueraaaaa"
-	    
-	    />
-        
-    </RelativeLayout>
+   
     
     
 </LinearLayout> 

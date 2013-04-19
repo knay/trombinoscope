@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
         CreateRepertory(FolderXml);//< appel a la fonction CreateRepertory().
         
         
-        
     }
     /**
 	 * @author David et Jonathan
@@ -44,7 +43,7 @@ public class MainActivity extends Activity {
 	 * @return void
 	 */
     public void CreateRepertory(String NameFolder){
-    	File f = new File("/sdcard/TrombiScol/"+NameFolder+"");//< Variable File contenant le chemin du repertoire.
+    	File f = new File("/sdcard/trombiscol/"+NameFolder+"");//< Variable File contenant le chemin du repertoire.
     	if (!f.exists()) {//< Si il n'existe pas.
     	  f.mkdir();//< On le crée.
     	}

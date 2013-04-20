@@ -1,7 +1,13 @@
 package killheart.knay.trombinoscope;
 
-import android.provider.MediaStore.Images;
+import android.content.Context;
+import android.graphics.Color;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ImageView;
 
 /**
  * @author David et Jonathan
@@ -23,7 +29,7 @@ public class Pupil {
 	public static final int MODE_TROMBI = 2;     //< Permet d'afficher l'élève en mode trombinoscope (prévisualisation)
 	
 	// ----- ----- Les classes Android ----- ----- 
-	private Images photo = null;                 //< La photo Android de l'élève
+	private ImageView photo = null;              //< La photo Android de l'élève
 		
 	// ----- ----- Les classes et variables classiques ----- ----- 
 	private String nom = null;                   //< Le nom de l'élève
@@ -117,7 +123,7 @@ public class Pupil {
 	 * 
 	 * @return L'image Android de la photo de l'élève.
 	 */
-	public Images getPhoto() {
+	public ImageView getPhoto() {
 		return photo;
 	}
 	
@@ -173,7 +179,7 @@ public class Pupil {
 	 * 
 	 * @param ph L'image Android de la photo.
 	 */
-	public void setPhoto(Images ph) {
+	public void setPhoto(ImageView ph) {
 		if (ph != null)
 			photo = ph;
 	}
@@ -197,37 +203,80 @@ public class Pupil {
 	 * du mode choisi l'affichage sera différent.
 	 * 
 	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
+	 * @param c Le contexte Android pour l'affichage.
 	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
 	 * 
 	 * @return SUCCESS si tout s'est bien passé et que la photo de l'élève est définie.
 	 * @return PAS_DE_PHOTO si tout s'est bien passé mais que la photo de l'élève n'est pas définie.
 	 * @return FAILLURE Si un problème a eu lieu.
 	 */
-	public int afficher(LinearLayout layout, int mode) {
+	public int afficher(LinearLayout layout, Context c, int mode) {
+		int cr = SUCCESS;                           //< Valeur de retour
+		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
+		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève
+		
 		// Si le mode n'existe pas... FAIL !
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null)
 			return FAILLURE;
 		
-		// Si la photo n'est pas définie ou affiche un point d'intérogation à la place de la photo
-		if (photo == null) {
-			if (mode == MODE_LISTE) {
-				
+		txt.setText(nom + " " + prenom);             //< On met le nom sur le texte android
+		
+		//! Affichage en mode liste 
+		if (mode == MODE_LISTE) {
+			//! Préparation du texte du nom
+			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); //< On met le layout
+			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);   //< On change la taille du texte
+			txt.setPadding(10, 20, 0, 0);                       //< On met un petit padding en haut et a gacueh (plus jolie)
+			
+			//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
+			if (photo == null) {   //< Si la photo n'a pas été définie
+				photo = new ImageView(c);                                                                  //< Instanciation de l'objet
+				photo.setImageResource(R.drawable.ic_launcher);                                            //< On va chercher l'image par défaut
+				cr = PAS_DE_PHOTO;                                                                         //< Compte rendu avec Pas de photo
 			}
-			else if (mode == MODE_TROMBI) {
-				
-			}
-			return PAS_DE_PHOTO;
+			photo.setLayoutParams(new LinearLayout.LayoutParams(85, LayoutParams.MATCH_PARENT));           //< On redimensionne la view de l'image
+			
+			lay.addView(photo);  //< Ajout de la photo sur la ligne
+			lay.addView(txt);    //< Ajout du texte sur la ligne
+			
+			lay.setOrientation(LinearLayout.HORIZONTAL);                             //< On met orientation horizontal sur la ligne
+			lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85));    //< On fait une ligne de 70dp de hauteur
+			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
+			
+			layout.addView(lay);  //< On ajoute la ligne sur le layout demandé
+			
+			if (cr == PAS_DE_PHOTO)
+				photo = null;         //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
 		}
-		// Si la photo est définie on affiche l'élève correctement
-		else {
-			if (mode == MODE_LISTE) {	//< Affichage en mode liste
-				
+		//! Affichage en mode trombinoscope
+		else if (mode == MODE_TROMBI) {
+			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)); //< On definit le layout du texte
+			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);   //< On change la taille de la font 
+			txt.setPadding(0, 7, 0, 0);                         //< On met un petit padding (plus jolie)
+			
+			if (photo == null) {
+				photo = new ImageView(c);                                                                  //< Instanciation de l'objet
+				photo.setImageResource(R.drawable.ic_launcher);                                            //< On va chercher l'image par défaut
+				cr = PAS_DE_PHOTO;                                                                         //< Compte rendu avec Pas de photo
 			}
-			else if (mode == MODE_TROMBI) { //< Affichage en mode trombi
-				
-			}
-			return SUCCESS;
+			
+			photo.setLayoutParams(new LinearLayout.LayoutParams(85, 85));           //< On redimensionne la view de l'image
+			
+			lay.addView(photo);  //< Ajout de la photo sur la ligne
+			lay.addView(txt);    //< Ajout du texte sur la ligne
+			
+			lay.setOrientation(LinearLayout.VERTICAL);                               //< On met orientation vertical sur le layout trombi
+			lay.setGravity(Gravity.CENTER_HORIZONTAL);                               //< On centre les éléments
+			lay.setLayoutParams(new LayoutParams(200, 150));                         //< On définie la taille d'une 'case' pour l'élève
+			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
+			
+			layout.addView(lay);      //< On ajoute la ligne sur le layout demandé
+			
+			if (cr == PAS_DE_PHOTO)
+				photo = null;         //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
 		}
+		
+		return cr;
 	}
 	
 	/**

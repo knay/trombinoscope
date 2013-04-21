@@ -8,18 +8,19 @@ android:background="#5F6161" >
    	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:orientation="horizontal"
+		android:gravity="right">
     		
-			<ImageView
-				android:src="@drawable/logotrombi"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:scaleType="fitXY"
-				android:paddingLeft="5dp"
-				android:paddingRight="5dp"
-				android:paddingBottom="2dp"
-				android:paddingTop="2dp"
-			/>	
+		<ImageView
+			android:src="@drawable/logotrombi"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:scaleType="fitXY"
+			android:paddingLeft="5dp"
+			android:paddingRight="5dp"
+			android:paddingBottom="2dp"
+			android:paddingTop="2dp"
+		/>	
 	</LinearLayout>
 		
    	<LinearLayout

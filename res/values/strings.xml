@@ -8,9 +8,9 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="limite_tete_str">La limite de la tête pour la photo</string>
     <string name="prendre_Photo_str">Prendre une photo</string>
-    <string name="liste">BtListe</string>
-    <string name="trombi">BtTrombi</string>
-    <string name="camera">BtCamera</string>
+    <string name="liste">Accéder à la liste</string>
+    <string name="trombi">Accéder au trombinoscope</string>
+    <string name="camera">""Camera"</string>
     <string name="title_activity_liste">ListeActivity</string>
     <string name="action_settings">Settings</string>
     <color name="ColorBtWhite">#FFFFFF</color>

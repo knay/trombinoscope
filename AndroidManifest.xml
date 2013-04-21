@@ -33,8 +33,6 @@
             android:label="@string/title_activity_camera"
             android:screenOrientation="landscape" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,18 +40,13 @@
             android:name="killheart.knay.trombinoscope.ListeActivity"
             android:label="@string/title_activity_liste" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="killheart.knay.trombinoscope.TrombiActivity"
             android:label="@string/title_activity_trombi" >
-            
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

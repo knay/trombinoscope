@@ -113,7 +113,7 @@ public class Grade {
 			if (cr == Pupil.FAILLURE)
 				return cr;
 		}
-		
+		 
 		return Pupil.SUCCESS;
 	}
 	

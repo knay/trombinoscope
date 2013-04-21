@@ -57,4 +57,10 @@ public class XmlManipulator {
 		Element root = dom.getDocumentElement();//< Racine de l'arbre du document, et fournit l'accès principal aux données du document.
 			
 	}
+	public void Lire(){
+		
+		
+		
+	}
+	
 }

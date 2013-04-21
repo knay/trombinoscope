@@ -27,12 +27,13 @@ public final class R {
         public static final int limite_tete_photo=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f080005;
+        public static final int ViewListe=0x7f080003;
+        public static final int action_settings=0x7f080006;
         public static final int boutonPhoto=0x7f080001;
         public static final int listelayout=0x7f080002;
-        public static final int menu_settings=0x7f080004;
+        public static final int menu_settings=0x7f080005;
         public static final int surfaceViewCamera=0x7f080000;
-        public static final int trombilayout=0x7f080003;
+        public static final int trombilayout=0x7f080004;
     }
     public static final class layout {
         public static final int activity_camera=0x7f030000;
@@ -47,16 +48,17 @@ public final class R {
         public static final int trombi=0x7f070003;
     }
     public static final class string {
-        public static final int action_settings=0x7f050008;
+        public static final int action_settings=0x7f050009;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050001;
         public static final int limite_tete_str=0x7f050005;
+        public static final int liste=0x7f050007;
         public static final int menu_settings=0x7f050002;
         public static final int prendre_Photo_str=0x7f050006;
         public static final int title_activity_camera=0x7f050004;
-        public static final int title_activity_liste=0x7f050007;
+        public static final int title_activity_liste=0x7f050008;
         public static final int title_activity_main=0x7f050003;
-        public static final int title_activity_trombi=0x7f050009;
+        public static final int title_activity_trombi=0x7f05000a;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

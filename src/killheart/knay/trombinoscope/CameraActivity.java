@@ -227,10 +227,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	 */
 	public void PrendrePhoto(String nom) {
 		try {
+			String FolderPhoto = "Photo";
 			File Racine = Environment.getExternalStorageDirectory();
 
 			stream = new FileOutputStream(Racine + "/" + nom); //< Ouverture du flux pour la sauvegarde
- 
 			camera.takePicture(null, callBackPhoto, callBackPhoto); //< On prend une photo avec la caméra
 		} 
 		catch (Exception e) {

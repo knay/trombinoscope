@@ -8,9 +8,10 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="limite_tete_str">La limite de la tête pour la photo</string>
     <string name="prendre_Photo_str">Prendre une photo</string>
+    <string name="liste">BtListe</string>
     <string name="title_activity_liste">ListeActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="Liste" /><string name="title_activity_trombi">TrombiActivity</string>
+    <string name="title_activity_trombi">TrombiActivity</string>
     
 
 </resources>

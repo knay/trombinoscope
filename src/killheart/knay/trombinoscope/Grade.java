@@ -2,6 +2,7 @@ package killheart.knay.trombinoscope;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.widget.LinearLayout;
 
 /**
@@ -40,7 +41,7 @@ public class Grade {
 		if (n != null)
 			nom = n;
 		else
-			nom = "CLasse_sansnom";
+			nom = "Classe_sansnom";
 	}
 	
 	/**
@@ -96,18 +97,19 @@ public class Grade {
 	 * du mode choisi l'affichage sera différent.
 	 * 
 	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
+	 * @param c Le contexte Android pour l'affichage.
 	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
 	 * 
 	 * @return Pupil.FAILLURE Si une erreur s'est produite
 	 * @return Pupil.SUCCESS sinon
 	 */
-	public int afficher (LinearLayout layout, int mode) {
+	public int afficher (LinearLayout layout, Context c, int mode) {
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
 		for (int i = 0; i < eleves.size(); i++) {
 			System.out.println(eleves.get(i));
-			int cr = eleves.get(i).afficher(layout, mode);     //< On affiche un élève sur le layout
+			int cr = eleves.get(i).afficher(layout, c, mode);     //< On affiche un élève sur le layout
 			if (cr == Pupil.FAILLURE)
 				return cr;
 		}

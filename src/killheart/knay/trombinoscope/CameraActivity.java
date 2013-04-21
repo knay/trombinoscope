@@ -42,6 +42,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	// ----- ----- Les classes et variables classiques ----- ----- 
 	private FileOutputStream stream = null;                 //< Le flux vers le fichier ou sera enregistrée la photo
 	private Boolean isPreview;                              //< Booleen permettant de savoir si la caméra est en mode preview ou non (pause de l'application)
+	private String dossierPhoto = null;                     //< Le dossier ou stocker les photos
+	private String nom = null;                              //< Le nom du fichier sans l'extension
 	
 	/**
 	 * @author David et Jonathan
@@ -66,7 +68,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		// Listener du bouton pour prendre une photo
 		boutonPrendrePhoto.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				PrendrePhoto("maphoto.jpg");
+				PrendrePhoto(); //< Si on clic sur le bouton on prend la photo
 			}
 		});
 
@@ -83,6 +85,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	@SuppressWarnings("deprecation") //< On enleve les warnings pour deprecated car setType() nécessaire pour android 3.0
     public void InitialiserCamera() {
 		isPreview = false; //< Au démarrage la caméra n'est pas en mode preview
+		
+		dossierPhoto = "photos"; //< On définit le répertoire pour stocker les photos
+		
+		nom = "sans_nom";
 		
 		surfaceCamera.getHolder().addCallback(this); //< On attache les retours du holder à notre activité
 
@@ -137,6 +143,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		}
 		
 		Camera.Parameters parameters = camera.getParameters(); //< On récupère les paramètres de la caméra
+		parameters.setRotation(90);
 
 		parameters.setPreviewSize(width, height); //< On change la taille de la prévisualisation
 
@@ -220,17 +227,30 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	/**
 	 * @author David et Jonathan
 	 * 
-	 * Fonction permettant de prendre une photo, et de l'enregistrer dans le dossier 
-	 * de l'application.
+	 * Permet de changer le nom du dossier ou l'on va enregistrer la photo.
 	 * 
-	 * @param nom Le nom du fichier dans lequel vous souhaitez enregistrer la photo.
+	 * @param n Le nom que vous souhaitez mettre (sans l'extension).
 	 */
-	public void PrendrePhoto(String nom) {
+	public void setNom(String n) {
+		if (n != null)
+			nom = n;
+		else
+			nom = "sans_nom";
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction permettant de prendre une photo, et de l'enregistrer dans le dossier 
+	 * de l'application. L'enregistre dans /trombiscol/photos/nom.jpg. 
+	 */
+	public void PrendrePhoto() {
 		try {
-			String FolderPhoto = "Photo";
+			AndroidTree AT = new AndroidTree();
+			AT.CreateFolder(dossierPhoto);  //< On créait le dossier photo s'il ne l'est pas !
 			File Racine = Environment.getExternalStorageDirectory();
 
-			stream = new FileOutputStream(Racine + "/" + nom); //< Ouverture du flux pour la sauvegarde
+			stream = new FileOutputStream(Racine + "/trombiscol/"+ dossierPhoto +"/" + nom + ".jpg"); //< Ouverture du flux pour la sauvegarde
 			camera.takePicture(null, callBackPhoto, callBackPhoto); //< On prend une photo avec la caméra
 		} 
 		catch (Exception e) {

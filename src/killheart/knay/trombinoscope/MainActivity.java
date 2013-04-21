@@ -2,7 +2,6 @@ package killheart.knay.trombinoscope;
 
 import java.io.File;
 
-import android.R.string;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -42,6 +41,20 @@ public class MainActivity extends Activity {
 		      	startActivity(intent);
 		      	}
       });
+		final Button BtTrombi = (Button) findViewById(R.id.ViewTrombi);
+		BtTrombi.setOnClickListener(new OnClickListener(){
+			public void onClick(View v){
+				Intent intent = new Intent(MainActivity.this, TrombiActivity.class);
+				startActivity(intent);
+			}
+		});
+		final Button BtCamera = (Button) findViewById(R.id.ViewCamera);
+		BtCamera.setOnClickListener(new OnClickListener(){
+			public void onClick(View v){
+				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+				startActivity(intent);
+			}
+		});
         
     }
     /**

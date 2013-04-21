@@ -101,7 +101,7 @@ public class Grade {
 	 * @return Pupil.FAILLURE Si une erreur s'est produite
 	 * @return Pupil.SUCCESS sinon
 	 */
-	public int afficher (LinearLayout layout, int mode) {
+	public int afficher(LinearLayout layout, int mode) {
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
@@ -110,7 +110,7 @@ public class Grade {
 			int cr = eleves.get(i).afficher(layout, mode);     //< On affiche un élève sur le layout
 			if (cr == Pupil.FAILLURE)
 				return cr;
-		}
+		} 
 		
 		return Pupil.SUCCESS;
 	}

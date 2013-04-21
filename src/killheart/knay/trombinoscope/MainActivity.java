@@ -6,7 +6,11 @@ import android.R.string;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 /**
  * @author David et Jonathan
@@ -30,6 +34,14 @@ public class MainActivity extends Activity {
         CreateRepertory();//< appel a la fonction CreateRepertory()
         CreateFolder(FolderXml);
         
+        final Button BtListe = (Button) findViewById(R.id.ViewListe);
+		BtListe.setOnClickListener(new OnClickListener() {
+      			
+		        public void onClick(View v) {
+		      	Intent intent = new Intent(MainActivity.this, ListeActivity.class);
+		      	startActivity(intent);
+		      	}
+      });
         
     }
     /**

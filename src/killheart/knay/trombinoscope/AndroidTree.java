@@ -4,10 +4,24 @@ import java.io.File;
 
 import android.os.Environment;
 
+/**
+ * @author David et Jonathan
+ *
+ * Cette classe permet de manipuler les dossiers et fichier
+ * dans le dossier trombiscol créé à la racine de sdcard.
+ * 
+ * @todo AJOUTER PLUS DE FONCTIONS !
+ */
 public class AndroidTree {
 	File Racine = null;
 	String DossierPrincipal = null;
 	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Constructeur par défaut de la classe. Permet d'initialiser
+	 * les variables de base.
+	 */
 	public AndroidTree () {
 		Racine = Environment.getExternalStorageDirectory();
 		DossierPrincipal = "trombiscol";

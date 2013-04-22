@@ -13,9 +13,9 @@
     <string name="camera">BtCamera</string>
     <string name="title_activity_liste">ListeActivity</string>
     <string name="action_settings">Settings</string>
+
     <color name="ColorBtWhite">#FFFFFF</color>
+
     <string name="title_activity_trombi">TrombiActivity</string>
-    
-    
 
 </resources>

@@ -30,15 +30,23 @@ public class MainActivity extends Activity {
         
         /*Test de la création de repertoire*/
         String FolderXml = "Xml";//< Variable FolderXml contenant le nom du dossier ou sont stocké les Xml.
-        CreateRepertory();//< appel a la fonction CreateRepertory()
-        CreateFolder(FolderXml);
+        AndroidTree AT = new AndroidTree();
+        AT.CreateRepertory();
+		AT.CreateFolder(FolderXml);
         
-        final Button BtListe = (Button) findViewById(R.id.ViewListe);
-		BtListe.setOnClickListener(new OnClickListener() {
+		/**
+		 * @author David et Jonathan
+		 *
+		 * Bouton permettant d'acceder aux Activity
+		 * 
+		 * @todo 
+		 */
+		final Button BtListe = (Button) findViewById(R.id.ViewListe);//< Variable faisant le lien au bouton
+		BtListe.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” sur le bouton utilisé pour passer à la seconde activité 
       			
-		        public void onClick(View v) {
-		      	Intent intent = new Intent(MainActivity.this, ListeActivity.class);
-		      	startActivity(intent);
+		        public void onClick(View v) {//< fonction Click
+			      	Intent intent = new Intent(MainActivity.this, ListeActivity.class);//< creer un intent entre les deux class de chaque activity
+			      	startActivity(intent);//< lance l'acctiviter
 		      	}
       });
 		final Button BtTrombi = (Button) findViewById(R.id.ViewTrombi);
@@ -56,42 +64,6 @@ public class MainActivity extends Activity {
 			}
 		});
         
-    }
-    /**
-	 * @author David et Jonathan
-	 * 
-	 * Cette fonction est appelée à la création du répertoire.
-	 * Si le dossier existe déjà elle ne le crée pas.
-	 * 
-	 * @param NameFolder Nom du dossier.
-	 */
-    public void CreateRepertory(){
-    	File Racine = Environment.getExternalStorageDirectory();
-    	File FileRepertory = new File(Racine+"/trombiscol/");//< Creation du repertoire principal.
-    	if (!FileRepertory.exists()) {//< Si il n'existe pas.
-    		FileRepertory.mkdir();//< On le crée
-    	}
-    	
-    }
-    
-    /**
-	 * @author David et Jonathan
-	 * 
-	 * Cette fonction est appelée à la création de nouveau Dossier.
-	 * Ex:Si l'on prend une photo on l'enregistre dans le dossier "Picture".
-	 * Il faut donc faire appel à la fonction CreateFolder.
-	 * Si le dossier existe déjà elle ne le crée pas.
-	 * 
-	 * @param NameFolder Nom du dossier.
-	 */
-    public void CreateFolder(String NameFolder){
-    	File Racine = Environment.getExternalStorageDirectory();
-    	File FileFolder = new File(Racine+"/trombiscol/"+NameFolder+"");
-    	if (!FileFolder.exists()) {//< Si il n'existe pas.
-    		FileFolder.mkdir();//< On le crée.
-    	}
-    	
-    	
     }
     
     @Override

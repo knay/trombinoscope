@@ -3,6 +3,7 @@ package killheart.knay.trombinoscope;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,7 +17,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XmlManipulator {
-	private Element rootXml;
+	private Node Racine;
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -57,31 +59,77 @@ public class XmlManipulator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		rootXml = dom.getDocumentElement();//< Racine de l'arbre du document, et fournit l'accès principal aux données du document.
+		Racine = dom.getDocumentElement();//< Racine de l'arbre du document, et fournit l'accès principal aux données du document.
 			
 	}
 	
 	/**
 	 * @author David et Jonathan
 	 * 
-	 * Fonction Lire permet d'accéder à la baliser passé
-	 * en parametre.
+	 * Fonction Lire permet de lire les élèves appartenant 
+	 * a une classe.
 	 *  
-	 *  @param tags balise qu'on accéder
+	 *  @param tags Nom de la classe.
 	 */
-	public void Lire(String tags){
-		Pupil e =new Pupil();
-		Grade scolaire = new Grade();
+	public void LireScolaire(String tags){
+		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
+		Grade scolaire = new Grade();//< nouvel  objet de la classe Grade.
 		
-		NodeList items = rootXml.getElementsByTagName(tags);//< On crée une List contenant tous les noeuds "tags"
-		for(int i=0; i<items.getLength(); i++){
-				String nom = items.item(0).getNodeValue();
-				e.setNom(nom);
-				String prenom = items.item(1).getNodeValue();
-				e.setPrenom(prenom);
-	   	}
+		if(Racine.toString() == "trombiscol"){//< Si le noeud racine = trombiscol on continue.
+			Node Scolaire = Racine.getFirstChild();//< On récupère le fils du noeud racine.
+			if ((Scolaire.getAttributes().toString()) == tags){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
+				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
+				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
+				Node Suivant = Groupe.getFirstChild();//< on recupere le fils suivant
+				
+				Document dom = null;
+				NodeList ListEleves = dom.getElementsByTagName("groupe");//< On créer une list contenant tous les enfants du parametre.
+				
+				for(int i =0;i<ListEleves.getLength();i++){
+					Node premierpersonne = ListEleves.item(i);
+					Element firstPersonElement = (Element)premierpersonne;
+
+		            //-------
+		            NodeList NameList = firstPersonElement.getElementsByTagName("nom");
+		            Element NomElement = (Element)NameList.item(0);
+
+		            NodeList textNom = NomElement.getChildNodes();
+		            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();
+					e.setNom(Noms);
+					
+					//----------
+					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");
+		            Element PrenomElement = (Element)PrenomListee.item(0);
+
+		            NodeList textPrenom = PrenomElement.getChildNodes();
+		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();
+					e.setNom(Prenoms);
+					
+					
+				}
+			}
+		}
+		else{
+		}
 		scolaire.ajouterEleve(e);
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction LireEleve permet de lire un eleve
+	 * en fonction de son nom, prenom ou date de naissance 
+	 *  
+	 *  @param Nom Nom de l'eleve.
+	 *  @param Prenom Prenom de l'eleve.
+	 *  @param date date de naissance de l'eleve.
+	 */
+	public void LireEleve(String Nom,String Prenom,Date date){
+		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
+		Grade scolaire = new Grade();//< nouvel  objet de la classe Grade.
 		
+		
+		scolaire.ajouterEleve(e);
 	}
 	
 }

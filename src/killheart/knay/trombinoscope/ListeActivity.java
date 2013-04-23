@@ -24,8 +24,8 @@ public class ListeActivity extends Activity {
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
 		xml.LireScolaire("Maisonnier");*/
-		e.setNom("toto");
-		e.setPrenom("tata");
+		//e.setNom("toto");
+		//e.setPrenom("tata");
 		
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);

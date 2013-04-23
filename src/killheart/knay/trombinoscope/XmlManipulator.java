@@ -103,7 +103,7 @@ public class XmlManipulator {
 
 		            NodeList textPrenom = PrenomElement.getChildNodes();
 		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();
-					e.setNom(Prenoms);
+					e.setPrenom(Prenoms);
 					
 					
 				}
@@ -125,11 +125,18 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public void LireEleve(String Nom,String Prenom,Date date){
-		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
-		Grade scolaire = new Grade();//< nouvel  objet de la classe Grade.
-		
-		
-		scolaire.ajouterEleve(e);
 	}
 	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction AjoutEleve permet de rajouter un eleve
+	 *  
+	 *  @param Groupe Nom du groupe de l'eleve.
+	 *  @param Nom Nom de l'eleve.
+	 *  @param Prenom Prenom de l'eleve.
+	 *  @param date date de naissance de l'eleve.
+	 */
+	public void RajouterEleves(String Groupe,String Nom,String Prenom,Date date_naissance){
+	}
 }

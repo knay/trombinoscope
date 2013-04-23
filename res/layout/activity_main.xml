@@ -11,13 +11,7 @@ android:background="#5F6161" >
 		android:orientation="horizontal"
 		android:gravity="center_vertical|right">
     		
-   	    <ImageView 
-   	        android:src="@drawable/iconephoto"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="left"
-   	        
-	        />
+   	   
 		<ImageView
 			android:src="@drawable/logotrombi"
 			android:layout_width="wrap_content"

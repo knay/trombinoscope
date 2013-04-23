@@ -1,6 +1,9 @@
 package killheart.knay.trombinoscope;
 
+import java.io.File;
+
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -15,8 +18,15 @@ public class ListeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ImageView im = new ImageView(this);
 		Pupil e = new Pupil();
+		
+		/*Test
+		File Racine = Environment.getExternalStorageDirectory();
+		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
+		XmlManipulator xml = new XmlManipulator(chemin);
+		xml.LireScolaire("Maisonnier");*/
 		e.setNom("toto");
 		e.setPrenom("tata");
+		
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);

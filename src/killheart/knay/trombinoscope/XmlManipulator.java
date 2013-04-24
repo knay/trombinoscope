@@ -1,10 +1,11 @@
 package killheart.knay.trombinoscope;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,7 +18,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XmlManipulator {
-	private Node Racine;
+	private Node RacineXml;
 	
 	/**
 	 * @author David et Jonathan
@@ -28,39 +29,32 @@ public class XmlManipulator {
 	 *  le fermer a chaque fois qu'on doit lire le fichier.
 	 *  
 	 *  @param File chemin d'acces du fichier.
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
 	 */
 	public XmlManipulator(String File){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();//< Creer un arbre d'objet DOM appartir du fichier Xml.
-		DocumentBuilder builder = null;//< declaration de variable et initialisation.
-		Document dom = null;
-		
-		try {
-			builder = factory.newDocumentBuilder();//< Définit l'API DOM pour obtenir des instances de documents à partir d'un document XML. 
-		} catch (ParserConfigurationException e) {//< exception cas d'erreur.
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		try {
-			FileInputStream Path = new FileInputStream(File);//< FileInputStream lecture de flux d'octets bruts.
-		} catch (FileNotFoundException e) {//< exception cas d'erreur.
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		try {
-			dom = builder.parse(File);//< parse le fichier Xml.
-		} catch (SAXException e) {//< exception cas d'erreur.
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {//< exception cas d'erreur.
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Racine = dom.getDocumentElement();//< Racine de l'arbre du document, et fournit l'accès principal aux données du document.
+		try{
+			//< création d'une fabrique de documents
+			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 			
+			//< création d'un constructeur de documents
+			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
+			
+			//< lecture du contenu d'un fichier XML avec DOM
+			File xml = new File(File);
+			Document document = constructeur.parse(xml);
+			Node Racine = document.getDocumentElement();
+			this.RacineXml = Racine;
+		}catch(ParserConfigurationException pce){
+			System.out.println("Erreur de configuration du parseur DOM");
+			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
+		}catch(SAXException se){
+			System.out.println("Erreur lors du parsing du document");
+			System.out.println("lors de l'appel à construteur.parse(xml)");
+		}catch(IOException ioe){
+			System.out.println("Erreur d'entrée/sortie");
+			System.out.println("lors de l'appel à construteur.parse(xml)");
+		}
 	}
 	
 	/**
@@ -75,12 +69,12 @@ public class XmlManipulator {
 		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
 		Grade scolaire = new Grade();//< nouvel  objet de la classe Grade.
 		
-		if(Racine.toString() == "trombiscol"){//< Si le noeud racine = trombiscol on continue.
-			Node Scolaire = Racine.getFirstChild();//< On récupère le fils du noeud racine.
+		if(RacineXml.getNodeName() == "trombiscol"){//< Si le noeud racine = trombiscol on continue.
+			Node Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
 			if ((Scolaire.getAttributes().toString()) == tags){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
 				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
 				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
-				Node Suivant = Groupe.getFirstChild();//< on recupere le fils suivant
+				//Node Suivant = Groupe.getFirstChild();//< on recupere le fils suivant
 				
 				Document dom = null;
 				NodeList ListEleves = dom.getElementsByTagName("groupe");//< On créer une list contenant tous les enfants du parametre.
@@ -105,13 +99,13 @@ public class XmlManipulator {
 		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();
 					e.setPrenom(Prenoms);
 					
-					
+					scolaire.ajouterEleve(e);
 				}
 			}
 		}
 		else{
 		}
-		scolaire.ajouterEleve(e);
+		
 	}
 	
 	/**

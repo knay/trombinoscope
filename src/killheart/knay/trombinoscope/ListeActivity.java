@@ -2,6 +2,10 @@ package killheart.knay.trombinoscope;
 
 import java.io.File;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -19,11 +23,11 @@ public class ListeActivity extends Activity {
 		ImageView im = new ImageView(this);
 		Pupil e = new Pupil();
 		
-		/*Test
+		/*Test*/
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
-		xml.LireScolaire("Maisonnier");*/
+		xml.LireScolaire("Maisonnier");
 		//e.setNom("toto");
 		//e.setPrenom("tata");
 		

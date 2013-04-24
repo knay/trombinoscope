@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
  * @todo 
  */
 public class Grade {
-	private ArrayList<Pupil> eleves = new ArrayList<Pupil>();   //< Les élèves de la classe scolaire
+	private ArrayList<Group> groupes = new ArrayList<Group>();   //< Les élèves de la classe scolaire
 	private String nom = null;                                  //< Le nom de la classe scolaire
 	
 	/**
@@ -70,13 +70,13 @@ public class Grade {
 	/**
 	 * @author David et Jonathan
 	 * 
-	 * Permet d'ajouter un élève à la classe.
+	 * Permet d'ajouter un groupe à la classe.
 	 * 
-	 * @param e L'élève que vous voulez ajouter à la classe scolaire.
+	 * @param g Le groupe que vous voulez ajouter à la classe scolaire.
 	 */
-	public void ajouterEleve(Pupil e) {
-		if (e != null)
-			eleves.add(e);
+	public void ajouterGroup(Group g) {
+		if (g != null)
+			groupes.add(g);
 	}
 	
 	/**
@@ -86,8 +86,8 @@ public class Grade {
 	 * 
 	 * @param e L'élève que vous voulez ajouter à la classe scolaire.
 	 */
-	public void retirerEleve(Pupil e) {
-		eleves.remove(e);    //< Se sert de la fonction equals() de pupil
+	public void retirerEleve(Group g) {
+		groupes.remove(g);    //< Se sert de la fonction equals() de group
 	}
 	
 	/**
@@ -107,9 +107,8 @@ public class Grade {
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
-		for (int i = 0; i < eleves.size(); i++) {
-			System.out.println(eleves.get(i));
-			int cr = eleves.get(i).afficher(layout, c, mode);     //< On affiche un élève sur le layout
+		for (int i = 0; i < groupes.size(); i++) {
+			int cr = groupes.get(i).afficher(layout, c, mode);     //< On affiche un groupe sur le layout
 			if (cr == Pupil.FAILLURE)
 				return cr;
 		}

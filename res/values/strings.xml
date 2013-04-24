@@ -13,9 +13,10 @@
     <string name="camera">""Camera"</string>
     <string name="title_activity_liste">ListeActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_remove">Enlever</string>
     <color name="ColorBtWhite">#FFFFFF</color>
     <string name="title_activity_trombi">TrombiActivity</string>
-    
-    
-
+    <string name="retour_str">Retour</string>
+    <string name="verstrombi_str">Aperçue</string>
 </resources>

@@ -1,14 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".ListeActivity" >
 
-    <LinearLayout
-        android:id="@+id/listelayout"
+    <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+        <RelativeLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".90" >
+            <LinearLayout
+                android:id="@+id/listelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </RelativeLayout>
+     
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.12"
+            android:orientation="horizontal"
+            android:background="@color/Noir">
+            <Button 
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:drawableLeft="@drawable/ic_menu_back"
+                android:drawablePadding="-15sp"
+                android:layout_weight=".50"
+                android:textColor="@color/ColorBtWhite"
+                android:text="@string/retour_str"/>
+            <Button 
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:drawableLeft="@drawable/verstrombi"
+                android:layout_weight=".50"
+                android:drawablePadding="-15sp"
+                android:textColor="@color/ColorBtWhite"
+                android:text="@string/verstrombi_str"/>
+                    
+        </LinearLayout>
+    
     </LinearLayout>
 
 </RelativeLayout>

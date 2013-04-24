@@ -213,6 +213,7 @@ public class Pupil {
 	public int afficher(LinearLayout layout, Context c, int mode) {
 		int cr = SUCCESS;                           //< Valeur de retour
 		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
+		LinearLayout bordure = new LinearLayout(c);     //< Layout correspondant à la ligne
 		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève
 		
 		// Si le mode n'existe pas... FAIL !
@@ -243,7 +244,13 @@ public class Pupil {
 			lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85));    //< On fait une ligne de 70dp de hauteur
 			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
 			
-			layout.addView(lay);  //< On ajoute la ligne sur le layout demandé
+			bordure.setOrientation(LinearLayout.HORIZONTAL);                             //< On met orientation horizontal sur la ligne
+			bordure.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 90));    //< On fait une ligne de 70dp de hauteur
+			bordure.setBackgroundColor(Color.BLACK);                                     //< On met une couleur noir à la bordure
+			
+			bordure.addView(lay);     //< On ajoute la ligne au layout qui fait la bordure de la ligne
+			
+			layout.addView(bordure);  //< On ajoute la ligne sur le layout demandé
 			
 			if (cr == PAS_DE_PHOTO)
 				photo = null;         //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo

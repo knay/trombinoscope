@@ -2,10 +2,6 @@ package killheart.knay.trombinoscope;
 
 import java.io.File;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -34,6 +30,17 @@ public class ListeActivity extends Activity {
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		im.setImageResource(R.drawable.limite_tete_photo);

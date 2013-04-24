@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 /**
  * @author David et Jonathan

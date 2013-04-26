@@ -34,6 +34,7 @@
             android:orientation="horizontal"
             android:background="@color/Noir">
             <Button 
+                android:id="@+id/btn_retourliste"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:drawableLeft="@drawable/ic_menu_back"
@@ -42,6 +43,7 @@
                 android:textColor="@color/ColorBtWhite"
                 android:text="@string/retour_str"/>
             <Button 
+                android:id="@+id/btn_lancerapercue"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:drawableLeft="@drawable/verstrombi"

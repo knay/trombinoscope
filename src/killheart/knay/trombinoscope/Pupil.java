@@ -1,9 +1,13 @@
 package killheart.knay.trombinoscope;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
@@ -210,10 +214,10 @@ public class Pupil {
 	 * @return PAS_DE_PHOTO si tout s'est bien passé mais que la photo de l'élève n'est pas définie.
 	 * @return FAILLURE Si un problème a eu lieu.
 	 */
-	public int afficher(LinearLayout layout, Context c, int mode) {
+	public int afficher(LinearLayout layout, final Context c, int mode) {
 		int cr = SUCCESS;                           //< Valeur de retour
 		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
-		LinearLayout bordure = new LinearLayout(c);     //< Layout correspondant à la ligne
+		LinearLayout bordure = new LinearLayout(c); //< Layout correspondant à la ligne
 		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève
 		
 		// Si le mode n'existe pas... FAIL !
@@ -243,6 +247,15 @@ public class Pupil {
 			lay.setOrientation(LinearLayout.HORIZONTAL);                             //< On met orientation horizontal sur la ligne
 			lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85));    //< On fait une ligne de 70dp de hauteur
 			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
+			lay.setOnLongClickListener(new OnLongClickListener() {
+				public boolean onLongClick(View v) {
+					CameraActivity Cam = new CameraActivity();
+					Intent intent = new Intent(c, Cam.getClass());
+					Cam.setNom("ph "+id);
+					c.startActivity(intent);
+	                return false;
+                }
+			});
 			
 			bordure.setOrientation(LinearLayout.HORIZONTAL);                             //< On met orientation horizontal sur la ligne
 			bordure.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 90));    //< On fait une ligne de 70dp de hauteur

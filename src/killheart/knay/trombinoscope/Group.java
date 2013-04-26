@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.widget.LinearLayout;
 
+/**
+ * @author David et Jonathan
+ *
+ * La classe gérant un groupe d'élève.
+ * Elle permet de gérer plusieurs groupes d'élève 
+ * dans une même classe scolaire.
+ */
 public class Group {
 	private ArrayList<Pupil> eleves = new ArrayList<Pupil>();   //< Les élèves de la classe scolaire
 	private String nom = null;

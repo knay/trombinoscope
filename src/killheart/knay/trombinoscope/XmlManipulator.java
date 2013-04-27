@@ -1,20 +1,12 @@
 package killheart.knay.trombinoscope;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.util.Date;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.*;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class XmlManipulator {
@@ -32,19 +24,19 @@ public class XmlManipulator {
 	 * @throws ParserConfigurationException 
 	 * @throws SAXException 
 	 */
-	public XmlManipulator(String File){
+	public XmlManipulator(String chemin){
 		try{
-			//< création d'une fabrique de documents
+				
 			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 			
 			//< création d'un constructeur de documents
 			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
 			
 			//< lecture du contenu d'un fichier XML avec DOM
-			File xml = new File(File);
-			Document document = constructeur.parse(xml);
+			Document document = constructeur.parse(new File(chemin));
 			Node Racine = document.getDocumentElement();
 			this.RacineXml = Racine;
+				
 		}catch(ParserConfigurationException pce){
 			System.out.println("Erreur de configuration du parseur DOM");
 			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
@@ -55,6 +47,7 @@ public class XmlManipulator {
 			System.out.println("Erreur d'entrée/sortie");
 			System.out.println("lors de l'appel à construteur.parse(xml)");
 		}
+			
 	}
 	
 	/**
@@ -67,7 +60,8 @@ public class XmlManipulator {
 	 */
 	public void LireScolaire(String tags){
 		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
-		Grade scolaire = new Grade();//< nouvel  objet de la classe Grade.
+		Group Group = new Group();//< nouvel  objet de la classe Grade.
+		
 		
 		if(RacineXml.getNodeName() == "trombiscol"){//< Si le noeud racine = trombiscol on continue.
 			Node Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
@@ -99,7 +93,7 @@ public class XmlManipulator {
 		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();
 					e.setPrenom(Prenoms);
 					
-					scolaire.ajouterEleve(e);
+					Group.ajouterEleve(e);
 				}
 			}
 		}
@@ -118,7 +112,29 @@ public class XmlManipulator {
 	 *  @param Prenom Prenom de l'eleve.
 	 *  @param date date de naissance de l'eleve.
 	 */
-	public void LireEleve(String Nom,String Prenom,Date date){
+	public void LireEleve(String Nom){
+		try{
+			
+			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
+			
+			//< création d'un constructeur de documents
+			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
+			
+			//< lecture du contenu d'un fichier XML avec DOM
+			Document document = constructeur.parse(new File(Nom));
+			Node Racine = document.getDocumentElement();
+			this.RacineXml = Racine;
+			
+		}catch(ParserConfigurationException pce){
+			System.out.println("Erreur de configuration du parseur DOM");
+			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
+		}catch(SAXException se){
+			System.out.println("Erreur lors du parsing du document");
+			System.out.println("lors de l'appel à construteur.parse(xml)");
+		}catch(IOException ioe){
+			System.out.println("Erreur d'entrée/sortie");
+			System.out.println("lors de l'appel à construteur.parse(xml)");
+	}
 	}
 	
 	/**

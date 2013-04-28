@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * @author David et Jonathan
@@ -243,7 +247,7 @@ public class Pupil {
 				photo.setImageResource(R.drawable.icon_photo);                                            //< On va chercher l'image par défaut
 				cr = PAS_DE_PHOTO;                                                                         //< Compte rendu avec Pas de photo
 			}
-			photo.setLayoutParams(new LinearLayout.LayoutParams(80, LayoutParams.MATCH_PARENT));           //< On redimensionne la view de l'image
+			photo.setLayoutParams(new LinearLayout.LayoutParams(60, LayoutParams.MATCH_PARENT));           //< On redimensionne la view de l'image
 			
 			lay.addView(photo);  //< Ajout de la photo sur la ligne
 			lay.addView(txt);    //< Ajout du texte sur la ligne
@@ -274,6 +278,7 @@ public class Pupil {
 		}
 		//! Affichage en mode trombinoscope
 		else if (mode == MODE_TROMBI) {
+			
 			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)); //< On definit le layout du texte
 			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);   //< On change la taille de la font 
 			NomTrombi.setPadding(15, 4, 0, 0);  //< On met un petit padding pour centrer le nom
@@ -294,7 +299,7 @@ public class Pupil {
 			
 			lay.setOrientation(LinearLayout.VERTICAL);//< On met orientation vertical sur le layout trombi
 			//lay.setGravity(Gravity.CENTER_HORIZONTAL);//< On centre les éléments
-			lay.setLayoutParams(new LayoutParams(150, 150));//< On définie la taille d'une 'case' pour l'élève
+			lay.setLayoutParams(new LayoutParams(100, 150));//< On définie la taille d'une 'case' pour l'élève
 			lay.setBackgroundColor(Color.LTGRAY);//< On met une couleur de fond
 			
 			layout.addView(lay); //< On ajoute la ligne sur le layout demandé

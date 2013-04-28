@@ -272,28 +272,29 @@ public class Pupil {
 		else if (mode == MODE_TROMBI) {
 			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)); //< On definit le layout du texte
 			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);   //< On change la taille de la font 
-			txt.setPadding(0, 7, 0, 0);                         //< On met un petit padding (plus jolie)
+			txt.setPadding(7, 7, 0, 0);  //< On met un petit padding (plus jolie)
 			
 			if (photo == null) {
 				photo = new ImageView(c);  //< Instanciation de l'objet
 				photo.setImageResource(R.drawable.icon_photo);  //< On va chercher l'image par défaut
+				photo.setPadding(7, 7, 0, 0); //< On met un padding egal au text
 				cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 			}
 			
-			photo.setLayoutParams(new LinearLayout.LayoutParams(85, 85));           //< On redimensionne la view de l'image
+			photo.setLayoutParams(new LinearLayout.LayoutParams(80, 80)); //< On redimensionne la view de l'image
 			
 			lay.addView(photo);  //< Ajout de la photo sur la ligne
 			lay.addView(txt);    //< Ajout du texte sur la ligne
 			
-			lay.setOrientation(LinearLayout.VERTICAL);                               //< On met orientation vertical sur le layout trombi
-			lay.setGravity(Gravity.CENTER_HORIZONTAL);                               //< On centre les éléments
-			lay.setLayoutParams(new LayoutParams(200, 150));                         //< On définie la taille d'une 'case' pour l'élève
-			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
+			lay.setOrientation(LinearLayout.VERTICAL);//< On met orientation vertical sur le layout trombi
+			//lay.setGravity(Gravity.CENTER_HORIZONTAL);//< On centre les éléments
+			lay.setLayoutParams(new LayoutParams(150, 150));//< On définie la taille d'une 'case' pour l'élève
+			lay.setBackgroundColor(Color.LTGRAY);//< On met une couleur de fond
 			
-			layout.addView(lay);      //< On ajoute la ligne sur le layout demandé
+			layout.addView(lay); //< On ajoute la ligne sur le layout demandé
 			
 			if (cr == PAS_DE_PHOTO)
-				photo = null;         //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
+				photo = null; //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
 		}
 		
 		return cr;

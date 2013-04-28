@@ -43,14 +43,7 @@ android:background="#5F6161" >
 	        android:width="250dp"
 	        android:layout_marginBottom="20dp"
 		 />
-	    <Button
-	        android:id="@+id/ViewCamera"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/camera"
-	        android:background="@color/ColorBtWhite"
-	        android:width="250dp"
-		 />
+	    
     </LinearLayout>
 	   
 

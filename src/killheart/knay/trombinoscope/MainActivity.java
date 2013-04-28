@@ -56,13 +56,7 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		final Button BtCamera = (Button) findViewById(R.id.ViewCamera);
-		BtCamera.setOnClickListener(new OnClickListener(){
-			public void onClick(View v){
-				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
-				startActivity(intent);
-			}
-		});
+		
         
     }
     

@@ -224,7 +224,7 @@ public class Pupil {
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null)
 			return FAILLURE;
 		
-		txt.setText(nom + " " + prenom);             //< On met le nom sur le texte android
+		txt.setText(nom + " " + prenom);//< On met le nom sur le texte android
 		
 		//! Affichage en mode liste 
 		if (mode == MODE_LISTE) {

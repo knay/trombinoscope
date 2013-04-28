@@ -1,5 +1,6 @@
 package killheart.knay.trombinoscope;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -27,7 +29,7 @@ import android.widget.Toast;
  * 
  * @todo compléter la fonction d'affichage de l'élève
  */
-public class Pupil {
+public class Pupil extends Activity{
 	// ----- ----- Les constantes ----- -----
 	public static final int SUCCESS = 0;         //< Si tout s'est bien passé
 	public static final int FAILLURE = -1;       //< Valeur retournée en cas d'érreur
@@ -288,6 +290,7 @@ public class Pupil {
 				photo = new ImageView(c);  //< Instanciation de l'objet
 				photo.setImageResource(R.drawable.icon_photo);  //< On va chercher l'image par défaut
 				photo.setPadding(7, 7, 0, 0); //< On met un padding 
+				
 				cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 			}
 			
@@ -301,6 +304,16 @@ public class Pupil {
 			//lay.setGravity(Gravity.CENTER_HORIZONTAL);//< On centre les éléments
 			lay.setLayoutParams(new LayoutParams(100, 150));//< On définie la taille d'une 'case' pour l'élève
 			lay.setBackgroundColor(Color.LTGRAY);//< On met une couleur de fond
+			lay.setOnLongClickListener(new OnLongClickListener() {
+				public boolean onLongClick(View v) {
+					CameraActivity Cam = new CameraActivity();
+					Intent intent = new Intent(c, Cam.getClass());
+					Cam.setNom("ph "+id);
+					c.startActivity(intent);
+	                return false;
+                }
+			});
+			
 			
 			layout.addView(lay); //< On ajoute la ligne sur le layout demandé
 			

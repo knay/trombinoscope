@@ -48,8 +48,8 @@ public class Pupil {
 	 * Met un nom, une date et un prénom par défaut.
 	 */
 	public Pupil () {
-		nom = "Eleve";
-		prenom = "1";
+		nom = "Nom Eleve";
+		prenom = "Prenom Eleve";
 		dateNaissance = "00/00/2012";
 	}
 	
@@ -277,7 +277,7 @@ public class Pupil {
 			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)); //< On definit le layout du texte
 			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);   //< On change la taille de la font 
 			NomTrombi.setPadding(15, 4, 0, 0);  //< On met un petit padding pour centrer le nom
-			PrenomTrombi.setPadding(20, 4, 0, 0);//< On met un petit padding pour centrer le prenom
+			PrenomTrombi.setPadding(15, 4, 0, 0);//< On met un petit padding pour centrer le prenom
 			
 			if (photo == null) {
 				photo = new ImageView(c);  //< Instanciation de l'objet

@@ -18,6 +18,12 @@
     <string name="action_search">Rechercher</string>
     <color name="ColorBtWhite">#FFFFFF</color>
     <string name="title_activity_trombi">TrombiActivity</string>
+    <string name="btn_retourListe">Liste</string>
+    <string name="verstrombi_str">Trombi</string>
+    <string name="versliste_str">Liste</string>
     <string name="retour_str">Retour</string>
-    <string name="verstrombi_str">Aperçue</string>
+    
+    
+    
+    
 </resources>

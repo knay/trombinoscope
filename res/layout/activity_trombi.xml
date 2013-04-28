@@ -1,14 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TrombiActivity" >
 
-    <LinearLayout
-        android:id="@+id/trombilayout"
+    <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+        android:orientation="vertical">
+        <RelativeLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".90" 
+            android:orientation="vertical">
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <LinearLayout 
+                    android:id="@+id/trombilayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+                    
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+     
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.12"
+            android:orientation="horizontal"
+            android:background="@color/Noir">
+            <Button 
+                android:id="@+id/btn_retourTrombi"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:drawableLeft="@drawable/ic_menu_back"
+                android:drawablePadding="-15sp"
+                android:layout_weight=".50"
+                android:textColor="@color/ColorBtWhite"
+                android:text="@string/retour_str"/>
+            <Button 
+                android:id="@+id/btn_lancerapercue"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:drawableLeft="@drawable/verstrombi"
+                android:layout_weight=".50"
+                android:drawablePadding="-15sp"
+                android:textColor="@color/ColorBtWhite"
+                android:text="@string/versliste_str"/>
+                    
+        </LinearLayout>
+    
     </LinearLayout>
 
 </RelativeLayout>

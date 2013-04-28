@@ -29,7 +29,7 @@ import android.widget.Toast;
  * 
  * @todo compléter la fonction d'affichage de l'élève
  */
-public class Pupil extends Activity{
+public class Pupil{
 	// ----- ----- Les constantes ----- -----
 	public static final int SUCCESS = 0;         //< Si tout s'est bien passé
 	public static final int FAILLURE = -1;       //< Valeur retournée en cas d'érreur
@@ -290,7 +290,6 @@ public class Pupil extends Activity{
 				photo = new ImageView(c);  //< Instanciation de l'objet
 				photo.setImageResource(R.drawable.icon_photo);  //< On va chercher l'image par défaut
 				photo.setPadding(7, 7, 0, 0); //< On met un padding 
-				
 				cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 			}
 			

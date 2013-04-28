@@ -303,7 +303,7 @@ public class Pupil{
 			//lay.setGravity(Gravity.CENTER_HORIZONTAL);//< On centre les éléments
 			lay.setLayoutParams(new LayoutParams(100, 150));//< On définie la taille d'une 'case' pour l'élève
 			lay.setBackgroundColor(Color.LTGRAY);//< On met une couleur de fond
-			lay.setOnLongClickListener(new OnLongClickListener() {
+			photo.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
 					CameraActivity Cam = new CameraActivity();
 					Intent intent = new Intent(c, Cam.getClass());

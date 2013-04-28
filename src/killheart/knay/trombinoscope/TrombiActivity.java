@@ -19,8 +19,6 @@ public class TrombiActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ImageView im = new ImageView(this);
 		Pupil e = new Pupil();
-		e.setNom("toto");
-		e.setPrenom("tata");
 		
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_trombi, null);
@@ -35,10 +33,10 @@ public class TrombiActivity extends Activity {
 		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
 		
 		
-		im.setImageResource(R.drawable.limite_tete_photo);
+		/*im.setImageResource(R.drawable.limite_tete_photo);
 		e.setPhoto(im);
 		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		
+		*/
 		setContentView(layoutGlobal);
 	}
 

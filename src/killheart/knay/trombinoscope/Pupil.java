@@ -218,13 +218,17 @@ public class Pupil {
 		int cr = SUCCESS;                           //< Valeur de retour
 		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
 		LinearLayout bordure = new LinearLayout(c); //< Layout correspondant à la ligne
-		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève
+		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève dans la liste
+		TextView NomTrombi = new TextView(c); //< Le texte affichant le nom de l'élève dans le trombi
+		TextView PrenomTrombi = new TextView(c); //< Le texte affichant le nom de l'élève dans le trombi
 		
 		// Si le mode n'existe pas... FAIL !
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null)
 			return FAILLURE;
 		
 		txt.setText(nom + " " + prenom);//< On met le nom sur le texte android
+		NomTrombi.setText(nom);//< On met le nom sur le texte android
+		PrenomTrombi.setText(prenom);//< On met le nom sur le texte android
 		
 		//! Affichage en mode liste 
 		if (mode == MODE_LISTE) {
@@ -272,19 +276,21 @@ public class Pupil {
 		else if (mode == MODE_TROMBI) {
 			txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)); //< On definit le layout du texte
 			txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);   //< On change la taille de la font 
-			txt.setPadding(7, 7, 0, 0);  //< On met un petit padding (plus jolie)
+			NomTrombi.setPadding(15, 4, 0, 0);  //< On met un petit padding pour centrer le nom
+			PrenomTrombi.setPadding(20, 4, 0, 0);//< On met un petit padding pour centrer le prenom
 			
 			if (photo == null) {
 				photo = new ImageView(c);  //< Instanciation de l'objet
 				photo.setImageResource(R.drawable.icon_photo);  //< On va chercher l'image par défaut
-				photo.setPadding(7, 7, 0, 0); //< On met un padding egal au text
+				photo.setPadding(7, 7, 0, 0); //< On met un padding 
 				cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 			}
 			
 			photo.setLayoutParams(new LinearLayout.LayoutParams(80, 80)); //< On redimensionne la view de l'image
 			
 			lay.addView(photo);  //< Ajout de la photo sur la ligne
-			lay.addView(txt);    //< Ajout du texte sur la ligne
+			lay.addView(NomTrombi);    //< Ajout du Nom sur la ligne
+			lay.addView(PrenomTrombi);    //< Ajout du Prenom sur la ligne
 			
 			lay.setOrientation(LinearLayout.VERTICAL);//< On met orientation vertical sur le layout trombi
 			//lay.setGravity(Gravity.CENTER_HORIZONTAL);//< On centre les éléments

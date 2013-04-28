@@ -236,7 +236,7 @@ public class Pupil {
 			//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
 			if (photo == null) {   //< Si la photo n'a pas été définie
 				photo = new ImageView(c);                                                                  //< Instanciation de l'objet
-				photo.setImageResource(R.drawable.ic_launcher);                                            //< On va chercher l'image par défaut
+				photo.setImageResource(R.drawable.icon_photo);                                            //< On va chercher l'image par défaut
 				cr = PAS_DE_PHOTO;                                                                         //< Compte rendu avec Pas de photo
 			}
 			photo.setLayoutParams(new LinearLayout.LayoutParams(85, LayoutParams.MATCH_PARENT));           //< On redimensionne la view de l'image
@@ -275,9 +275,9 @@ public class Pupil {
 			txt.setPadding(0, 7, 0, 0);                         //< On met un petit padding (plus jolie)
 			
 			if (photo == null) {
-				photo = new ImageView(c);                                                                  //< Instanciation de l'objet
-				photo.setImageResource(R.drawable.ic_launcher);                                            //< On va chercher l'image par défaut
-				cr = PAS_DE_PHOTO;                                                                         //< Compte rendu avec Pas de photo
+				photo = new ImageView(c);  //< Instanciation de l'objet
+				photo.setImageResource(R.drawable.icon_photo);  //< On va chercher l'image par défaut
+				cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 			}
 			
 			photo.setLayoutParams(new LinearLayout.LayoutParams(85, 85));           //< On redimensionne la view de l'image

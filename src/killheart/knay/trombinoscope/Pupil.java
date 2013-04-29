@@ -1,23 +1,15 @@
 package killheart.knay.trombinoscope;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 /**
  * @author David et Jonathan

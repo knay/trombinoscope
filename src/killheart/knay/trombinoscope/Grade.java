@@ -11,12 +11,10 @@ import android.widget.LinearLayout;
  * Classe permet de gérer une classe scolaire.
  * Elle se base sur la classe Pupil pour gérer ses 
  * élèves.
- * 
- * @todo 
  */
 public class Grade {
 	private ArrayList<Group> groupes = new ArrayList<Group>();   //< Les élèves de la classe scolaire
-	private String nom = null;                                  //< Le nom de la classe scolaire
+	private String nom = null;                                   //< Le nom de la classe scolaire
 	
 	/**
 	 * @author David et Jonathan

@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
  * La classe gérant un groupe d'élève.
  * Elle permet de gérer plusieurs groupes d'élève 
  * dans une même classe scolaire.
+ * 
+ * @todo Ajouter le nom du groupe dans l'affichage.
  */
 public class Group {
 	private ArrayList<Pupil> eleves = new ArrayList<Pupil>();   //< Les élèves de la classe scolaire

@@ -10,24 +10,48 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+/**
+ * @author David et Jonathan
+ * 
+ * L'activité affichant la liste des élèves d'une classe sur un
+ * terminal Android.
+ * Elle affiche une scolaire qui elle-même déclenche l'affichage
+ * d'un groupe, qui lui-même lance l'affichage de chacun de ses
+ * élèves.
+ * 
+ * @todo Lire les groupes et scolaire directement dans le XML avec xmlmanipulator.
+ */
 public class ListeActivity extends Activity {
-	RelativeLayout layoutGlobal;
-	LinearLayout listeEleve;
-	Button BoutonRetour;
-	Button BoutonApercue;
+	// ----- ----- Les classes Android ----- ----- 
+	RelativeLayout layoutGlobal;                 //< Le layout de l'activité complète
+	LinearLayout listeEleve;                     //< Le layout qui affiche juste la liste
+	Button BoutonRetour;                         //< Le bouton retour pour lui ajouter le listener
+	Button BoutonApercue;                        //< Le bouton pour lancer le trombinoscope, pour lui ajouter le listener
 	
+	// ----- ----- Les classes et variables classiques ----- ----- 
+	Group listegroupe;                           //< Les groupe contenue dans la classe
+	Grade classe;                                //< La scolaire a afficher
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Cette fonction est appelée à la création de l'activité Android.
+	 * Elle initialise la scolaire et l'ajoute au layour principal.
+	 * 
+	 * @param savedInstanceState L'état de l'application.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		ImageView im = new ImageView(this);
+		super.onCreate(savedInstanceState);          //< Appel au super-constructeur
 		Pupil e = new Pupil();
+		classe = new Grade();
+		listegroupe = new Group();
 		
 		/*Test*/
 		File Racine = Environment.getExternalStorageDirectory();
-		String chemin = ""+Racine+"/classe.xml";
+		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
@@ -48,28 +72,33 @@ public class ListeActivity extends Activity {
 		});
 		
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
-		im.setImageResource(R.drawable.limite_tete_photo);
-		e.setPhoto(im);
-		e.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		classe.ajouterGroup(listegroupe);
+		
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		listegroupe.ajouterEleve(e);
+		
+		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		setContentView(layoutGlobal);
 	}
 
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet d'initialiser le menu de l'actionbar de l'activité.
+	 * 
+	 * @param menu Les éléments présents dans l'actionbar.
+	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.liste, menu);
 		return true;
 	}

@@ -10,12 +10,32 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+/**
+ * @author David et Jonathan
+ * 
+ * L'activité affichant le trombi des élèves d'une classe sur un
+ * terminal Android.
+ * Elle affiche une scolaire qui elle-même déclenche l'affichage
+ * d'un groupe, qui lui-même lance l'affichage de chacun de ses
+ * élèves.
+ * 
+ * @todo Lire les groupes et scolaire directement dans le XML avec xmlmanipulator.
+ */
 public class TrombiActivity extends Activity {
+	// ----- ----- Les classes Android ----- ----- 
 	RelativeLayout layoutGlobal;
 	LinearLayout trombiEleve;
 	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Cette fonction est appelée à la création de l'activité Android.
+	 * Elle initialise la scolaire et l'ajoute au layour principal.
+	 * 
+	 * @param savedInstanceState L'état de l'application.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);         //< Appel au super-constructeur
 		Pupil e = new Pupil();
 		
 		
@@ -45,17 +65,17 @@ public class TrombiActivity extends Activity {
 		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
 		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
 		
-		
-		/*im.setImageResource(R.drawable.limite_tete_photo);
-		e.setPhoto(im);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		*/
 		setContentView(layoutGlobal);
 	}
 
-	@Override
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet d'initialiser le menu de l'actionbar de l'activité.
+	 * 
+	 * @param menu Les éléments présents dans l'actionbar.
+	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.trombi, menu);
 		return true;
 	}

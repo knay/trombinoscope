@@ -2,12 +2,15 @@ package killheart.knay.trombinoscope;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Environment;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
 
@@ -249,13 +252,16 @@ public class Pupil{
 			lay.setOrientation(LinearLayout.HORIZONTAL);                             //< On met orientation horizontal sur la ligne
 			lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85));    //< On fait une ligne de 70dp de hauteur
 			lay.setBackgroundColor(Color.LTGRAY);                                    //< On met une couleur de fond
-			lay.setOnLongClickListener(new OnLongClickListener() {
+			photo.setOnLongClickListener(new OnLongClickListener() {
 				public boolean onLongClick(View v) {
-					CameraActivity Cam = new CameraActivity();
-					Intent intent = new Intent(c, Cam.getClass());
-					Cam.setNom("ph "+id);
-					c.startActivity(intent);
-	                return false;
+					Intent intent = new Intent(c, CameraActivity.class);
+					intent.putExtra("idEleve", id); //< On ajoute une extra pour passer en paramètre l'id de l'élève
+					c.startActivity(intent); // On demarre l'activité
+					
+					photo = new ImageView(c);
+					photo.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + id + ".jpg"));
+
+					return false;
                 }
 			});
 			

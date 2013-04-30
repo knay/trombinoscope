@@ -88,7 +88,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		
 		dossierPhoto = "photos"; //< On définit le répertoire pour stocker les photos
 		
-		nom = "sans_nom";
+		nom = getIntent().getExtras().getInt("idEleve") + ""; //< On récupère le l'id de lélève passé à l'activité pour definir le nom du fichier de sortie
 		
 		surfaceCamera.getHolder().addCallback(this); //< On attache les retours du holder à notre activité
 
@@ -143,7 +143,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		}
 		
 		Camera.Parameters parameters = camera.getParameters(); //< On récupère les paramètres de la caméra
-		parameters.setRotation(90);
+		parameters.setRotation(90); //< On dit à la caméra qu'elle n'est pas droite pour avec une photo dans le bon sens
 
 		parameters.setPreviewSize(width, height); //< On change la taille de la prévisualisation
 

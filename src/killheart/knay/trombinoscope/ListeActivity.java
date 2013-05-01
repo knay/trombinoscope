@@ -53,6 +53,7 @@ public class ListeActivity extends Activity {
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
+		xml.LireScolaire();
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 

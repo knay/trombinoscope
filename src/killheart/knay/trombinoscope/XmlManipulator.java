@@ -58,14 +58,14 @@ public class XmlManipulator {
 	 *  
 	 *  @param tags Nom de la classe.
 	 */
-	public void LireScolaire(String tags){
+	public void LireScolaire(){
 		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
 		Group Group = new Group();//< nouvel  objet de la classe Grade.
 		
 		
-		if(RacineXml.getNodeName() == "trombiscol"){//< Si le noeud racine = trombiscol on continue.
+		if(RacineXml.getNodeName().equals("trombiscol")){//< Si le noeud racine = trombiscol on continue.
 			Node Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
-			if ((Scolaire.getAttributes().toString()) == tags){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
+			if (Scolaire.getAttributes().equals("Maisonnier")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
 				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
 				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
 				//Node Suivant = Groupe.getFirstChild();//< on recupere le fils suivant
@@ -113,28 +113,9 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public void LireEleve(String Nom){
-		try{
-			
-			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
-			
-			//< création d'un constructeur de documents
-			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
-			
-			//< lecture du contenu d'un fichier XML avec DOM
-			Document document = constructeur.parse(new File(Nom));
-			Node Racine = document.getDocumentElement();
-			this.RacineXml = Racine;
-			
-		}catch(ParserConfigurationException pce){
-			System.out.println("Erreur de configuration du parseur DOM");
-			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
-		}catch(SAXException se){
-			System.out.println("Erreur lors du parsing du document");
-			System.out.println("lors de l'appel à construteur.parse(xml)");
-		}catch(IOException ioe){
-			System.out.println("Erreur d'entrée/sortie");
-			System.out.println("lors de l'appel à construteur.parse(xml)");
-	}
+		
+			NodeList liste = ((Document) RacineXml).getElementsByTagName(Nom);
+			Element e = (Element)liste.item(0);
 	}
 	
 	/**

@@ -1,24 +1,19 @@
 package killheart.knay.trombinoscope;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
 
@@ -57,8 +52,8 @@ public class Pupil{
 	 * Met un nom, une date et un prénom par défaut.
 	 */
 	public Pupil () {
-		nom = "Nom Eleve";
-		prenom = "Prenom Eleve";
+		nom = "ANSILLON";
+		prenom = "David";
 		dateNaissance = "00/00/2012";
 	}
 	
@@ -469,24 +464,42 @@ public class Pupil{
 		 * @return Toujours true mais devrait retourner false en cas d'érreur.
 		 */
 		public boolean onLongClick(View v) {
-			new AlertDialog.Builder(v.getContext())
-		    .setTitle(nom + " " + prenom)
-		    .setMessage("Are you sure you want to delete this entry?")
-		    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { 
-		            // continue with delete
-		        }
-		     })
-		    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { 
-		            // do nothing
-		        }
-		     })
-		     .show();
+			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
+			TextView titre = null;              //< Le titre de la boite de dialogue
+			TextView txtnom = null;             //< Le texte contenant le nom de l'élève
+			TextView txtprenom = null;          //< Le texte contenant le prénom de l'élève
+			TextView txtdateNaissance = null;   //< Le texte contenant la date de naissance de l'élève
+			ImageView imgPhoto = null;          //< L'image view contenant la photo à afficher sur la boite de dialogue
 			
+			layoutGlobal = (LinearLayout) View.inflate(v.getContext(),R.layout.dialog_liste, null); //< On récupère le layoutglobal a partir de la view
+			
+			titre = (TextView) layoutGlobal.findViewById(R.id.dialogueTitre); //< On modifie le titre de la boite de dialogue
+			titre.setText(prenom + " " + nom);
+			
+			txtnom = (TextView) layoutGlobal.findViewById(R.id.dialogueNom); //< On modifie le nom de l'élève de la boite de dialogue
+			txtnom.setText("Nom : " + nom);
+			
+			txtprenom = (TextView) layoutGlobal.findViewById(R.id.dialoguePrenom); //< On modifie le prénom de l'élève de la boite de dialogue
+			txtprenom.setText("Prénom : " + prenom);
+			
+			txtdateNaissance = (TextView) layoutGlobal.findViewById(R.id.dialogueNaissance); //< On modifie la date de naissance de l'élève de la boite de dialogue
+			txtdateNaissance.setText("Date de naissance : " + dateNaissance);
+			
+			imgPhoto = (ImageView) layoutGlobal.findViewById(R.id.dialoguePhoto); //< On modifie la photo de l'élève de la boite de dialogue
+			if (photo == null)
+				imgPhoto.setImageResource(R.drawable.icon_photo); //< Si pas de photo on affiche la photo par défaut
+			else
+				imgPhoto.setImageMatrix(photo.getImageMatrix());
+			
+			
+			//! On démarre la boite de dialogue
+			new AlertDialog.Builder(v.getContext())
+		    .setView(layoutGlobal) //< On y met le layout global à l'interrieur
+		    .setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        }
+		     }).show();
 			return true;
 		}
 	}
-	
-	
 }

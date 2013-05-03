@@ -115,12 +115,13 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public Group LireEleve(){
-		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
+		
 		Group Group = new Group();//< nouvel  objet de la classe Grade.
 		
 		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< On créer une list contenant tous les enfants du parametre.
 		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
 		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
 			Node firstPersonNode = ListEleves.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
             if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
 

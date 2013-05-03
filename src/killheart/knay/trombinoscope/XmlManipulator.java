@@ -176,7 +176,7 @@ public class XmlManipulator {
 	public void RajouterEleves(String Nom,String Prenom){
 
 		NodeList nodes = ((Element) RacineXml).getElementsByTagName("groupe");
-		Element Ajout = (Element)nodes.item(0);
+		Element Ajout = (Element)nodes.item(0); 
 		
 		Element NewEleve = Doc.createElement("eleve");//<ajout d'un noeud eleve.
 		Element NewNom = Doc.createElement("nom");//< ajout d'un noeud nom.

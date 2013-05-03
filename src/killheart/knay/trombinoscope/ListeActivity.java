@@ -51,10 +51,10 @@ public class ListeActivity extends Activity {
 		listegroupe = new Group();
 		
 		/*Test*/
-		String nom = "oui";
-		String prenom = "dodo";
+		String nom = "oui";//<
+		String prenom = "dodo";//<
 		File Racine = Environment.getExternalStorageDirectory();
-		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
+		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
 		XmlManipulator xml = new XmlManipulator(chemin);
 		xml.RajouterEleves(nom, prenom);
 		listegroupe = xml.LireEleve();

@@ -5,6 +5,12 @@ import java.io.*;
 import java.util.Date;
 
 import javax.xml.parsers.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -13,6 +19,7 @@ public class XmlManipulator {
 	private Node RacineXml;
 	private Node Scolaire;
 	private Document Doc;
+	private String chemin;
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -34,10 +41,12 @@ public class XmlManipulator {
 			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
 			
 			//< lecture du contenu d'un fichier XML avec DOM
+			
 			Document document = constructeur.parse(new File(chemin));
 			Node Racine = document.getDocumentElement();
 			this.RacineXml = Racine;
 			this.Doc = document;
+			this.chemin = chemin;
 			
 		}catch(ParserConfigurationException pce){
 			System.out.println("Erreur de configuration du parseur DOM");
@@ -68,7 +77,7 @@ public class XmlManipulator {
 		 
 		if(RacineXml.getNodeName().equals("trombiscol")){//< Si le noeud racine = trombiscol on continue.
 			Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
-			ret = Scolaire.getNodeValue().trim();;//< On recupere la valeur de l'attribut passer en parametre
+			ret = Scolaire.getNodeValue().trim();//< On recupere la valeur de l'attribut passer en parametre
 			if (ret.equals("scolaire")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
 				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
 				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
@@ -165,16 +174,43 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public void RajouterEleves(String Nom,String Prenom){
-		Element NewEleve = Doc.createElement("eleve");
-		Element NewNom = Doc.createElement("nom");
-		NewNom.setTextContent(Nom);
+		Element NewEleve = Doc.createElement("eleve");//<ajout d'un noeud eleve.
+		Element NewNom = Doc.createElement("nom");//< ajout d'un noeud nom.
+		NewNom.setTextContent(Nom);//< ajout du nom passé en parametre en texte au noeud nom.
 		
-		Element NewPrenom = Doc.createElement("prenom");
-		NewPrenom.setTextContent(Prenom);
+		Element NewPrenom = Doc.createElement("prenom");//< ajout du noeud prenom.
+		NewPrenom.setTextContent(Prenom);//< ajout du prenom passé en parametre en texte au noeud prenom.
 		
-		NewEleve.appendChild(NewNom);
-		NewEleve.appendChild(NewPrenom);
-		Doc.getDocumentElement().appendChild(NewEleve);
+		NewEleve.appendChild(NewNom);//< on met le noeud nom comme fils du noeud eleve.
+		NewEleve.appendChild(NewPrenom);//< on met le noeud prenom comme fils du noeud eleve.
+		Doc.getDocumentElement().appendChild(NewEleve);//< on ajoute le noeud eleve au document xml.
+		
+		/* Mise a jour du fichier xml*/
+         try {
+	        TransformerFactory tfact =  TransformerFactory.newInstance();
+	        Transformer transformer;
+
+			transformer = tfact.newTransformer();
+			
+	        DOMSource source = new DOMSource(Doc);//< appel au Dom.Modifier seulement dans le flux.
+	        File fichier= new File(chemin);//< on creer un objet File contenant le chemin d'acces.
+	        FileWriter fw;
+			fw = new FileWriter(fichier);//< on creer un objet FileWriter appartir du fichier.
+			
+			StreamResult result = new StreamResult(fw);//< Objet StreamResult
+			transformer.transform(source, result);//< transforme l'arbre DOM en fichier xml.
+        
+         /*Gestion des erreurs*/
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+        } catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

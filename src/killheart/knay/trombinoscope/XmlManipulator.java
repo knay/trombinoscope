@@ -65,7 +65,9 @@ public class XmlManipulator {
 		
 		if(RacineXml.getNodeName().equals("trombiscol")){//< Si le noeud racine = trombiscol on continue.
 			Node Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
-			if (Scolaire.getAttributes().equals("Maisonnier")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
+			Element r= (Element) Scolaire;
+			String name = r.getAttribute("nom");
+			if (name.equals("Maisonnier")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
 				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
 				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
 				//Node Suivant = Groupe.getFirstChild();//< on recupere le fils suivant

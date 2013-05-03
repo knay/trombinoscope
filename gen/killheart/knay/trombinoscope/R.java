@@ -11,10 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int ColorBtWhite=0x7f040002;
-        public static final int Noir=0x7f040003;
-        public static final int bgListe=0x7f040001;
-        public static final int bgListeOnclick=0x7f040000;
+        public static final int ColorBtWhite=0x7f060000;
+        public static final int Noir=0x7f060001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -23,40 +21,37 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
+        public static final int activity_horizontal_margin=0x7f040000;
+        public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
         public static final int ajouter=0x7f020000;
         public static final int enlever=0x7f020001;
         public static final int ic_action_search=0x7f020002;
-        public static final int ic_menu_back=0x7f020003;
-        public static final int icon_photo=0x7f020004;
-        public static final int iconephoto=0x7f020005;
-        public static final int limite_tete_photo=0x7f020006;
-        public static final int logo_accueil=0x7f020007;
-        public static final int logotrombiscol=0x7f020008;
-        public static final int rechercher=0x7f020009;
-        public static final int verstrombi=0x7f02000a;
+        public static final int ic_launcher=0x7f020003;
+        public static final int ic_menu_back=0x7f020004;
+        public static final int icon_photo=0x7f020005;
+        public static final int iconephoto=0x7f020006;
+        public static final int limite_tete_photo=0x7f020007;
+        public static final int logotrombi=0x7f020008;
+        public static final int logotrombiscol=0x7f020009;
+        public static final int no_photo=0x7f02000a;
+        public static final int rechercher=0x7f02000b;
+        public static final int verstrombi=0x7f02000c;
     }
     public static final class id {
         public static final int ViewListe=0x7f090005;
         public static final int ViewTrombi=0x7f090006;
-        public static final int action_addeleve=0x7f090011;
-        public static final int action_remove=0x7f090010;
-        public static final int action_search=0x7f09000f;
-        public static final int action_settings=0x7f090012;
+        public static final int action_addeleve=0x7f09000c;
+        public static final int action_remove=0x7f09000b;
+        public static final int action_search=0x7f09000a;
+        public static final int action_settings=0x7f09000d;
         public static final int boutonPhoto=0x7f090001;
         public static final int btn_lancerapercue=0x7f090004;
         public static final int btn_retourTrombi=0x7f090008;
         public static final int btn_retourliste=0x7f090003;
-        public static final int dialogueNaissance=0x7f09000d;
-        public static final int dialogueNom=0x7f09000b;
-        public static final int dialoguePhoto=0x7f09000a;
-        public static final int dialoguePrenom=0x7f09000c;
-        public static final int dialogueTitre=0x7f090009;
         public static final int listelayout=0x7f090002;
-        public static final int menu_settings=0x7f09000e;
+        public static final int menu_settings=0x7f090009;
         public static final int surfaceViewCamera=0x7f090000;
         public static final int trombilayout=0x7f090007;
     }
@@ -65,7 +60,6 @@ public final class R {
         public static final int activity_liste=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_trombi=0x7f030003;
-        public static final int dialog_liste=0x7f030004;
     }
     public static final class menu {
         public static final int activity_camera=0x7f080000;
@@ -74,26 +68,26 @@ public final class R {
         public static final int trombi=0x7f080003;
     }
     public static final class string {
-        public static final int action_add=0x7f06000c;
-        public static final int action_remove=0x7f06000d;
-        public static final int action_search=0x7f06000e;
-        public static final int action_settings=0x7f06000b;
-        public static final int app_name=0x7f060000;
-        public static final int btn_retourListe=0x7f060010;
-        public static final int camera=0x7f060009;
-        public static final int hello_world=0x7f060001;
-        public static final int limite_tete_str=0x7f060005;
-        public static final int liste=0x7f060007;
-        public static final int menu_settings=0x7f060002;
-        public static final int prendre_Photo_str=0x7f060006;
-        public static final int retour_str=0x7f060013;
-        public static final int title_activity_camera=0x7f060004;
-        public static final int title_activity_liste=0x7f06000a;
-        public static final int title_activity_main=0x7f060003;
-        public static final int title_activity_trombi=0x7f06000f;
-        public static final int trombi=0x7f060008;
-        public static final int versliste_str=0x7f060012;
-        public static final int verstrombi_str=0x7f060011;
+        public static final int action_add=0x7f05000c;
+        public static final int action_remove=0x7f05000d;
+        public static final int action_search=0x7f05000e;
+        public static final int action_settings=0x7f05000b;
+        public static final int app_name=0x7f050000;
+        public static final int btn_retourListe=0x7f050010;
+        public static final int camera=0x7f050009;
+        public static final int hello_world=0x7f050001;
+        public static final int limite_tete_str=0x7f050005;
+        public static final int liste=0x7f050007;
+        public static final int menu_settings=0x7f050002;
+        public static final int prendre_Photo_str=0x7f050006;
+        public static final int retour_str=0x7f050013;
+        public static final int title_activity_camera=0x7f050004;
+        public static final int title_activity_liste=0x7f05000a;
+        public static final int title_activity_main=0x7f050003;
+        public static final int title_activity_trombi=0x7f05000f;
+        public static final int trombi=0x7f050008;
+        public static final int versliste_str=0x7f050012;
+        public static final int verstrombi_str=0x7f050011;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;

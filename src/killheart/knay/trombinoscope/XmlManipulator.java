@@ -174,6 +174,10 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public void RajouterEleves(String Nom,String Prenom){
+
+		NodeList nodes = ((Element) RacineXml).getElementsByTagName("groupe");
+		Element Ajout = (Element)nodes.item(0);
+		
 		Element NewEleve = Doc.createElement("eleve");//<ajout d'un noeud eleve.
 		Element NewNom = Doc.createElement("nom");//< ajout d'un noeud nom.
 		NewNom.setTextContent(Nom);//< ajout du nom passé en parametre en texte au noeud nom.
@@ -183,8 +187,8 @@ public class XmlManipulator {
 		
 		NewEleve.appendChild(NewNom);//< on met le noeud nom comme fils du noeud eleve.
 		NewEleve.appendChild(NewPrenom);//< on met le noeud prenom comme fils du noeud eleve.
-		Doc.getDocumentElement().appendChild(NewEleve);//< on ajoute le noeud eleve au document xml.
-		
+		Ajout.appendChild(NewEleve);//< on ajoute le noeud eleve au document xml.
+	
 		/* Mise a jour du fichier xml*/
          try {
 	        TransformerFactory tfact =  TransformerFactory.newInstance();

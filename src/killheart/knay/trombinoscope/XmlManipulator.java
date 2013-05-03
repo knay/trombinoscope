@@ -164,7 +164,7 @@ public class XmlManipulator {
 	 *  @param Prenom Prenom de l'eleve.
 	 *  @param date date de naissance de l'eleve.
 	 */
-	public void RajouterEleves(String Groupe,String Nom,String Prenom){
+	public void RajouterEleves(String Nom,String Prenom){
 		Element NewEleve = Doc.createElement("eleve");
 		Element NewNom = Doc.createElement("nom");
 		NewNom.setTextContent(Nom);

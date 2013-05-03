@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -55,8 +56,9 @@ public class ListeActivity extends Activity {
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
-		xml.RajouterEleves("1", nom, prenom);
+		xml.RajouterEleves(nom, prenom);
 		listegroupe = xml.LireEleve();
+		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourliste); //< On recupère le bouton de retour
@@ -102,7 +104,12 @@ public class ListeActivity extends Activity {
 	 * @param menu Les éléments présents dans l'actionbar.
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
+		//Menu menu_add;
 		getMenuInflater().inflate(R.menu.liste, menu);
+		//MenuInflater inflater = this.getMenuInflater();
+	    //inflater.inflate(R.menu.messagespagemenu, menu);
+	    
+	    //Button btn = (Button)inflater.findViewById(R.id.);
 		return true;
 	}
 

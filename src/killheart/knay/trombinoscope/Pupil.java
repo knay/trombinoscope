@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,7 +28,7 @@ import android.widget.ImageView;
  * 
  * @todo compléter la fonction d'affichage de l'élève
  */
-public class Pupil{
+public class Pupil {
 	// ----- ----- Les constantes ----- -----
 	public static final int SUCCESS = 0;         //< Si tout s'est bien passé
 	public static final int FAILLURE = -1;       //< Valeur retournée en cas d'érreur
@@ -241,6 +242,7 @@ public class Pupil{
 			cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 		}
 		photo.setLayoutParams(new LinearLayout.LayoutParams(60, LayoutParams.MATCH_PARENT)); //< On redimensionne la view de l'image
+		photo.setId(id+1000);
 		
 		lay.addView(photo); //< Ajout de la photo sur la ligne
 		lay.addView(txt); //< Ajout du texte sur la ligne
@@ -263,9 +265,6 @@ public class Pupil{
 		
 		layout.addView(bordure); //< On ajoute la ligne sur le layout demandé
 		
-		if (cr == PAS_DE_PHOTO)
-			photo = null; //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
-		
 		return cr;
 	}
 	
@@ -273,7 +272,7 @@ public class Pupil{
 	 * @author David et Jonathan
 	 * 
 	 * Permet d'afficher un élève sur un layout Android. Affiche l'elève
-	 * en mode liste.
+	 * en mode trombinoscope.
 	 * 
 	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
 	 * @param c Le contexte Android pour l'affichage.
@@ -323,9 +322,6 @@ public class Pupil{
 		});
 		
 		layout.addView(lay); //< On ajoute la ligne sur le layout demandé
-		
-		if (cr == PAS_DE_PHOTO)
-			photo = null; //< On n'oublie pas de remettre la photo a null pour savoir qu'on a pas de vrai photo
 		
 		return cr;
 	}
@@ -437,10 +433,11 @@ public class Pupil{
 		 */
 		public boolean onLongClick(View v) {
 			Intent intent = new Intent(v.getContext(), CameraActivity.class);
-			intent.putExtra("idEleve", id); //< On ajoute une extra pour passer en paramètre l'id de l'élève
+			//v.getContext()intent.
+			intent.putExtra("idEleve", id);
+			intent.putExtra("photo", photo.getId());
 			v.getContext().startActivity(intent); //< On demarre l'activité
 			
-			photo = new ImageView(v.getContext());
 			photo.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + id + ".jpg"));
 
 			return true;
@@ -471,7 +468,7 @@ public class Pupil{
 			TextView txtdateNaissance = null;   //< Le texte contenant la date de naissance de l'élève
 			ImageView imgPhoto = null;          //< L'image view contenant la photo à afficher sur la boite de dialogue
 			
-			layoutGlobal = (LinearLayout) View.inflate(v.getContext(),R.layout.dialog_liste, null); //< On récupère le layoutglobal a partir de la view
+			layoutGlobal = (LinearLayout) View.inflate(v.getContext(), R.layout.dialog_liste, null); //< On récupère le layoutglobal a partir de la view
 			
 			titre = (TextView) layoutGlobal.findViewById(R.id.dialogueTitre); //< On modifie le titre de la boite de dialogue
 			titre.setText(prenom + " " + nom);
@@ -494,11 +491,11 @@ public class Pupil{
 			
 			//! On démarre la boite de dialogue
 			new AlertDialog.Builder(v.getContext())
-		    .setView(layoutGlobal) //< On y met le layout global à l'interrieur
-		    .setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface dialog, int which) { 
-		        }
-		     }).show();
+			.setView(layoutGlobal) //< On y met le layout global à l'interrieur
+			.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+				}
+			}).show();
 			return true;
 		}
 	}

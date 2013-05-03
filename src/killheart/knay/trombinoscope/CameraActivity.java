@@ -3,10 +3,14 @@ package killheart.knay.trombinoscope;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ListResourceBundle;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
+import android.app.ListActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
@@ -16,6 +20,8 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
@@ -44,6 +50,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	private Boolean isPreview;                              //< Booleen permettant de savoir si la caméra est en mode preview ou non (pause de l'application)
 	private String dossierPhoto = null;                     //< Le dossier ou stocker les photos
 	private String nom = null;                              //< Le nom du fichier sans l'extension
+	private ImageView PhotoEleve = null;                       //< La photo dans la classe Pupil
 	
 	/**
 	 * @author David et Jonathan
@@ -64,7 +71,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		setContentView(R.layout.activity_camera); //< On applique le layout prévue pour la caméra
 		
 		boutonPrendrePhoto = (ImageButton) findViewById(R.id.boutonPhoto); //< On recherche le bouton pour prendre la photo pour lui appliquer un listener
-
+		
 		// Listener du bouton pour prendre une photo
 		boutonPrendrePhoto.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -90,6 +97,15 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		
 		nom = getIntent().getExtras().getInt("idEleve") + ""; //< On récupère le l'id de lélève passé à l'activité pour definir le nom du fichier de sortie
 		
+		int res = getIntent().getExtras().getInt("photo"); //< On récupère le bitmap de la photo
+		Toast.makeText(getApplicationContext(), "JOJO " + res, Toast.LENGTH_LONG).show();
+		//PhotoEleve = (ImageView) this.getParent().findViewById(res);
+		//Activity a = ListeActivity;
+		//if (a==null)
+			//Toast.makeText(getApplicationContext(), "zeub" , Toast.LENGTH_LONG).show();
+		//PhotoEleve = (ImageView)((RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null)).findViewById(res);
+		//PhotoEleve = (ImageView) ImageView.inflate(this, R.layout.activity_liste, null).findViewById(res);
+		
 		surfaceCamera.getHolder().addCallback(this); //< On attache les retours du holder à notre activité
 
 		surfaceCamera.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); //< On spécifie le type du holder en mode SURFACE_TYPE_PUSH_BUFFERS
@@ -110,6 +126,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 				if (data != null) {
 					try {
 						if (stream != null) {
+							//PhotoEleve.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
 							stream.write(data); //< Ecriture des datas dans le buffer
 							stream.flush();     //< Flush pour vider le buffer
 							stream.close();     //< On ferme le fichier

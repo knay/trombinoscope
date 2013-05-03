@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 public class XmlManipulator {
 	private Node RacineXml;
 	private Node Scolaire;
+	private Document Doc;
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -36,7 +37,8 @@ public class XmlManipulator {
 			Document document = constructeur.parse(new File(chemin));
 			Node Racine = document.getDocumentElement();
 			this.RacineXml = Racine;
-				
+			this.Doc = document;
+			
 		}catch(ParserConfigurationException pce){
 			System.out.println("Erreur de configuration du parseur DOM");
 			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
@@ -162,6 +164,17 @@ public class XmlManipulator {
 	 *  @param Prenom Prenom de l'eleve.
 	 *  @param date date de naissance de l'eleve.
 	 */
-	public void RajouterEleves(String Groupe,String Nom,String Prenom,Date date_naissance){
+	public void RajouterEleves(String Groupe,String Nom,String Prenom){
+		Element NewEleve = Doc.createElement("eleve");
+		Element NewNom = Doc.createElement("nom");
+		NewNom.setTextContent(Nom);
+		
+		Element NewPrenom = Doc.createElement("prenom");
+		NewPrenom.setTextContent(Prenom);
+		
+		NewEleve.appendChild(NewNom);
+		NewEleve.appendChild(NewPrenom);
+		Doc.getDocumentElement().appendChild(NewEleve);
+		
 	}
 }

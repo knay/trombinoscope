@@ -50,9 +50,12 @@ public class ListeActivity extends Activity {
 		listegroupe = new Group();
 		
 		/*Test*/
+		String nom = "yes";
+		String prenom = "cool";
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
+		xml.RajouterEleves("1", nom, prenom);
 		listegroupe = xml.LireEleve();
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 

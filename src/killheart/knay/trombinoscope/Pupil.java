@@ -1,13 +1,11 @@
 package killheart.knay.trombinoscope;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Environment;
-import android.os.Parcelable;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -176,7 +174,7 @@ public class Pupil {
 	 * 
 	 * @param i L'identifiant que vous souhaitez attribuez à l'élève (doit être >= 0).
 	 */
-	public void setNom(int i) {
+	public void setId(int i) {
 		if (i >= 0)
 			id = i;
 	}
@@ -242,7 +240,7 @@ public class Pupil {
 			cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 		}
 		photo.setLayoutParams(new LinearLayout.LayoutParams(60, LayoutParams.MATCH_PARENT)); //< On redimensionne la view de l'image
-		photo.setId(id+1000);
+		photo.setId(id);
 		
 		lay.addView(photo); //< Ajout de la photo sur la ligne
 		lay.addView(txt); //< Ajout du texte sur la ligne
@@ -433,13 +431,9 @@ public class Pupil {
 		 */
 		public boolean onLongClick(View v) {
 			Intent intent = new Intent(v.getContext(), CameraActivity.class);
-			//v.getContext()intent.
-			intent.putExtra("idEleve", id);
-			intent.putExtra("photo", photo.getId());
-			v.getContext().startActivity(intent); //< On demarre l'activité
+			intent.putExtra("idEleve", id); //< On envoie l'id en paramètre à la camera pour savoir où enregistrer la photo
+			((Activity) v.getContext()).startActivityForResult(intent, 99); //< On demarre l'activité
 			
-			photo.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + id + ".jpg"));
-
 			return true;
         }
 	}
@@ -485,8 +479,11 @@ public class Pupil {
 			imgPhoto = (ImageView) layoutGlobal.findViewById(R.id.dialoguePhoto); //< On modifie la photo de l'élève de la boite de dialogue
 			if (photo == null)
 				imgPhoto.setImageResource(R.drawable.icon_photo); //< Si pas de photo on affiche la photo par défaut
-			else
-				imgPhoto.setImageMatrix(photo.getImageMatrix());
+			else {
+				photo.buildDrawingCache();
+				imgPhoto.setImageBitmap(photo.getDrawingCache());
+			}
+				
 			
 			
 			//! On démarre la boite de dialogue
@@ -494,6 +491,7 @@ public class Pupil {
 			.setView(layoutGlobal) //< On y met le layout global à l'interrieur
 			.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) { 
+					
 				}
 			}).show();
 			return true;

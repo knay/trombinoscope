@@ -53,7 +53,7 @@ public class ListeActivity extends Activity {
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
-		xml.LireScolaire();
+		xml.LireEleve();
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
@@ -75,7 +75,7 @@ public class ListeActivity extends Activity {
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
 		classe.ajouterGroup(listegroupe);
-		
+		/*
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);
@@ -86,7 +86,7 @@ public class ListeActivity extends Activity {
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);
-		
+		*/
 		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		setContentView(layoutGlobal);

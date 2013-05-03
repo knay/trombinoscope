@@ -51,8 +51,8 @@ public class ListeActivity extends Activity {
 		listegroupe = new Group();
 		
 		/*Test*/
-		String nom = "yes";
-		String prenom = "cool";
+		String nom = "pourqoi";
+		String prenom = "pas";
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);

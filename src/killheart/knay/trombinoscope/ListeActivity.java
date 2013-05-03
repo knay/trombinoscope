@@ -53,8 +53,7 @@ public class ListeActivity extends Activity {
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";
 		XmlManipulator xml = new XmlManipulator(chemin);
-		xml.LireEleve();
-		
+		listegroupe = xml.LireEleve();
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourliste); //< On recupère le bouton de retour
@@ -74,7 +73,7 @@ public class ListeActivity extends Activity {
 		
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
-		//classe.ajouterGroup(listegroupe);
+		classe.ajouterGroup(listegroupe);
 		/*
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);

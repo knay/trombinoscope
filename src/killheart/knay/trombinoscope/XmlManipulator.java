@@ -66,7 +66,7 @@ public class XmlManipulator {
 		 
 		if(RacineXml.getNodeName().equals("trombiscol")){//< Si le noeud racine = trombiscol on continue.
 			Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
-			ret = Scolaire.getNodeValue();//< On recupere la valeur de l'attribut passer en parametre
+			ret = Scolaire.getNodeValue().trim();;//< On recupere la valeur de l'attribut passer en parametre
 			if (ret.equals("scolaire")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.
 				Node Groupe = Scolaire.getFirstChild();//< On récupère le fils du noeud précedent.
 				String NomGroupe = Groupe.getAttributes().toString();//< ON récupère le nom du groupe.
@@ -114,34 +114,41 @@ public class XmlManipulator {
 	 *  @param Prenom Prenom de l'eleve.
 	 *  @param date date de naissance de l'eleve.
 	 */
-	public void LireEleve(){
+	public Group LireEleve(){
 		Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
 		Group Group = new Group();//< nouvel  objet de la classe Grade.
 		
-		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("groupe");//< On créer une list contenant tous les enfants du parametre.
-		
-		for(int i =0;i<ListEleves.getLength();i++){
-			Node premierpersonne = ListEleves.item(i);
-			Element firstPersonElement = (Element)premierpersonne;
+		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< On créer une list contenant tous les enfants du parametre.
+		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
+		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			Node firstPersonNode = ListEleves.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
 
-            //-------
-            NodeList NameList = firstPersonElement.getElementsByTagName("nom");
-            Element NomElement = (Element)NameList.item(0);
 
-            NodeList textNom = NomElement.getChildNodes();
-            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();
-			e.setNom(Noms);
-			
-			//----------
-			NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");
-            Element PrenomElement = (Element)PrenomListee.item(0);
-
-            NodeList textPrenom = PrenomElement.getChildNodes();
-            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();
-			e.setPrenom(Prenoms);
-			
-			Group.ajouterEleve(e);
+                Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
+	
+                /*On récupère le nom d'un eleve*/
+	            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+	            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
+	
+	            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+	            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+				e.setNom(Noms);//< on l'ajoute a la classe
+				
+				/*On récupère le prenom d'un eleve*/
+				NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+	            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
+	
+	            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+	            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+				e.setPrenom(Prenoms);//< on ajoute a la classe
+				Group.ajouterEleve(e);//< on ajoute la classe au groupe.
+				
+            }
+            
 		}
+		
+		return Group;
 	}
 	
 	/**

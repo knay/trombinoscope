@@ -74,7 +74,7 @@ public class ListeActivity extends Activity {
 		
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
-		classe.ajouterGroup(listegroupe);
+		//classe.ajouterGroup(listegroupe);
 		/*
 		listegroupe.ajouterEleve(e);
 		listegroupe.ajouterEleve(e);

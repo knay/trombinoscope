@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 
 public class XmlManipulator {
 	private Node RacineXml;
-	
+	private Node Scolaire;
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -64,7 +64,7 @@ public class XmlManipulator {
 		
 		
 		if(RacineXml.getNodeName().equals("trombiscol")){//< Si le noeud racine = trombiscol on continue.
-			Node Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
+			Scolaire = RacineXml.getFirstChild();//< On récupère le fils du noeud racine.
 			Element r= (Element) Scolaire;
 			String name = r.getAttribute("nom");
 			if (name.equals("Maisonnier")){//< On compare l'attribut au tags.Si c'est la bonne class on continu.

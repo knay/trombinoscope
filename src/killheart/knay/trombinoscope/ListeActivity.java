@@ -46,6 +46,8 @@ public class ListeActivity extends Activity {
 	Grade classe;                                //< La scolaire a afficher
 	boolean DejaFait = false;
 	
+	private XmlManipulator ManipulXml;
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -56,7 +58,6 @@ public class ListeActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);          //< Appel au super-constructeur
-		Pupil e = new Pupil();
 		classe = new Grade();
 		listegroupe = new Group();
 		
@@ -64,6 +65,7 @@ public class ListeActivity extends Activity {
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
 		XmlManipulator xml = new XmlManipulator(chemin);
+		this.ManipulXml = xml;
 		listegroupe = xml.LireEleve();
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
@@ -149,7 +151,15 @@ public class ListeActivity extends Activity {
         		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauDate = (EditText)alertDialogView.findViewById(R.id.DateEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		Toast.makeText(ListeActivity.this, NouveauNom.getText(), Toast.LENGTH_SHORT).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
-          } });
+        		
+        		
+        		/*Test*/
+        		File Racine = Environment.getExternalStorageDirectory();
+        		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
+        		ManipulXml.RajouterEleves(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
+            
+            
+        } });
  
         
         adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {//< On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement

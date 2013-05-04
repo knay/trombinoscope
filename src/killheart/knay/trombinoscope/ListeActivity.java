@@ -62,11 +62,14 @@ public class ListeActivity extends Activity {
 		listegroupe = new Group();
 		
 		/*Test*/
+		String id;
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
 		XmlManipulator xml = new XmlManipulator(chemin);
 		this.ManipulXml = xml;
 		listegroupe = xml.LireEleve();
+		id = xml.EleveId("pierre","paul");
+		xml.DeletePupil(id);
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
@@ -118,7 +121,7 @@ public class ListeActivity extends Activity {
         	   BoiteDialogueAjout();
           	   return true;
            case R.id.action_remove:
-               
+        	   BoiteDialogueSupprimer();
                return true;
            case R.id.action_search:
         	   
@@ -171,7 +174,46 @@ public class ListeActivity extends Activity {
 		
 	
 	}
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction permet de lancer la boite de dialogue
+	 * pour supprimer un eleve.
+	 * 
+	 */
+	private void BoiteDialogueSupprimer(){
+		
+        LayoutInflater factory = LayoutInflater.from(this);//< On instancie notre layout en tant que View
+        final View alertDialogView = factory.inflate(R.layout.supprimer_eleve, null);
+ 
+        AlertDialog.Builder adb = new AlertDialog.Builder(this); //< Création de l'AlertDialog
+ 
+        adb.setView(alertDialogView);//< On affecte la vue personnalisé que l'on a crée à notre AlertDialog
+        adb.setTitle("Veuillez remplir le formulaire");//< On donne un titre à l'AlertDialog
+        adb.setIcon(android.R.drawable.ic_dialog_alert);//< On modifie l'icône de l'AlertDialog
+ 
+        
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {//< On affecte un bouton "OK" à notre AlertDialog et on lui affecte un évènement
+            public void onClick(DialogInterface dialog, int which) {
+            	EditText NouveauNom = (EditText)alertDialogView.findViewById(R.id.NomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		/*Test*/
+        		String idSuppInt ;
+        		idSuppInt = ManipulXml.EleveId(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
+        		ManipulXml.DeletePupil(idSuppInt);
+            
+        } });
+ 
+        
+        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {//< On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
+            public void onClick(DialogInterface dialog, int which) {//< Lorsque l'on cliquera sur annuler on quittera l'application
+            	
+            	finish();
+          } });
+        adb.show();
+		
 	
+	}
 	
 	/**
 	 * @author David et Jonathan

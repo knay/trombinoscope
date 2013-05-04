@@ -293,4 +293,52 @@ public class XmlManipulator {
 		
 	}
 	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction qui permet de recuperer l'id d'un eleve
+	 * en fonction de son nom et prenom.
+	 * 
+	 * @param Nom
+	 * @param Prenom
+	 */
+	public String EleveId(String NomEleve,String PrenomEleve){
+		int IdEleveTmp = 0;
+		String IdReturn;
+		
+		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
+		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
+		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
+			Node firstPersonNode = ListEleves.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
+
+
+                Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
+                String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
+	            IdEleveTmp = Integer.parseInt(tmp);
+	            
+                /*On récupère le nom d'un eleve*/
+	            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+	            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
+	
+	            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+	            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+				
+				
+				/*On récupère le prenom d'un eleve*/
+				NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
+	            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
+	
+	            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+	            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+				
+	            if(Noms.equals(NomEleve) && Prenoms.equals(PrenomEleve)){//< comparaison des nom et prenom de l'élève.
+	            	IdReturn = Integer.toString(IdEleveTmp);
+	            	return IdReturn;
+	            }
+            }
+		}
+		return "null";
+	}
 }

@@ -236,12 +236,27 @@ public class XmlManipulator {
 	 * 
 	 * Fonction DeletePupil permet de supprimer un eleve du fichier xml.
 	 * 
-	 * @param nom Nom de l'élève a supprimer.
-	 * @param prenom Prenom de l'élève a supprimer.
+	 * @param Id Id de l'élève.
 	 */
-	private void DeletePupil(String nom,String prenom){
+	public void DeletePupil(String IdEleve){
+		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
+		int taille = Id.getLength();//< calcul de la taille de nodelist.
+		int IdEleveInt = Integer.parseInt(IdEleve);
+		int IdEleveTmp = 0;
 		
-		
+		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			Node firstPersonNode = Id.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
+            	Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
+            	
+	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
+	            IdEleveTmp = Integer.parseInt(tmp);
+				if(IdEleveTmp == IdEleveInt){
+					firstPersonElement.getParentNode().removeChild(firstPersonElement);
+				}
+            }
+		}
+		EnregistrerXml();
 	}
 	/**
 	 * @author David et Jonathan

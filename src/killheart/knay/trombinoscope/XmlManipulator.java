@@ -195,32 +195,7 @@ public class XmlManipulator {
 		NewEleve.appendChild(NewPrenom);//< on met le noeud prenom comme fils du noeud eleve.
 		Ajout.appendChild(NewEleve);//< on ajoute le noeud eleve en tant que fils du noeud groupe.
 	
-		/* Mise a jour du fichier xml*/
-         try {
-	        TransformerFactory tfact =  TransformerFactory.newInstance();
-	        Transformer transformer;
-
-			transformer = tfact.newTransformer();
-			
-	        DOMSource source = new DOMSource(Doc);//< appel au Dom.Modifier seulement dans le flux.
-	        File fichier= new File(chemin);//< on creer un objet File contenant le chemin d'acces.
-	        FileWriter fw;
-			fw = new FileWriter(fichier);//< on creer un objet FileWriter appartir du fichier.
-			
-			StreamResult result = new StreamResult(fw);//< Objet StreamResult
-			transformer.transform(source, result);//< transforme l'arbre DOM en fichier xml.
-        
-         /*Gestion des erreurs*/
-        } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		EnregistrerXml();
 		
 	}
 	
@@ -254,6 +229,53 @@ public class XmlManipulator {
 		}
 		IdReturn = IdMax + 1;//< On ajoute 1 a l'id max.
 		return IdReturn;//< On retourne cette valeur.
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction DeletePupil permet de supprimer un eleve du fichier xml.
+	 * 
+	 * @param nom Nom de l'élève a supprimer.
+	 * @param prenom Prenom de l'élève a supprimer.
+	 */
+	private void DeletePupil(String nom,String prenom){
+		
+		
+	}
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction DeletePupil permet d'enregistrer les modification du
+	 * Dom dans le fichier xml.
+	 */
+	private void EnregistrerXml(){
+		 try {
+		        TransformerFactory tfact =  TransformerFactory.newInstance();
+		        Transformer transformer;
+
+				transformer = tfact.newTransformer();
+				
+		        DOMSource source = new DOMSource(Doc);//< appel au Dom.Modifier seulement dans le flux.
+		        File fichier= new File(chemin);//< on creer un objet File contenant le chemin d'acces.
+		        FileWriter fw;
+				fw = new FileWriter(fichier);//< on creer un objet FileWriter appartir du fichier.
+				
+				StreamResult result = new StreamResult(fw);//< Objet StreamResult
+				transformer.transform(source, result);//< transforme l'arbre DOM en fichier xml.
+	        
+	         /*Gestion des erreurs*/
+	        } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+	        } catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 	}
 	
 }

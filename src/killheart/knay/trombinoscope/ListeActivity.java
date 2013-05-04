@@ -62,14 +62,11 @@ public class ListeActivity extends Activity {
 		listegroupe = new Group();
 		
 		/*Test*/
-		String id;
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
 		XmlManipulator xml = new XmlManipulator(chemin);
 		this.ManipulXml = xml;
 		listegroupe = xml.LireEleve();
-		id = xml.EleveId("pierre","paul");
-		xml.DeletePupil(id);
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 

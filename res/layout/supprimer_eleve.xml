@@ -14,14 +14,15 @@ android:orientation="vertical">
 			  android:id="@+id/TextView1"
 			  android:layout_width="wrap_content"
 			  android:layout_height="wrap_content"
-			  android:text="Nom du nouvel eleve :"
-			  android:paddingBottom="10dip" />
+			  android:text="Nom de l'élève à supprimer:"
+			  android:paddingBottom="10dip" 
+			  android:textColor="#FFF"/>
 			
-			<EditText 
-			  android:id="@+id/NomEleve"
-			  android:layout_width="fill_parent"
-			  android:layout_height="wrap_content"
-			  android:layout_below="@id/TextView1"  />
+		<EditText 
+		  android:id="@+id/NomEleve"
+		  android:layout_width="fill_parent"
+		  android:layout_height="wrap_content"
+		  android:layout_below="@id/TextView1"  />
   
 	</LinearLayout>
 	
@@ -35,6 +36,7 @@ android:orientation="vertical">
 		  android:layout_width="wrap_content"
 		  android:layout_height="wrap_content"
 		  android:text="Prenom :"
+		  android:textColor="#FFF"
 		  android:paddingBottom="10dip" />
 		
 		<EditText 

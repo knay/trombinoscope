@@ -2,6 +2,7 @@ package killheart.knay.trombinoscope;
 
 
 import java.io.*;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Date;
 
 import javax.xml.parsers.*;
@@ -129,7 +130,7 @@ public class XmlManipulator {
 		
 		Group Group = new Group();//< nouvel  objet de la classe Grade.
 		
-		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< On créer une list contenant tous les enfants du parametre.
+		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
 		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
 			Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
@@ -148,7 +149,7 @@ public class XmlManipulator {
 				e.setNom(Noms);//< on l'ajoute a la classe
 				
 				/*On récupère le prenom d'un eleve*/
-				NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+				NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
 	            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
 	
 	            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
@@ -174,11 +175,16 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public void RajouterEleves(String Nom,String Prenom){
-
-		NodeList nodes = ((Element) RacineXml).getElementsByTagName("groupe");
-		Element Ajout = (Element)nodes.item(0); 
+		int Id = 0;
+		Id = IdNext();
+		String IdString = Integer.toString(Id);
+		
+		NodeList nodes = ((Element) RacineXml).getElementsByTagName("groupe");//< On creer une NodeList appartir des enfant du noeud groupe.
+		Element Ajout = (Element)nodes.item(0); //< On recupere le premiere element de la NodeList.
 		
 		Element NewEleve = Doc.createElement("eleve");//<ajout d'un noeud eleve.
+	    NewEleve.setAttribute("id", IdString);
+
 		Element NewNom = Doc.createElement("nom");//< ajout d'un noeud nom.
 		NewNom.setTextContent(Nom);//< ajout du nom passé en parametre en texte au noeud nom.
 		
@@ -187,7 +193,7 @@ public class XmlManipulator {
 		
 		NewEleve.appendChild(NewNom);//< on met le noeud nom comme fils du noeud eleve.
 		NewEleve.appendChild(NewPrenom);//< on met le noeud prenom comme fils du noeud eleve.
-		Ajout.appendChild(NewEleve);//< on ajoute le noeud eleve au document xml.
+		Ajout.appendChild(NewEleve);//< on ajoute le noeud eleve en tant que fils du noeud groupe.
 	
 		/* Mise a jour du fichier xml*/
          try {
@@ -217,4 +223,37 @@ public class XmlManipulator {
 		}
 		
 	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction IdNext permet de recuperer l'id a donner au future eleve
+	 *  En parcourant tous les id est en récuprérant le plus grand et rajouter +1
+	 *  a celui ci pour avoir l'id suivant.
+	 */
+	private int IdNext(){
+		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
+		int IdMax = 0;//< variable stock le plus grand id trouvé.
+		int IdReturn = 0;//< variable de retour.
+		int IdTmp = 0;//< variable temporaire stock l'id que l'on parcourt.
+		int taille = Id.getLength();//< calcul de la taille de nodelist.
+		
+		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			IdTmp = 0;//< initialisation de la varible temporaire.
+			Node firstPersonNode = Id.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
+            	Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
+            	
+	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
+				IdTmp = Integer.parseInt(tmp);//< Conversion String to int.
+	            if(IdTmp > IdMax){//< Si la valeur du id temporaire est superieur a l'id max.
+	            	IdMax = IdTmp;//< id temporaire deviens l'id max.
+	            }
+            }
+            
+		}
+		IdReturn = IdMax + 1;//< On ajoute 1 a l'id max.
+		return IdReturn;//< On retourne cette valeur.
+	}
+	
 }

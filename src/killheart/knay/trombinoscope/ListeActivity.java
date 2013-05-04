@@ -5,17 +5,23 @@ import java.io.File;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * @author David et Jonathan
@@ -93,14 +99,69 @@ public class ListeActivity extends Activity {
 	 * @param menu Les éléments présents dans l'actionbar.
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//Menu menu_add;
 		getMenuInflater().inflate(R.menu.liste, menu);
-		//MenuInflater inflater = this.getMenuInflater();
-	    //inflater.inflate(R.menu.messagespagemenu, menu);
-	    
-	    //Button btn = (Button)inflater.findViewById(R.id.);
 		return true;
 	}
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet d'utiliser les bouton du menu.
+	 * 
+	 * @param menu Les éléments présents dans l'actionbar.
+	 */
+	public boolean onOptionsItemSelected(MenuItem item) {
+        //On regarde quel item a été cliqué grâce à son id et on déclenche une action
+        switch (item.getItemId()) {
+           case R.id.action_addeleve:
+        	   BoiteDialogueAjout();
+          	   return true;
+           case R.id.action_remove:
+               
+               return true;
+           case R.id.action_search:
+        	   
+               return true;
+        }
+        return false;
+    }
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction permet de lancer la boite de dialogue
+	 * pour ajouter un eleve.
+	 * 
+	 */
+	private void BoiteDialogueAjout(){
+		
+        LayoutInflater factory = LayoutInflater.from(this);//< On instancie notre layout en tant que View
+        final View alertDialogView = factory.inflate(R.layout.ajout_eleve, null);
+ 
+        AlertDialog.Builder adb = new AlertDialog.Builder(this); //< Création de l'AlertDialog
+ 
+        adb.setView(alertDialogView);//< On affecte la vue personnalisé que l'on a crée à notre AlertDialog
+        adb.setTitle("Veuillez remplir le formulaire");//< On donne un titre à l'AlertDialog
+        adb.setIcon(android.R.drawable.ic_dialog_alert);//< On modifie l'icône de l'AlertDialog
+ 
+        
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {//< On affecte un bouton "OK" à notre AlertDialog et on lui affecte un évènement
+            public void onClick(DialogInterface dialog, int which) {
+            	EditText NouveauNom = (EditText)alertDialogView.findViewById(R.id.NomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		EditText NouveauDate = (EditText)alertDialogView.findViewById(R.id.DateEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		Toast.makeText(ListeActivity.this, NouveauNom.getText(), Toast.LENGTH_SHORT).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
+          } });
+ 
+        
+        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {//< On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
+            public void onClick(DialogInterface dialog, int which) {//< Lorsque l'on cliquera sur annuler on quittera l'application
+            	
+            	finish();
+          } });
+        adb.show();
+		
+	
+	}
+	
 	
 	/**
 	 * @author David et Jonathan

@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -35,6 +38,7 @@ public class ListeActivity extends Activity {
 	// ----- ----- Les classes et variables classiques ----- ----- 
 	Group listegroupe;                           //< Les groupe contenue dans la classe
 	Grade classe;                                //< La scolaire a afficher
+	boolean DejaFait = false;
 	
 	/**
 	 * @author David et Jonathan
@@ -79,18 +83,6 @@ public class ListeActivity extends Activity {
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
 		classe.ajouterGroup(listegroupe);
-		/*
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		listegroupe.ajouterEleve(e);
-		*/
 		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		setContentView(layoutGlobal);
@@ -112,5 +104,33 @@ public class ListeActivity extends Activity {
 	    //Button btn = (Button)inflater.findViewById(R.id.);
 		return true;
 	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction permettant de réagir après un retour de resultat d'une activité après sa
+	 * fermeture.
+	 * Ici on s'en sert pour detecter la valeur de retour de l'activité caméra pour savoir quelle 
+	 * ImageView actualiser. Le requestCode attendu est 99.
+	 * 
+	 * 
+	 * @param requestCode Le code idientifiant l'activité qui l'a retourné (pour le retour de la caméra 99)
+	 * @param resultCode La valeur de retour de l'activité (ici l'identifiant de l'élève)
+	 * @param datas L'intent liant l'actrivité fermé à l'activité courante
+	 */
+	protected void onActivityResult (int requestCode, int resultCode, Intent datas) {
+        super.onActivityResult(requestCode, resultCode, datas);
+
+        if (requestCode == 99) {
+        	ImageView ph = (ImageView) listeEleve.findViewById(resultCode);
+        	
+			Matrix matrix = new Matrix(); //< Création d'une matrice pour pouvoir décaler pivoter l'image
+			matrix.postRotate(90); //< On applique une rotation de 90° à la matrice
+			
+			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + resultCode + ".jpg"); //< On récupère la photo du fichier
+			bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true); //< On applique la rotation à l'image
+			ph.setImageBitmap(bmp); //< On applique l'image à l'imageview
+        }
+    }
 
 }

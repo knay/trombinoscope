@@ -1,6 +1,9 @@
 package killheart.knay.trombinoscope;
 
+import java.io.File;
+
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -24,8 +27,11 @@ import android.widget.RelativeLayout;
 public class TrombiActivity extends Activity {
 	// ----- ----- Les classes Android ----- ----- 
 	RelativeLayout layoutGlobal;
-	LinearLayout trombiEleve;
+	LinearLayout trombiEleve;//< Le layout qui affiche juste la liste
+	private XmlManipulator ManipulXml;
 	
+	Grade classe;                                //< La scolaire a afficher
+	Group listegroupe;                           //< Les groupe contenue dans la classe
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -37,7 +43,14 @@ public class TrombiActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);         //< Appel au super-constructeur
 		Pupil e = new Pupil();
+		classe = new Grade();
 		
+		/*Test*/
+		File Racine = Environment.getExternalStorageDirectory();
+		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
+		XmlManipulator xml = new XmlManipulator(chemin);
+		this.ManipulXml = xml;
+		listegroupe = xml.LireEleve();
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_trombi, null);
 		Button BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourTrombi); //< On recupère le bouton de retour
@@ -56,15 +69,9 @@ public class TrombiActivity extends Activity {
 		});
 		
 		trombiEleve = (LinearLayout)layoutGlobal.findViewById(R.id.trombilayout);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
-		e.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
 		
+		classe.ajouterGroup(listegroupe);
+		classe.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
 		setContentView(layoutGlobal);
 	}
 

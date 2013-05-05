@@ -219,7 +219,7 @@ public class XmlManipulator {
 	/**
 	 * @author David et Jonathan
 	 * 
-	 * Fonction IdNext permet de recuperer l'id a donner au future eleve
+	 * Fonction IdATNext permet de recuperer l'id a donner au future eleve
 	 *  En parcourant tous les id est en récuprérant le plus grand et rajouter +1
 	 *  a celui ci pour avoir l'id suivant.
 	 */

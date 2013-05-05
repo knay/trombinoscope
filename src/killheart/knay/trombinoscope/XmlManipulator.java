@@ -127,7 +127,7 @@ public class XmlManipulator {
 	 *  @param date date de naissance de l'eleve.
 	 */
 	public Group LireEleve(){
-		
+		int IdEleveTmp = 0;
 		Group Group = new Group();//< nouvel  objet de la classe Grade.
 		
 		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
@@ -139,7 +139,11 @@ public class XmlManipulator {
 
 
                 Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
-	
+                /*On récupère l'id de l'élève*/
+                String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
+	            IdEleveTmp = Integer.parseInt(tmp);
+                e.setId(IdEleveTmp);
+	            
                 /*On récupère le nom d'un eleve*/
 	            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 	            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
@@ -155,6 +159,15 @@ public class XmlManipulator {
 	            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
 	            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
 				e.setPrenom(Prenoms);//< on ajoute a la classe
+				
+				/*On recupere la date de naissance*/
+				NodeList DateList = firstPersonElement.getElementsByTagName("date");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+	            Element DateElement = (Element)DateList.item(0);//< Convertion en Element.
+	
+	            NodeList textDate = DateElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+	            String Date = ((Node)textDate.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+				e.setDateNaissance(Date);//< on l'ajoute a la classe
+				
 				Group.ajouterEleve(e);//< on ajoute la classe au groupe.
 				
             }

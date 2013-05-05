@@ -3,8 +3,6 @@ package killheart.knay.trombinoscope;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 /**
@@ -58,6 +56,17 @@ public class Grade {
 	/**
 	 * @author David et Jonathan
 	 * 
+	 * Permet de récupérer la liste des groupes de la scolaire.
+	 * 
+	 * @return La liste des groupes de la classe.
+	 */
+	public ArrayList<Group> getGroupes() {
+		return groupes;
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
 	 * Permet de modifier le nom de la classe scolaire.
 	 * 
 	 * @param n Le nom que vous souhaitez attribuer à la classe (si null le nom n'est pas modifié).
@@ -93,6 +102,23 @@ public class Grade {
 	/**
 	 * @author David et Jonathan
 	 * 
+	 * Permet de trouver le premier id utilisable pour ajouter un élève.
+	 * Parcours tous les groupes pour trouver le plus grand id.
+	 */
+	public int trouverDernierId() {
+		int idMax = 0, idCour = 0;
+		for (int i = 0; i < groupes.size(); i++) {
+			if ((idCour = groupes.get(i).trouverDernierId()) > idMax)
+				idMax = idCour;
+			idCour = 0;
+		}
+		
+		return idMax;
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
 	 * Permet d'afficher une classe scolaire sur un layout Android. En fonction
 	 * du mode choisi l'affichage sera différent.
 	 * 
@@ -119,26 +145,25 @@ public class Grade {
 	/**
 	 * @author David et Jonathan
 	 * 
+	 * Permet d'ajouter un élève a un groupe de la classe.
 	 * 
-	 * 
-	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
-	 * @param c Le contexte Android pour l'affichage.
-	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
+	 * @param e L'élève que vous souhaitez ajouter.
+	 * @param c Le nom du groupe auquel vous voulez ajouter l'élève.
 	 * 
 	 * @return Pupil.FAILLURE Si une erreur s'est produite
 	 * @return Pupil.SUCCESS sinon
 	 */
-	public int actualiserAffichage (LinearLayout layout, Context c, int mode) {
-		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
+	public int ajouterEleveAuGroupe (Pupil e, String nomGroupe) {
+		if (e == null || nomGroupe == null || nomGroupe == "")
 			return Pupil.FAILLURE;
 		
-		for (int i = 0; i < layout.getChildCount(); i++) {
-			((ViewGroup)layout.getParent()).removeView(layout.getChildAt(i));
+		for (int i = 0; i < groupes.size(); i++) {
+			if (groupes.get(i).getNom() == nomGroupe) {
+				groupes.get(i).ajouterEleve(e);
+				return Pupil.SUCCESS;
+			}
 		}
-		
-		afficher(layout, c, mode);
-		
-		return Pupil.SUCCESS;
+		return Pupil.FAILLURE;
 	}
 	
 	/**

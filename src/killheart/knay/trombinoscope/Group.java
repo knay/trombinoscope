@@ -104,6 +104,23 @@ public class Group {
 	/**
 	 * @author David et Jonathan
 	 * 
+	 * Permet de trouver le plus grand id utilisé par un élève
+	 * dans le groupe.
+	 */
+	public int trouverDernierId() {
+		int idMax = 0, idCour = 0;
+		for (int i = 0; i < eleves.size(); i++) {
+			if ((idCour = eleves.get(i).getId()) > idMax)
+				idMax = idCour;
+			idCour = 0;
+		}
+		
+		return idMax;
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
 	 * Permet d'afficher un groupe sur un layout Android. En fonction
 	 * du mode choisi l'affichage sera différent.
 	 * 

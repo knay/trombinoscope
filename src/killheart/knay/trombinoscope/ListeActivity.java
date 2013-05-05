@@ -36,16 +36,14 @@ import android.widget.Toast;
  */
 public class ListeActivity extends Activity {
 	// ----- ----- Les classes Android ----- ----- 
-	RelativeLayout layoutGlobal;                 //< Le layout de l'activité complète
-	LinearLayout listeEleve;                     //< Le layout qui affiche juste la liste
-	Button BoutonRetour;                         //< Le bouton retour pour lui ajouter le listener
-	Button BoutonApercue;                        //< Le bouton pour lancer le trombinoscope, pour lui ajouter le listener
+	private RelativeLayout layoutGlobal;                 //< Le layout de l'activité complète
+	private LinearLayout listeEleve;                     //< Le layout qui affiche juste la liste
+	private Button BoutonRetour;                         //< Le bouton retour pour lui ajouter le listener
+	private Button BoutonApercue;                        //< Le bouton pour lancer le trombinoscope, pour lui ajouter le listener
 	
 	// ----- ----- Les classes et variables classiques ----- ----- 
-	Group listegroupe;                           //< Les groupe contenue dans la classe
-	Grade classe;                                //< La scolaire a afficher
-	boolean DejaFait = false;
-	
+	private Group listegroupe;                           //< Les groupe contenue dans la classe
+	private Grade classe;                                //< La scolaire a afficher
 	private XmlManipulator ManipulXml;
 	
 	/**
@@ -73,7 +71,7 @@ public class ListeActivity extends Activity {
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourliste); //< On recupère le bouton de retour
 		BoutonRetour.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
-			    finish();
+				finish();
 			}
 		});
 		
@@ -88,6 +86,8 @@ public class ListeActivity extends Activity {
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
 		classe.ajouterGroup(listegroupe);
+		classe.getGroupes().get(0).setNom("1");
+		
 		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		setContentView(layoutGlobal);
@@ -104,6 +104,7 @@ public class ListeActivity extends Activity {
 		getMenuInflater().inflate(R.menu.liste, menu);
 		return true;
 	}
+
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -112,7 +113,7 @@ public class ListeActivity extends Activity {
 	 * @param menu Les éléments présents dans l'actionbar.
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-        //On regarde quel item a été cliqué grâce à son id et on déclenche une action
+        //! wOn regarde quel item a été cliqué grâce à son id et on déclenche une action
         switch (item.getItemId()) {
            case R.id.action_addeleve:
         	   BoiteDialogueAjout();
@@ -121,11 +122,11 @@ public class ListeActivity extends Activity {
         	   BoiteDialogueSupprimer();
                return true;
            case R.id.action_search:
-        	   
                return true;
         }
         return false;
     }
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -143,30 +144,37 @@ public class ListeActivity extends Activity {
         adb.setView(alertDialogView);//< On affecte la vue personnalisé que l'on a crée à notre AlertDialog
         adb.setTitle("Veuillez remplir le formulaire");//< On donne un titre à l'AlertDialog
         adb.setIcon(android.R.drawable.ic_dialog_alert);//< On modifie l'icône de l'AlertDialog
- 
         
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {//< On affecte un bouton "OK" à notre AlertDialog et on lui affecte un évènement
             public void onClick(DialogInterface dialog, int which) {
+            	Pupil e = new Pupil();
             	EditText NouveauNom = (EditText)alertDialogView.findViewById(R.id.NomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauDate = (EditText)alertDialogView.findViewById(R.id.DateEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		Toast.makeText(ListeActivity.this, NouveauNom.getText().toString()+" à étais ajouté", Toast.LENGTH_LONG).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
         		
         		ManipulXml.RajouterEleves(NouveauNom.getText().toString(), NouveauPrenom.getText().toString(),NouveauDate.getText().toString());
-            
-            
+        		e.setNom(NouveauNom.getText().toString()); //< On définie le nom de l'élève que l'on a ajouté
+        		e.setPrenom(NouveauPrenom.getText().toString()); //< On définie le prenom de l'élève que l'on a ajouté
+        		e.setDateNaissance(NouveauDate.getText().toString()); //< On définie le dateNaissance de l'élève que l'on a ajouté
+        		e.setId(classe.trouverDernierId()+1); //< On définie l'id de l'élève qu'on a ajouté
+        		
+        		classe.ajouterEleveAuGroupe(e, classe.getGroupes().get(0).getNom()); //< On ajoutes l'élève au premier groupe de la classe
+        		listeEleve.removeAllViews(); //< On éfface tout de la listeEleve
+        		classe.afficher(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On réaffiche la liste des élèves
+        		listeEleve.invalidate(); //< On refresh l'affichage de la liste
         } });
  
         
         adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {//< On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
             public void onClick(DialogInterface dialog, int which) {//< Lorsque l'on cliquera sur annuler on quittera l'application
             	
-            	finish();
           } });
         adb.show();
 		
 	
 	}
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -196,7 +204,6 @@ public class ListeActivity extends Activity {
         		String idSuppInt ;
         		idSuppInt = ManipulXml.EleveId(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
         		ManipulXml.DeletePupil(idSuppInt);
-            
         } });
  
         

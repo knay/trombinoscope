@@ -256,7 +256,6 @@ public class Pupil {
 		
 		lay.setOnTouchListener(new ListeOnTouch()); //< Mise en place d'un ontouchlistener pour changer la couleur du layout quand on le touche
 		lay.setOnLongClickListener(new ListeOnLongClick()); //< Mise en place du onlongclicklistener pour afficher le détail de l'élève
-
 		
 		bordure.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
 		bordure.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 90)); //< On fait une ligne de 70dp de hauteur
@@ -265,6 +264,9 @@ public class Pupil {
 		bordure.addView(lay); //< On ajoute la ligne au layout qui fait la bordure de la ligne
 		
 		layout.addView(bordure); //< On ajoute la ligne sur le layout demandé
+		
+		if (cr == PAS_DE_PHOTO) //< Si pas de photo on le signale en mettant à null
+			photo = null;
 		
 		return cr;
 	}

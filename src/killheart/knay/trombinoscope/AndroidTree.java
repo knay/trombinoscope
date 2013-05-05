@@ -13,8 +13,8 @@ import android.os.Environment;
  * @todo AJOUTER PLUS DE FONCTIONS !
  */
 public class AndroidTree {
-	File Racine = null;
-	String DossierPrincipal = null;
+	private static File Racine = null;
+	private static String DossierPrincipal = null;
 	
 	/**
 	 * @author David et Jonathan
@@ -35,7 +35,7 @@ public class AndroidTree {
 	 * 
 	 * @param NameFolder Nom du dossier.
 	 */
-    public void CreateRepertory(){
+    public static void CreateRepertory(){
     	File FileRepertory = new File(Racine+"/"+DossierPrincipal+"/");//< Creation du repertoire principal.
     	if (!FileRepertory.exists()) {//< Si il n'existe pas.
     		FileRepertory.mkdir();//< On le crée
@@ -53,8 +53,8 @@ public class AndroidTree {
 	 * 
 	 * @param NameFolder Nom du dossier.
 	 */
-    public void CreateFolder(String NameFolder){
-    	File FileFolder = new File(Racine+"/"+DossierPrincipal+"/"+NameFolder+"");
+    public static void CreateFolder(String NameFolder,String chemin){
+    	File FileFolder = new File(Racine+"/"+chemin+"/"+NameFolder+"");
     	if (!FileFolder.exists()) {//< Si il n'existe pas.
     		FileFolder.mkdir();//< On le crée.
     	}

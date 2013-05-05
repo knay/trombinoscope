@@ -249,8 +249,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	 */
 	public void PrendrePhoto() {
 		try {
-			AndroidTree AT = new AndroidTree();
-			AT.CreateFolder(dossierPhoto);  //< On créait le dossier photo s'il ne l'est pas !
+			AndroidTree.CreateFolder(dossierPhoto,dossierPhoto);  //< On créait le dossier photo s'il ne l'est pas !
 			File Racine = Environment.getExternalStorageDirectory();
 
 			stream = new FileOutputStream(Racine + "/trombiscol/"+ dossierPhoto +"/" + nom + ".jpg"); //< Ouverture du flux pour la sauvegarde

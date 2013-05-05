@@ -224,9 +224,11 @@ public class XmlManipulator {
             	Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
             	
 	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
-				IdTmp = Integer.parseInt(tmp);//< Conversion String to int.
-	            if(IdTmp > IdMax){//< Si la valeur du id temporaire est superieur a l'id max.
-	            	IdMax = IdTmp;//< id temporaire deviens l'id max.
+	            if(tmp != ""){
+					IdTmp = Integer.parseInt(tmp);//< Conversion String to int.
+		            if(IdTmp > IdMax){//< Si la valeur du id temporaire est superieur a l'id max.
+		            	IdMax = IdTmp;//< id temporaire deviens l'id max.
+		            }
 	            }
             }
             

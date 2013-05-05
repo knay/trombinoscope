@@ -23,10 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
         <ImageView 
             android:src="@drawable/iconephoto"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/dialoguePhoto"
             android:contentDescription="@string/app_name"/>

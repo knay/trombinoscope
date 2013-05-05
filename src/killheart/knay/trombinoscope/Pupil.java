@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -231,7 +232,8 @@ public class Pupil {
 		txt.setText(nom + " " + prenom); //< On met le nom sur le texte android
 		txt.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); //< On met le layout
 		txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15); //< On change la taille du texte
-		txt.setPadding(10, 20, 0, 0); //< On met un petit padding en haut et à gauche (plus jolie)
+		txt.setPadding(10, 0, 0, 0); //< On met un petit padding en haut et à gauche (plus jolie)
+		txt.setGravity(Gravity.CENTER_VERTICAL);
 		
 		//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
 		if (photo == null) { //< Si la photo n'a pas été définie
@@ -239,8 +241,10 @@ public class Pupil {
 			photo.setImageResource(R.drawable.icon_photo); //< On va chercher l'image par défaut
 			cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
 		}
-		photo.setLayoutParams(new LinearLayout.LayoutParams(60, LayoutParams.MATCH_PARENT)); //< On redimensionne la view de l'image
+		photo.setPadding(3, 0, 0, 0); //< On met un petit padding a gauche
+		photo.setLayoutParams(new LinearLayout.LayoutParams(80, LayoutParams.MATCH_PARENT)); //< On redimensionne la view de l'image
 		photo.setId(id);
+		photo.setOnLongClickListener(new ListePhotoOnLongClick()); //< Mise en place du onlongclicklistener sur la photo (déclenche la prise de photo)
 		
 		lay.addView(photo); //< Ajout de la photo sur la ligne
 		lay.addView(txt); //< Ajout du texte sur la ligne
@@ -248,9 +252,8 @@ public class Pupil {
 		lay.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
 		lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85)); //< On fait une ligne de 70dp de hauteur
 		lay.setBackgroundColor(c.getResources().getColor(R.color.bgListe)); //< On met une couleur de fond
+		lay.setGravity(Gravity.CENTER);
 		
-		
-		photo.setOnLongClickListener(new ListePhotoOnLongClick()); //< Mise en place du onlongclicklistener sur la photo (déclenche la prise de photo)
 		lay.setOnTouchListener(new ListeOnTouch()); //< Mise en place d'un ontouchlistener pour changer la couleur du layout quand on le touche
 		lay.setOnLongClickListener(new ListeOnLongClick()); //< Mise en place du onlongclicklistener pour afficher le détail de l'élève
 
@@ -484,8 +487,6 @@ public class Pupil {
 				imgPhoto.setImageBitmap(photo.getDrawingCache());
 			}
 				
-			
-			
 			//! On démarre la boite de dialogue
 			new AlertDialog.Builder(v.getContext())
 			.setView(layoutGlobal) //< On y met le layout global à l'interrieur

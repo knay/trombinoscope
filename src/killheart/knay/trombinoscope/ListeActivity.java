@@ -150,13 +150,9 @@ public class ListeActivity extends Activity {
             	EditText NouveauNom = (EditText)alertDialogView.findViewById(R.id.NomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauDate = (EditText)alertDialogView.findViewById(R.id.DateEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
-        		Toast.makeText(ListeActivity.this, NouveauNom.getText(), Toast.LENGTH_SHORT).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
+        		Toast.makeText(ListeActivity.this, NouveauNom.getText().toString()+" à étais ajouté", Toast.LENGTH_LONG).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
         		
-        		
-        		/*Test*/
-        		File Racine = Environment.getExternalStorageDirectory();
-        		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
-        		ManipulXml.RajouterEleves(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
+        		ManipulXml.RajouterEleves(NouveauNom.getText().toString(), NouveauPrenom.getText().toString(),NouveauDate.getText().toString());
             
             
         } });
@@ -194,6 +190,8 @@ public class ListeActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
             	EditText NouveauNom = (EditText)alertDialogView.findViewById(R.id.NomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
         		EditText NouveauPrenom = (EditText)alertDialogView.findViewById(R.id.PrenomEleve);//< Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+        		Toast.makeText(ListeActivity.this, NouveauNom.getText().toString()+" à étais supprimé", Toast.LENGTH_LONG).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
+        		
         		/*Test*/
         		String idSuppInt ;
         		idSuppInt = ManipulXml.EleveId(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());

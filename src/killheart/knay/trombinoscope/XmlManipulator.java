@@ -174,7 +174,7 @@ public class XmlManipulator {
 	 *  @param Prenom Prenom de l'eleve.
 	 *  @param date date de naissance de l'eleve.
 	 */
-	public void RajouterEleves(String Nom,String Prenom){
+	public void RajouterEleves(String Nom,String Prenom,String DateNaissance){
 		int Id = 0;
 		Id = IdNext();
 		String IdString = Integer.toString(Id);
@@ -191,8 +191,12 @@ public class XmlManipulator {
 		Element NewPrenom = Doc.createElement("prenom");//< ajout du noeud prenom.
 		NewPrenom.setTextContent(Prenom);//< ajout du prenom passé en parametre en texte au noeud prenom.
 		
+		Element NewDate = Doc.createElement("date");
+		NewDate.setTextContent(DateNaissance);
+		
 		NewEleve.appendChild(NewNom);//< on met le noeud nom comme fils du noeud eleve.
 		NewEleve.appendChild(NewPrenom);//< on met le noeud prenom comme fils du noeud eleve.
+		NewEleve.appendChild(NewDate);
 		Ajout.appendChild(NewEleve);//< on ajoute le noeud eleve en tant que fils du noeud groupe.
 	
 		EnregistrerXml();
@@ -309,7 +313,6 @@ public class XmlManipulator {
 		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
 		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
-			Pupil e =new Pupil();//< nouvel ogjet de la class Pupil.
 			Node firstPersonNode = ListEleves.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
             if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
 

@@ -204,7 +204,7 @@ public class ListeActivity extends Activity {
         		/*Test*/
         		String idSuppInt ;
         		idSuppInt = ManipulXml.EleveId(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
-        		ManipulXml.DeletePupil(idSuppInt);
+        		//ManipulXml.DeletePupil(idSuppInt);
         } });
  
         

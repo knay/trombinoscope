@@ -80,6 +80,19 @@ public class Group {
 	
 	/**
 	 * @author David et Jonathan
+	 *
+	 * Permet de définir l'url des photos pour tous les élèves du groupe.
+	 * 
+	 * @param url L'url vers l'image (sans le nom de l'image)
+	 */
+	public void setUrlImage(String url) {
+		for (int i = 0; i < eleves.size(); i++) {
+			eleves.get(i).setUrlImage(url);     //< On définie l'url de l'image de chaque élèves de chaque groupes
+		}
+	}
+	
+	/**
+	 * @author David et Jonathan
 	 * 
 	 * Permet d'ajouter un élève au groupe.
 	 * 

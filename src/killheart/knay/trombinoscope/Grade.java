@@ -78,6 +78,19 @@ public class Grade {
 	
 	/**
 	 * @author David et Jonathan
+	 *
+	 * Permet de définir l'url des photos pour tous les élèves de la classe.
+	 * 
+	 * @param url L'url vers l'image (sans le nom de l'image)
+	 */
+	public void setUrlImage(String url) {
+		for (int i = 0; i < groupes.size(); i++) {
+			groupes.get(i).setUrlImage(url);     //< On définie l'url de l'image de chaque élèves de chaque groupes
+		}
+	}
+	
+	/**
+	 * @author David et Jonathan
 	 * 
 	 * Permet d'ajouter un groupe à la classe.
 	 * 

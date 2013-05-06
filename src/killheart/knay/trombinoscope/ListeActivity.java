@@ -44,7 +44,7 @@ public class ListeActivity extends Activity {
 	// ----- ----- Les classes et variables classiques ----- ----- 
 	private Group listegroupe;                           //< Les groupe contenue dans la classe
 	private Grade classe;                                //< La scolaire a afficher
-	private XmlManipulator ManipulXml;
+	private XmlManipulator ManipulXml;                   //< Le manipulateur du fichier XML
 	
 	/**
 	 * @author David et Jonathan
@@ -89,6 +89,9 @@ public class ListeActivity extends Activity {
 		classe.getGroupes().get(0).setNom("1");
 		
 		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		
+		AndroidTree.CreateFolder(classe.getNom(), "photo/"); //< On crée le dossier pour les photos des scolaires
+		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photo/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
 		
 		setContentView(layoutGlobal);
 	}

@@ -43,6 +43,7 @@ public class Pupil {
 	private String nom = null;                   //< Le nom de l'élève
 	private String prenom = null;                //< Le prénom de l'élève
 	private String dateNaissance = null;         //< La date de naissance de l'élève
+	private String urlImage = null;              //< Le chemin vers l'image
 	private int id = 0;                          //< L'identifiant unique d'un élève
 	
 	/**
@@ -138,6 +139,17 @@ public class Pupil {
 	/**
 	 * @author David et Jonathan
 	 * 
+	 * Permet de récupérer l'image ANdroid de la photo de l'élève.
+	 * 
+	 * @return Le chemin vers l'image de l'élève
+	 */
+	public String getUrlImage() {
+		return urlImage;
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 * 
 	 * Permet de (re)définir le nom de l'élève.
 	 * 
 	 * @param n Le nom que vous souhaitez attribuez à l'élève.
@@ -190,6 +202,18 @@ public class Pupil {
 	public void setPhoto(ImageView ph) {
 		if (ph != null)
 			photo = ph;
+	}
+	
+	/**
+	 * @author David et Jonathan
+	 *
+	 * Permet de définir l'url de la photo de l'élève.
+	 * 
+	 * @param url L'url vers l'image (sans le nom de l'image)
+	 */
+	public void setUrlImage(String url) {
+		if (url != null && url != "")
+			urlImage = url + "/" + id + ".jpg";
 	}
 	
 	/**

@@ -17,6 +17,20 @@
             android:textColor="@color/ColorBtWhite"
             android:textIsSelectable="false"
             android:id="@+id/dialogueTitre"/>
+        <ImageView 
+            android:src="@drawable/modifier"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/ModifierEleve"
+            android:contentDescription="@string/app_name"
+            android:layout_gravity="right|center_vertical"/>
+        <ImageView 
+            android:src="@drawable/poubelle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/SupprimerEleve"
+            android:contentDescription="@string/app_name"
+           android:layout_gravity="right|center_vertical"/>
     </LinearLayout> 
     
     <LinearLayout 

@@ -279,6 +279,7 @@ public class XmlManipulator {
 		}
 		EnregistrerXml();
 	}
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -361,4 +362,68 @@ public class XmlManipulator {
 		}
 		return "null";
 	}
+
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction qui permet de modifier les information concernant
+	 * un eleve.
+	 * 
+	 * @param Objet de la class Pupil
+	 */
+	public void modifEleve(Pupil eleve){
+		int IdEleve = eleve.getId();
+		String NomEleve = eleve.getNom();
+		String PrenomEleve = eleve.getPrenom();
+		String DateEleve = eleve.getDateNaissance();
+		
+		/*Verification*/
+		
+		
+		
+		
+		
+		
+		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
+		int taille = Id.getLength();//< calcul de la taille de nodelist.
+		int IdEleveTmp = 0;
+		
+		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
+			Node firstPersonNode = Id.item(i);//< On creer un Node qui contient le noeud que lon parcourt.
+            if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
+            	Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
+            	
+	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
+	            IdEleveTmp = Integer.parseInt(tmp);
+				if(IdEleveTmp == IdEleve){
+					/*On récupère le nom d'un eleve*/
+		            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+		            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
+		
+		            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+		            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+					
+					/*On récupère le prenom d'un eleve*/
+					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
+		            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
+		
+		            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+					
+					/*On recupere la date de naissance*/
+					NodeList DateList = firstPersonElement.getElementsByTagName("date");//< On créer une NodeList avec les fils du noeud passer en parametre. 
+		            Element DateElement = (Element)DateList.item(0);//< Convertion en Element.
+		
+		            NodeList textDate = DateElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
+		            String Date = ((Node)textDate.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+					
+					
+				}
+            }
+		}
+		EnregistrerXml();
+		
+	}
+	
+	
 }

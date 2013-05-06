@@ -13,8 +13,8 @@ import android.os.Environment;
  * @todo AJOUTER PLUS DE FONCTIONS !
  */
 public class AndroidTree {
-	private static File Racine = null;
-	private static String DossierPrincipal = null;
+	private static File Racine = Environment.getExternalStorageDirectory();
+	private static String DossierPrincipal = "trombiscol";
 	
 	/**
 	 * @author David et Jonathan
@@ -23,8 +23,7 @@ public class AndroidTree {
 	 * les variables de base.
 	 */
 	public AndroidTree () {
-		Racine = Environment.getExternalStorageDirectory();
-		DossierPrincipal = "trombiscol";
+		
 	}
 	
 	/**

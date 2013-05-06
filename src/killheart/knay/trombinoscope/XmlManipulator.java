@@ -128,7 +128,8 @@ public class XmlManipulator {
 	 */
 	public Group LireEleve(){
 		int IdEleveTmp = 0;
-		Group Group = new Group();//< nouvel  objet de la classe Grade.
+		Group Group = new Group();//< nouvel  objet de la classe Grade.	
+		
 		
 		NodeList ListEleves =((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = ListEleves.getLength();//< calcul de la taille de nodelist.
@@ -255,12 +256,13 @@ public class XmlManipulator {
 	 * 
 	 * Fonction DeletePupil permet de supprimer un eleve du fichier xml.
 	 * 
-	 * @param Id Id de l'élève.
+	 * @param objet de la class Pupil pour acceder aux methodes.
 	 */
-	public void DeletePupil(String IdEleve){
+	public void DeletePupil(Pupil eleve){
+		int IdEleve = eleve.getId();
+		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = Id.getLength();//< calcul de la taille de nodelist.
-		int IdEleveInt = Integer.parseInt(IdEleve);
 		int IdEleveTmp = 0;
 		
 		for(int i =0;i<taille;i++){//< On parcourt toute la liste.
@@ -270,7 +272,7 @@ public class XmlManipulator {
             	
 	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
 	            IdEleveTmp = Integer.parseInt(tmp);
-				if(IdEleveTmp == IdEleveInt){
+				if(IdEleveTmp == IdEleve){
 					firstPersonElement.getParentNode().removeChild(firstPersonElement);
 				}
             }

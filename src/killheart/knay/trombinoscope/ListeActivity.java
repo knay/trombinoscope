@@ -8,9 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -88,10 +84,10 @@ public class ListeActivity extends Activity {
 		classe.ajouterGroup(listegroupe);
 		classe.getGroupes().get(0).setNom("1");
 		
-		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		AndroidTree.CreateFolder(classe.getNom(), "trombiscol/photos"); //< On crée le dossier pour les photos des scolaires
+		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
 		
-		AndroidTree.CreateFolder(classe.getNom(), "photo/"); //< On crée le dossier pour les photos des scolaires
-		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photo/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
+		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
 		
 		setContentView(layoutGlobal);
 	}
@@ -235,14 +231,7 @@ public class ListeActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, datas);
 
         if (requestCode == 99) {
-        	ImageView ph = (ImageView) listeEleve.findViewById(resultCode);
-        	
-			Matrix matrix = new Matrix(); //< Création d'une matrice pour pouvoir décaler pivoter l'image
-			matrix.postRotate(90); //< On applique une rotation de 90° à la matrice
-			
-			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + resultCode + ".jpg"); //< On récupère la photo du fichier
-			bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true); //< On applique la rotation à l'image
-			ph.setImageBitmap(bmp); //< On applique l'image à l'imageview
+    		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On rafraichit l'affichage de la liste
         }
     }
 

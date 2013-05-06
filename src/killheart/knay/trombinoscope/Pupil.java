@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -247,6 +249,7 @@ public class Pupil {
 		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
 		LinearLayout bordure = new LinearLayout(c); //< Layout correspondant à la ligne
 		TextView txt = new TextView(c);             //< Le texte affichant le nom de l'élève dans la liste
+		Bitmap bmp = null;                          //< L'image de la photo (pour aller chercher dans l'url)
 		
 		//! Si le mode n'existe pas... FAIL !
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null || c == null)
@@ -260,14 +263,18 @@ public class Pupil {
 		txt.setGravity(Gravity.CENTER_VERTICAL);
 		
 		//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
-		if (photo == null) { //< Si la photo n'a pas été définie
-			photo = new ImageView(c); //< Instanciation de l'objet
+		photo = new ImageView(c); //< Instanciation de l'objet
+		bmp = BitmapFactory.decodeFile(urlImage);
+		if (bmp != null)
+			photo.setImageBitmap(bmp); //< on va chercher l'image dans le lien
+		else {
 			photo.setImageResource(R.drawable.icon_photo); //< On va chercher l'image par défaut
-			cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
+			cr = PAS_DE_PHOTO; //< Compte rendu avec pas de photo
 		}
+		
 		photo.setPadding(3, 0, 0, 0); //< On met un petit padding a gauche
 		photo.setLayoutParams(new LinearLayout.LayoutParams(80, LayoutParams.MATCH_PARENT)); //< On redimensionne la view de l'image
-		photo.setId(id);
+		photo.setId(id); //< On definie l'id de la photo
 		photo.setOnLongClickListener(new ListePhotoOnLongClick()); //< Mise en place du onlongclicklistener sur la photo (déclenche la prise de photo)
 		
 		lay.addView(photo); //< Ajout de la photo sur la ligne
@@ -276,7 +283,7 @@ public class Pupil {
 		lay.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
 		lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85)); //< On fait une ligne de 70dp de hauteur
 		lay.setBackgroundColor(c.getResources().getColor(R.color.bgListe)); //< On met une couleur de fond
-		lay.setGravity(Gravity.CENTER);
+		lay.setGravity(Gravity.CENTER); //< On centre le tout
 		
 		lay.setOnTouchListener(new ListeOnTouch()); //< Mise en place d'un ontouchlistener pour changer la couleur du layout quand on le touche
 		lay.setOnLongClickListener(new ListeOnLongClick()); //< Mise en place du onlongclicklistener pour afficher le détail de l'élève
@@ -288,9 +295,6 @@ public class Pupil {
 		bordure.addView(lay); //< On ajoute la ligne au layout qui fait la bordure de la ligne
 		
 		layout.addView(bordure); //< On ajoute la ligne sur le layout demandé
-		
-		if (cr == PAS_DE_PHOTO) //< Si pas de photo on le signale en mettant à null
-			photo = null;
 		
 		return cr;
 	}
@@ -342,7 +346,6 @@ public class Pupil {
 			public boolean onLongClick(View v) {
 				CameraActivity Cam = new CameraActivity();
 				Intent intent = new Intent(c, Cam.getClass());
-				Cam.setNom("ph "+id);
 				c.startActivity(intent);
                 return false;
             }
@@ -460,7 +463,7 @@ public class Pupil {
 		 */
 		public boolean onLongClick(View v) {
 			Intent intent = new Intent(v.getContext(), CameraActivity.class);
-			intent.putExtra("idEleve", id); //< On envoie l'id en paramètre à la camera pour savoir où enregistrer la photo
+			intent.putExtra("url", urlImage); //< On envoie l'id en paramètre à la camera pour savoir où enregistrer la photo
 			((Activity) v.getContext()).startActivityForResult(intent, 99); //< On demarre l'activité
 			
 			return true;

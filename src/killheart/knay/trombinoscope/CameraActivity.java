@@ -1,11 +1,9 @@
 package killheart.knay.trombinoscope;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
@@ -43,7 +41,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	private FileOutputStream stream = null;                 //< Le flux vers le fichier ou sera enregistrée la photo
 	private Boolean isPreview;                              //< Booleen permettant de savoir si la caméra est en mode preview ou non (pause de l'application)
 	private String dossierPhoto = null;                     //< Le dossier ou stocker les photos
-	private String nom = null;                              //< Le nom du fichier sans l'extension
+	private String path = null;                             //< Le chemin vers le fichier
 	
 	/**
 	 * @author David et Jonathan
@@ -88,7 +86,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		
 		dossierPhoto = "photos"; //< On définit le répertoire pour stocker les photos
 		
-		nom = getIntent().getExtras().getInt("idEleve") + ""; //< On récupère le l'id de lélève passé à l'activité pour definir le nom du fichier de sortie
+		path = getIntent().getExtras().getString("url"); //< On récupère le l'id de lélève passé à l'activité pour definir le nom du fichier de sortie
 		
 		surfaceCamera.getHolder().addCallback(this); //< On attache les retours du holder à notre activité
 
@@ -232,13 +230,13 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	 * 
 	 * Permet de changer le nom du dossier ou l'on va enregistrer la photo.
 	 * 
-	 * @param n Le nom que vous souhaitez mettre (sans l'extension).
+	 * @param p Le path que vous souhaitez mettre (sans l'extension).
 	 */
-	public void setNom(String n) {
-		if (n != null)
-			nom = n;
+	public void setPath(String p) {
+		if (p != null)
+			path = p;
 		else
-			nom = "sans_nom";
+			path = "sans_nom";
 	}
 	
 	/**
@@ -249,10 +247,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 	 */
 	public void PrendrePhoto() {
 		try {
-			AndroidTree.CreateFolder(dossierPhoto,dossierPhoto);  //< On créait le dossier photo s'il ne l'est pas !
-			File Racine = Environment.getExternalStorageDirectory();
+			AndroidTree.CreateFolder(".", dossierPhoto);  //< On créait le dossier photo s'il ne l'est pas !
 
-			stream = new FileOutputStream(Racine + "/trombiscol/"+ dossierPhoto +"/" + nom + ".jpg"); //< Ouverture du flux pour la sauvegarde
+			stream = new FileOutputStream(path); //< Ouverture du flux pour la sauvegarde
 			camera.takePicture(null, callBackPhoto, callBackPhoto); //< On prend une photo avec la caméra
 		} 
 		catch (Exception e) {

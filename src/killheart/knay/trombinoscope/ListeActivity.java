@@ -160,9 +160,7 @@ public class ListeActivity extends Activity {
         		e.setId(classe.trouverDernierId()+1); //< On définie l'id de l'élève qu'on a ajouté
         		
         		classe.ajouterEleveAuGroupe(e, classe.getGroupes().get(0).getNom()); //< On ajoutes l'élève au premier groupe de la classe
-        		listeEleve.removeAllViews(); //< On éfface tout de la listeEleve
-        		classe.afficher(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On réaffiche la liste des élèves
-        		listeEleve.invalidate(); //< On refresh l'affichage de la liste
+        		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On rafraichit l'affichage de la liste
         } });
  
         

@@ -116,6 +116,33 @@ public class Grade {
 		return idMax;
 	}
 	
+	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de ré-afficher le layout lorsqu'il a déjà était affiché une premiere fois.
+	 * Elle supprime le contenue du layout et ré-affiche la scolaire.
+	 * 
+	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
+	 * @param c Le contexte Android pour l'affichage.
+	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
+	 * 
+	 * @return Pupil.FAILLURE Si une erreur s'est produite
+	 * @return Pupil.SUCCESS sinon
+	 */
+	public int actualiserAffichage(LinearLayout layout, Context c, int mode) {
+		int cr = Pupil.SUCCESS;
+
+		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
+			return Pupil.FAILLURE;
+		
+		layout.removeAllViews(); //< On éfface tout de la listeEleve
+		cr = this.afficher(layout, c, mode); //< On réaffiche la liste des élèves
+		layout.invalidate(); //< On refresh l'affichage de la liste
+		
+		return cr;
+	}
+	
 	/**
 	 * @author David et Jonathan
 	 * 

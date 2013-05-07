@@ -379,11 +379,6 @@ public class XmlManipulator {
 		
 		/*Verification*/
 		
-		
-		
-		
-		
-		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = Id.getLength();//< calcul de la taille de nodelist.
 		int IdEleveTmp = 0;

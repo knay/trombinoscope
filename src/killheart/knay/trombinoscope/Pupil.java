@@ -2,6 +2,7 @@ package killheart.knay.trombinoscope;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,10 +13,14 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
 
@@ -488,6 +493,7 @@ public class Pupil {
 		 */
 		public boolean onLongClick(View v) {
 			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
+			final AlertDialog.Builder r = new AlertDialog.Builder(v.getContext());
 			TextView titre = null;              //< Le titre de la boite de dialogue
 			TextView txtnom = null;             //< Le texte contenant le nom de l'élève
 			TextView txtprenom = null;          //< Le texte contenant le prénom de l'élève
@@ -515,16 +521,68 @@ public class Pupil {
 				photo.buildDrawingCache();
 				imgPhoto.setImageBitmap(photo.getDrawingCache());
 			}
-				
+			
+			Button BoutonModif = (Button)layoutGlobal.findViewById(R.id.bt_ModifierEleve); //< On recupère le bouton de retour
+			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
+				public void onClick(View w) {
+					LinearLayout sousLayout = null;     //< Le layout de modification d'un eleve
+					EditText txtnom = null;             //< Le texte contenant le nom de l'élève
+					EditText txtprenom = null;          //< Le texte contenant le prénom de l'élève
+					EditText txtdateNaissance = null;
+					TextView titre = null;              //< Le titre de la boite de dialogue
+					
+					
+					
+					sousLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null); //< On récupère le layoutglobal a partir de la view
+					
+					titre = (TextView) sousLayout.findViewById(R.id.dialogueTitre); //< On modifie le titre de la boite de dialogue
+					titre.setText("Modification");
+					
+					txtnom = (EditText) sousLayout.findViewById(R.id.NewNom); //< On modifie le nom de l'élève de la boite de dialogue
+					txtnom.setText(nom);
+					final String nouveauNom = txtnom.getText().toString();
+					
+					
+					txtprenom = (EditText) sousLayout.findViewById(R.id.NewPrenom); //< On modifie le prénom de l'élève de la boite de dialogue
+					txtprenom.setText(prenom);
+					final String nouveauPrenom = txtprenom.getText().toString();
+					
+					
+					txtdateNaissance = (EditText) sousLayout.findViewById(R.id.NewNaissance); //< On modifie la date de naissance de l'élève de la boite de dialogue
+					txtdateNaissance.setText(dateNaissance);
+					final String nouveauDate = txtdateNaissance.getText().toString();
+					
+					r.setView(sousLayout);
+					r.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) { 
+							nom = nouveauNom;
+							prenom = nouveauPrenom;
+							dateNaissance = nouveauDate;
+						}
+					});
+					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) { 
+						
+						}
+					});
+					
+					r.show();
+				}
+			});
+			
+			
 			//! On démarre la boite de dialogue
-			new AlertDialog.Builder(v.getContext())
-			.setView(layoutGlobal) //< On y met le layout global à l'interrieur
-			.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+			r.setView(layoutGlobal); //< On y met le layout global à l'interrieur
+			r.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) { 
 					
 				}
 			}).show();
 			return true;
 		}
+	
 	}
+	
+	
+	
 }

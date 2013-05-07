@@ -558,6 +558,7 @@ public class Pupil {
 							nom = nouveauNom;
 							prenom = nouveauPrenom;
 							dateNaissance = nouveauDate;
+							//XmlManipulator.modifEleve();
 						}
 					});
 					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

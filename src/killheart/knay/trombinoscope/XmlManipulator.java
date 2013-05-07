@@ -396,21 +396,21 @@ public class XmlManipulator {
 		            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
 		
 		            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            String Noms = ((Node)textNom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+		            ((Node) textNom).setTextContent(NomEleve);//< On récupère la valeur du nom.
 					
 					/*On récupère le prenom d'un eleve*/
 					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
 		            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
 		
 		            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            String Prenoms = ((Node)textPrenom.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+		            ((Node) textPrenom).setTextContent(PrenomEleve);//< On récupère la valeur du nom.
 					
 					/*On recupere la date de naissance*/
 					NodeList DateList = firstPersonElement.getElementsByTagName("date");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element DateElement = (Element)DateList.item(0);//< Convertion en Element.
 		
 		            NodeList textDate = DateElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            String Date = ((Node)textDate.item(0)).getNodeValue().trim();//< On récupère la valeur du nom.
+		            ((Node) textDate).setTextContent(DateEleve);//< On récupère la valeur du nom.
 					
 					
 				}

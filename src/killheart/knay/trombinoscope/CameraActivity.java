@@ -1,10 +1,15 @@
 package killheart.knay.trombinoscope;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
@@ -108,9 +113,20 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 				if (data != null) {
 					try {
 						if (stream != null) {
-							stream.write(data); //< Ecriture des datas dans le buffer
-							stream.flush();     //< Flush pour vider le buffer
-							stream.close();     //< On ferme le fichier
+							Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length); //< On crée une image a partir d'un array de byte
+							bmp = Bitmap.createScaledBitmap(bmp, 150, 100, true); //< On réduit la taille de l'image
+							
+							Matrix mat = new Matrix(); //< On crée une matrice pour pivoter l'image
+					        mat.postRotate(90); //< On rotate la matrice
+					        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), mat, true); //< On applique la matrice à l'image
+							
+							ByteArrayOutputStream baos = new ByteArrayOutputStream(); //< On crée un byteouput pour recupérer les bytes de la bmp
+							bmp.compress(CompressFormat.PNG, 0, baos); //< On met les octets de l'image pivoter et redimmensionner dans un tableau d'octet
+							byte[] bitmapdata = baos.toByteArray(); 
+							
+							stream.write(bitmapdata); //< Ecriture des datas dans le buffer
+							stream.flush();           //< Flush pour vider le buffer
+							stream.close();           //< On ferme le fichier
 							
 							setResult(getIntent().getExtras().getInt("idEleve"), getIntent()); //< On renvoie comme resultat l'id de l'élève
 							finish();  //< On arrête la caméra

@@ -27,8 +27,10 @@ public class MainActivity extends Activity {
          
         /*Test de la création de repertoire*/
         String FolderXml = "Xml";//< Variable FolderXml contenant le nom du dossier ou sont stocké les Xml.
+        String FolderPhoto = "photos";
         AndroidTree.CreateRepertory();
 		AndroidTree.CreateFolder(FolderXml,"trombiscol");
+		AndroidTree.CreateFolder(FolderPhoto,"trombiscol");
         
 		/**
 		 * @author David et Jonathan

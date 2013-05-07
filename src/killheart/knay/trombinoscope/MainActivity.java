@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
 		AndroidTree.CreateFolder(FolderXml,"trombiscol");
 		AndroidTree.CreateFolder(FolderPhoto,"trombiscol");
         
-		
 		/**
 		 * @author David et Jonathan
 		 *

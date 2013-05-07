@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:scaleType="center"
+        android:background="#FFFFBB33"
+        android:gravity="center"
+        android:contentDescription="@string/app_name" >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/ColorBtWhite"
+            android:textIsSelectable="false"
+            android:id="@+id/dialogueTitre"/>
+    </LinearLayout> 
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:orientation="horizontal"
+        android:gravity="center">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:orientation="vertical"
+            android:paddingLeft="20sp">
+        
+             <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="20sp"
+	            android:textColor="@color/ColorBtWhite"
+	            android:text="Nom :"/>
+            <EditText 
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:paddingTop="15sp"
+                android:id="@+id/NewNom"/>
+             <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="20sp"
+	            android:textColor="@color/ColorBtWhite"
+	            android:text="Prenom:"/>
+            <EditText 
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:paddingTop="15sp"
+                android:id="@+id/NewPrenom"/>
+             <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="20sp"
+	            android:textColor="@color/ColorBtWhite"
+	            android:text="Date de naissance :"/>
+            <EditText 
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:paddingTop="15sp"
+                android:paddingBottom="5sp"
+                android:id="@+id/NewNaissance"/>
+        </LinearLayout>
+        
+        
+    </LinearLayout>
+    
+    
+</LinearLayout>

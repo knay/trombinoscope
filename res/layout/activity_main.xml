@@ -74,19 +74,17 @@
                 android:id="@+id/ViewListe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
                 android:text="@string/liste"
                 android:background="@drawable/fond_btn_gauche_accueil"
                 android:width="250dp"
-                android:height="30dp"
-                android:layout_marginBottom="20dp"/>
+                android:height="30dp"/>
             
             <ImageView 
                 android:layout_marginLeft="-40sp"
-                android:layout_marginTop="-20sp"
+                android:layout_marginTop="-6sp"
                 android:src="@drawable/liste"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="52sp"
                 android:height="20sp"
                 android:contentDescription="@string/app_name"/>
         </LinearLayout> 
@@ -102,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/trombi"
+                android:layout_marginTop="5sp"
                 android:background="@drawable/fond_btn_droit_accueil"
                 android:width="250dp"
                 android:layout_marginBottom="20dp"/>
@@ -118,18 +117,18 @@
                 android:id="@+id/btn_quitter_appli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
                 android:text="@string/quitter_str"
                 android:background="@drawable/fond_btn_gauche_accueil"
                 android:width="250dp"
                 android:layout_marginBottom="20dp"/>
             
             <ImageView 
-                android:layout_marginLeft="-40sp"
-                android:layout_marginTop="-21sp"
+                android:layout_marginLeft="-70sp"
+                android:layout_marginTop="-15sp"
                 android:src="@drawable/quitter"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:height="20sp"
+                android:layout_height="55sp"
                 android:contentDescription="@string/app_name"/>
             
         </LinearLayout>

@@ -81,6 +81,17 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		final Button BtQuitter = (Button) layoutGlobal.findViewById(R.id.btn_quitter_appli);
+		BtQuitter.setOnClickListener(new OnClickListener(){
+			/**
+			 * @author David et Jonathan
+			 *
+			 * Listener sur le bouton "quitter". Permet de quitter l'application.
+			 */
+			public void onClick(View v){
+				finish();
+			}
+		});
 		
 		setContentView(layoutGlobal);
     }

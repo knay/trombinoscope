@@ -114,7 +114,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 					try {
 						if (stream != null) {
 							Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length); //< On crée une image a partir d'un array de byte
-							bmp = Bitmap.createScaledBitmap(bmp, 150, 100, true); //< On réduit la taille de l'image
+							bmp = Bitmap.createScaledBitmap(bmp, 150, 120, true); //< On réduit la taille de l'image
 							
 							Matrix mat = new Matrix(); //< On crée une matrice pour pivoter l'image
 					        mat.postRotate(90); //< On rotate la matrice

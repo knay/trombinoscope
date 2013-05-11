@@ -32,7 +32,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.12"
             android:orientation="horizontal"
-            android:background="@color/Noir">
+            android:background="@color/fond_bas_liste">
             <Button 
                 android:id="@+id/btn_retourliste"
                 android:layout_width="fill_parent"
@@ -40,7 +40,9 @@
                 android:drawableLeft="@drawable/ic_menu_back"
                 android:drawablePadding="-15sp"
                 android:layout_weight=".50"
-                android:textColor="@color/ColorBtWhite"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn"
+                android:textColor="@color/Noir"
                 android:text="@string/retour_str"/>
             <Button 
                 android:id="@+id/btn_lancerapercue"
@@ -49,6 +51,8 @@
                 android:drawableLeft="@drawable/verstrombi"
                 android:layout_weight=".50"
                 android:drawablePadding="-15sp"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn_apercue"
                 android:textColor="@color/ColorBtWhite"
                 android:text="@string/verstrombi_str"/>
                     

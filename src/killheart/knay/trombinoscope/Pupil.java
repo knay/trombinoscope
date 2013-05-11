@@ -2,7 +2,6 @@ package killheart.knay.trombinoscope;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
 
@@ -249,7 +247,8 @@ public class Pupil {
 	 * @return PAS_DE_PHOTO si tout s'est bien passé mais que la photo de l'élève n'est pas définie.
 	 * @return FAILLURE Si un problème a eu lieu.
 	 */
-	private int afficherListe(LinearLayout layout, final Context c, int mode) {
+	@SuppressWarnings("deprecation") //< Necessaire pour rétro compatibilité
+    private int afficherListe(LinearLayout layout, final Context c, int mode) {
 		int cr = SUCCESS;                           //< Valeur de retour
 		LinearLayout lay = new LinearLayout(c);     //< Layout correspondant à la ligne
 		LinearLayout bordure = new LinearLayout(c); //< Layout correspondant à la ligne
@@ -266,6 +265,7 @@ public class Pupil {
 		txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15); //< On change la taille du texte
 		txt.setPadding(10, 0, 0, 0); //< On met un petit padding en haut et à gauche (plus jolie)
 		txt.setGravity(Gravity.CENTER_VERTICAL);
+		txt.setTextColor(c.getResources().getColor(R.color.txtItemList)); //< On met une couleur au texte
 		
 		//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
 		photo = new ImageView(c); //< Instanciation de l'objet
@@ -287,7 +287,7 @@ public class Pupil {
 		
 		lay.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
 		lay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 85)); //< On fait une ligne de 70dp de hauteur
-		lay.setBackgroundColor(c.getResources().getColor(R.color.bgListe)); //< On met une couleur de fond
+		lay.setBackgroundDrawable(c.getResources().getDrawable(R.drawable.fond_item_liste)); //< On met un fond à l'item
 		lay.setGravity(Gravity.CENTER); //< On centre le tout
 		
 		lay.setOnTouchListener(new ListeOnTouch()); //< Mise en place d'un ontouchlistener pour changer la couleur du layout quand on le touche
@@ -435,14 +435,15 @@ public class Pupil {
 		 * 
 		 * @return Toujours false.
 		 */
-		public boolean onTouch(View v, MotionEvent event) {
+		@SuppressWarnings("deprecation") //< Nécessaire pour rétro-compatibilité
+        public boolean onTouch(View v, MotionEvent event) {
 			switch(event.getAction()) {
 				case MotionEvent.ACTION_DOWN:  //< Si on appuie
 				case MotionEvent.ACTION_MOVE:  //< Ou si on bouge en restant sur le layout
-					v.setBackgroundColor(v.getResources().getColor(R.color.bgListeOnclick)); //< Alors on applique la couleur on click
+					v.setBackgroundDrawable(v.getResources().getDrawable(R.drawable.fond_item_liste_pressed));//< Alors on applique la couleur on click
 				break;
 		        default: //< Sinon
-		        	v.setBackgroundColor(v.getResources().getColor(R.color.bgListe)); //< On applique la couleur par défaut
+		        	v.setBackgroundDrawable(v.getResources().getDrawable(R.drawable.fond_item_liste));
 		        break;
 			}
             return false; //< Retourner false sinon le onlongclick ne marche pas.

@@ -1,8 +1,11 @@
 package killheart.knay.trombinoscope;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,6 +60,9 @@ public class MainActivity extends Activity {
 		photoPreview1.startAnimation(animation1);
 		photoPreview2.startAnimation(animation2);
 		photoPreview3.startAnimation(animation3);
+		
+		/*ActionBar bar = getActionBar();
+		bar.setS;*/
         
 		final Button BtListe = (Button) layoutGlobal.findViewById(R.id.ViewListe);//< Variable faisant le lien au bouton
 		BtListe.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” sur le bouton utilisé pour passer à la seconde activité 

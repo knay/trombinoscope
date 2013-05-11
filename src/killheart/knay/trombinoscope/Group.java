@@ -3,7 +3,10 @@ package killheart.knay.trombinoscope;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 /**
  * @author David et Jonathan
@@ -147,6 +150,23 @@ public class Group {
 	public int afficher (LinearLayout layout, Context c, int mode) {
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
+		
+		TextView txt = new TextView(c);
+		LinearLayout souslay = new LinearLayout(c);
+		
+		
+		txt.setText(nom);
+		txt.setTextColor(c.getResources().getColor(R.color.ColorBtWhite));
+		txt.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 40)); 
+		
+		souslay.setOrientation(LinearLayout.VERTICAL); //< On met orientation horizontal sur la ligne
+		souslay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); 
+		souslay.setBackgroundColor(c.getResources().getColor(R.color.bgListeTitreGroupe)); //< On met une couleur de fond
+		souslay.setGravity(Gravity.CENTER); //< On centre le tout
+		
+		souslay.addView(txt);
+		
+		layout.addView(souslay);
 		
 		for (int i = 0; i < eleves.size(); i++) {
 			int cr = eleves.get(i).afficher(layout, c, mode);     //< On affiche un élève sur le layout

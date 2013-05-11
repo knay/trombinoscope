@@ -1,4 +1,17 @@
 <resources>
-    <color name="bgListeOnclick">#999999</color>
-    <color name="bgListe">#eeeeee</color>
+    <color name="bgListeOnclick">#1e6387</color>
+    <color name="bgListe">#b4d8ea</color>
+    <color name="bgListeTitreGroupe">#383c41</color>
+    <color name="bgListeStart">#f3f3f3</color>
+    <color name="bgListeEnd">#ffffff</color>
+    <color name="bgListeStartPressed">#d2821a</color>
+    <color name="bgListeEndPressed">#f8a943</color>
+    <color name="txtItemList">#383c41</color>
+    <color name="fond_actionbar_start">#123f7b</color>
+    <color name="fond_actionbar_end">#2f6aba</color>
+    <color name="fond_btn_apercue_start">#d2821a</color>
+    <color name="fond_btn_apercue_end">#f8a943</color>
+    <color name="fond_btn_start">#cccccc</color>
+    <color name="fond_btn_end">#ffffff</color>
+    <color name="fond_bas_liste">#333333</color>
 </resources>

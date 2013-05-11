@@ -1,6 +1,19 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="AppThemePerso" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
 
-    <style name="AppTheme" parent="android:Theme.Light" />
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/fond_actionbar</item>
+        <item name="android:titleTextStyle">@style/MyActionBar.Text</item>
+        <item name="android:displayOptions"></item>
+    </style>
+
+    <style name="MyActionBar.Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ECECEC</item>
+    </style>
+    
     <color name="Noir">#000000</color>
-
 </resources>

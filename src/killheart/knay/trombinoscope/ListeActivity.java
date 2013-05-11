@@ -82,7 +82,7 @@ public class ListeActivity extends Activity {
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.listelayout);
 		
 		classe.ajouterGroup(listegroupe);
-		classe.getGroupes().get(0).setNom("1");
+		classe.getGroupes().get(0).setNom("Groupe 1");
 		
 		AndroidTree.CreateFolder(classe.getNom(), "trombiscol/photos"); //< On crée le dossier pour les photos des scolaires
 		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève

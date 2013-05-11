@@ -50,6 +50,9 @@ public class MainActivity extends Activity {
 		Animation animation1 = AnimationUtils.loadAnimation(photoPreview1.getContext(), R.anim.anim_accueil);
 		Animation animation2 = AnimationUtils.loadAnimation(photoPreview2.getContext(), R.anim.anim_accueil);
 		Animation animation3 = AnimationUtils.loadAnimation(photoPreview3.getContext(), R.anim.anim_accueil);
+		
+		animation2.setStartOffset(3000);
+		animation3.setStartOffset(6000);
 		// On l'affecte au widget désiré, et on démarre l'animation
 		photoPreview1.startAnimation(animation1);
 		photoPreview2.startAnimation(animation2);

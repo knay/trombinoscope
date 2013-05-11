@@ -46,18 +46,21 @@
                     android:id="@+id/photoAnimAccueil1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="-60sp"
                     android:contentDescription="@string/app_name"/>
                  <ImageView 
                     android:src="@drawable/photo2"
                     android:id="@+id/photoAnimAccueil2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="-100sp"
                     android:contentDescription="@string/app_name"/>
                  <ImageView 
                     android:src="@drawable/photo3"
                     android:id="@+id/photoAnimAccueil3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="-120sp"
                     android:contentDescription="@string/app_name"/>
             </LinearLayout>
         </LinearLayout>

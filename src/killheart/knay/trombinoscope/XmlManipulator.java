@@ -420,5 +420,11 @@ public class XmlManipulator {
 		
 	}
 	
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Fonction qui permet d'exporter le trombinoscope au format pdf.
+	 */
+	public void Pdf(){}
 	
 }

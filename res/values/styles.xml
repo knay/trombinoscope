@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <style name="AppThemePerso" parent="@android:style/Theme.Holo.Light">
+    <style name="AppThemePerso" parent="@android:style/Theme.Holo.Light" tools:targetApi="11">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar" tools:targetApi="11">
         <item name="android:background">@drawable/fond_actionbar</item>
         <item name="android:titleTextStyle">@style/MyActionBar.Text</item>
         <item name="android:displayOptions"></item>

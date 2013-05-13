@@ -7,6 +7,8 @@
         android:type="linear"/>
     
     <corners 
+        android:topLeftRadius="0sp"
+        android:bottomLeftRadius="0sp"
         android:bottomRightRadius="7sp"
         android:topRightRadius="7sp"/>
 

@@ -40,6 +40,8 @@
                 android:layout_height="50sp"
                 android:drawableLeft="@drawable/verstrombi"
                 android:drawablePadding="-15sp"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn_apercue"
                 android:textColor="@color/ColorBtWhite"
                 android:text="@string/verstrombi_str"/>
             
@@ -49,7 +51,9 @@
                 android:layout_height="50sp"
                 android:drawableLeft="@drawable/ic_menu_back"
                 android:drawablePadding="-15sp"
-                android:textColor="@color/ColorBtWhite"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn"
+                android:textColor="@color/Noir"
                 android:text="@string/retour_str"/>
                     
         </LinearLayout>

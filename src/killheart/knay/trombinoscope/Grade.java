@@ -139,18 +139,19 @@ public class Grade {
 	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
 	 * @param c Le contexte Android pour l'affichage.
 	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
+	 * @param largeurEcran La largeur de l'écran pour mode trombi
 	 * 
 	 * @return Pupil.FAILLURE Si une erreur s'est produite
 	 * @return Pupil.SUCCESS sinon
 	 */
-	public int actualiserAffichage(LinearLayout layout, Context c, int mode) {
+	public int actualiserAffichage(LinearLayout layout, Context c, int mode, int largeurEcran) {
 		int cr = Pupil.SUCCESS;
 
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
 		layout.removeAllViews(); //< On éfface tout de la listeEleve
-		cr = this.afficher(layout, c, mode); //< On réaffiche la liste des élèves
+		cr = this.afficher(layout, c, mode, largeurEcran); //< On réaffiche la liste des élèves
 		layout.invalidate(); //< On refresh l'affichage de la liste
 		
 		return cr;
@@ -165,16 +166,17 @@ public class Grade {
 	 * @param layout Le layout sur lequel on souhaite afficher l'élève.
 	 * @param c Le contexte Android pour l'affichage.
 	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
+	 * @param largeurEcran La largeur de l'écran pour le mode trombi
 	 * 
 	 * @return Pupil.FAILLURE Si une erreur s'est produite
 	 * @return Pupil.SUCCESS sinon
 	 */
-	public int afficher (LinearLayout layout, Context c, int mode) {
+	public int afficher (LinearLayout layout, Context c, int mode, int largeurEcran) {
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
 		for (int i = 0; i < groupes.size(); i++) {
-			int cr = groupes.get(i).afficher(layout, c, mode);     //< On affiche un groupe sur le layout
+			int cr = groupes.get(i).afficher(layout, c, mode, largeurEcran);     //< On affiche un groupe sur le layout
 			if (cr == Pupil.FAILLURE)
 				return cr;
 		}

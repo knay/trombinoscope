@@ -371,12 +371,13 @@ public class XmlManipulator {
 	 * 
 	 * @param Objet de la class Pupil
 	 */
-	public void modifEleve(Pupil eleve){
+	public void modifEleve(int IdEleve,String NomEleve,String PrenomEleve,String DateEleve){
+		/*
 		int IdEleve = eleve.getId();
 		String NomEleve = eleve.getNom();
 		String PrenomEleve = eleve.getPrenom();
 		String DateEleve = eleve.getDateNaissance();
-		
+		*/
 		/*Verification*/
 		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre

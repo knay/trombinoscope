@@ -493,6 +493,9 @@ public class Pupil {
 		 * @return Toujours true mais devrait retourner false en cas d'érreur.
 		 */
 		public boolean onLongClick(View v) {
+			
+			
+			
 			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
 			final AlertDialog.Builder r = new AlertDialog.Builder(v.getContext());
 			TextView titre = null;              //< Le titre de la boite de dialogue
@@ -527,6 +530,7 @@ public class Pupil {
 			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 				public void onClick(View w) {
 					LinearLayout sousLayout = null;     //< Le layout de modification d'un eleve
+					
 					EditText txtnom = null;             //< Le texte contenant le nom de l'élève
 					EditText txtprenom = null;          //< Le texte contenant le prénom de l'élève
 					EditText txtdateNaissance = null;
@@ -541,25 +545,32 @@ public class Pupil {
 					
 					txtnom = (EditText) sousLayout.findViewById(R.id.NewNom); //< On modifie le nom de l'élève de la boite de dialogue
 					txtnom.setText(nom);
-					final String nouveauNom = txtnom.getText().toString();
 					
 					
 					txtprenom = (EditText) sousLayout.findViewById(R.id.NewPrenom); //< On modifie le prénom de l'élève de la boite de dialogue
 					txtprenom.setText(prenom);
-					final String nouveauPrenom = txtprenom.getText().toString();
 					
 					
 					txtdateNaissance = (EditText) sousLayout.findViewById(R.id.NewNaissance); //< On modifie la date de naissance de l'élève de la boite de dialogue
 					txtdateNaissance.setText(dateNaissance);
-					final String nouveauDate = txtdateNaissance.getText().toString();
 					
 					r.setView(sousLayout);
 					r.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+						@SuppressWarnings("null")
+						
 						public void onClick(DialogInterface dialog, int which) { 
-							nom = nouveauNom;
-							prenom = nouveauPrenom;
-							dateNaissance = nouveauDate;
-							//XmlManipulator.modifEleve();
+							final LinearLayout recupLayout = null;	//< Le layout qui permet de recupe le nom.. lors de lappui sur valider
+							//recupLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);    
+							//< Le texte contenant le nom de l'élève
+							    //< Le texte contenant le prénom de l'élève
+							
+							EditText Nnom = (EditText) recupLayout.findViewById(R.id.NewNom);
+							nom = Nnom.getText().toString();
+							EditText Nprenom = (EditText) recupLayout.findViewById(R.id.NewPrenom);
+							prenom = Nprenom.getText().toString();
+							EditText NdateNaissance = (EditText) recupLayout.findViewById(R.id.NewNaissance);
+							dateNaissance = NdateNaissance.getText().toString();
+							ListeActivity.xml.modifEleve(id,nom,prenom,dateNaissance);
 						}
 					});
 					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -584,7 +595,5 @@ public class Pupil {
 		}
 	
 	}
-	
-	
 	
 }

@@ -20,7 +20,7 @@
     <string name="title_activity_trombi">TrombiActivity</string>
     <string name="btn_retourListe">Liste</string>
     <string name="verstrombi_str">Aperçue</string>
-    <string name="btnexporter_str">Exporter en PDF</string>
+    <string name="btnexporter_str">Exporter</string>
     <string name="retour_str">Retour</string>
     <string name="quitter_str">Quitter l\'appli\'</string>
     

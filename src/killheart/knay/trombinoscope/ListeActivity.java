@@ -166,6 +166,7 @@ public class ListeActivity extends Activity {
         		e.setPrenom(NouveauPrenom.getText().toString()); //< On définie le prenom de l'élève que l'on a ajouté
         		e.setDateNaissance(NouveauDate.getText().toString()); //< On définie le dateNaissance de l'élève que l'on a ajouté
         		e.setId(classe.trouverDernierId()+1); //< On définie l'id de l'élève qu'on a ajouté
+        		e.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit l'url vers la photo
         		
         		classe.ajouterEleveAuGroupe(e, classe.getGroupes().get(0).getNom()); //< On ajoutes l'élève au premier groupe de la classe
         		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE, largeurEcran); //< On rafraichit l'affichage de la liste
@@ -216,7 +217,6 @@ public class ListeActivity extends Activity {
         adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {//< On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
             public void onClick(DialogInterface dialog, int which) {//< Lorsque l'on cliquera sur annuler on quittera l'application
             	
-            	finish();
           } });
         adb.show();
 		

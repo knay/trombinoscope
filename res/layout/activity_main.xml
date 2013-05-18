@@ -73,7 +73,7 @@
             
             <ImageView 
                 android:layout_marginLeft="-40sp"
-                android:layout_marginTop="-6sp"
+                android:layout_marginTop="0sp"
                 android:src="@drawable/liste"
                 android:layout_width="wrap_content"
                 android:layout_height="52sp"
@@ -96,7 +96,16 @@
                 android:background="@drawable/fond_btn_droit_accueil"
                 android:height="50sp"
                 android:width="250dp"
-                android:layout_marginBottom="20dp"/>
+                />
+            
+            <ImageView 
+                android:layout_marginRight="215sp"
+                android:layout_marginTop="-51sp"
+                android:src="@drawable/trombi"
+                android:layout_width="wrap_content"
+                android:layout_height="52sp"
+                android:height="20sp"
+                android:contentDescription="@string/app_name"/>
     	    
         </LinearLayout>
         
@@ -114,15 +123,14 @@
                 android:text="@string/quitter_str"
                 android:background="@drawable/fond_btn_gauche_accueil"
                 android:width="250dp"
-                android:height="50sp"
-                android:layout_marginBottom="20dp"/>
+                android:height="50sp"/>
             
             <ImageView 
-                android:layout_marginLeft="-70sp"
-                android:layout_marginTop="-15sp"
+                android:layout_marginLeft="-35sp"
+                android:layout_marginTop="5sp"
                 android:src="@drawable/quitter"
                 android:layout_width="wrap_content"
-                android:layout_height="55sp"
+                android:layout_height="52sp"
                 android:contentDescription="@string/app_name"/>
             
         </LinearLayout>

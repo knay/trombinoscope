@@ -318,10 +318,12 @@ public class Pupil {
 	 * @return PAS_DE_PHOTO si tout s'est bien passé mais que la photo de l'élève n'est pas définie.
 	 * @return FAILLURE Si un problème a eu lieu.
 	 */
-	private int afficherTrombi(LinearLayout layout, final Context c, int mode) {
+	@SuppressWarnings("deprecation") //< Necessaire pour compatibilité ascendante
+    private int afficherTrombi(LinearLayout layout, final Context c, int mode) {
 		int cr = SUCCESS;                       //< Valeur de retour
 		LinearLayout lay = new LinearLayout(c); //< Layout correspondant à la ligne
 		TextView txt = new TextView(c);         //< Le texte affichant le nom de l'élève dans la liste
+		Bitmap bmp = null;                      //< L'image de la photo (pour aller chercher dans l'url)
 		
 		// Si le mode n'existe pas... FAIL !
 		if ((mode != MODE_LISTE && mode != MODE_TROMBI) || layout == null || c == null)
@@ -332,11 +334,14 @@ public class Pupil {
 		txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15); //< On change la taille de la font 
 		txt.setPadding(15, 4, 0, 0); //< On met un petit padding pour centrer le nom
 		
-		if (photo == null) {
-			photo = new ImageView(c); //< Instanciation de l'objet
+		//! Préparation de la photo (avec une image par défaut si non définie, avec l'image définie sinon)
+		photo = new ImageView(c); //< Instanciation de l'objet
+		bmp = BitmapFactory.decodeFile(urlImage);
+		if (bmp != null)
+			photo.setImageBitmap(bmp); //< on va chercher l'image dans le lien
+		else {
 			photo.setImageResource(R.drawable.icon_photo); //< On va chercher l'image par défaut
-			photo.setPadding(7, 7, 0, 0); //< On met un padding 
-			cr = PAS_DE_PHOTO; //< Compte rendu avec Pas de photo
+			cr = PAS_DE_PHOTO; //< Compte rendu avec pas de photo
 		}
 		
 		photo.setLayoutParams(new LinearLayout.LayoutParams(80, 80)); //< On redimensionne la view de l'image
@@ -346,7 +351,7 @@ public class Pupil {
 		
 		lay.setOrientation(LinearLayout.VERTICAL); //< On met orientation vertical sur le layout trombi
 		lay.setLayoutParams(new LayoutParams(100, 150)); //< On définie la taille d'une 'case' pour l'élève
-		lay.setBackgroundColor(Color.LTGRAY); //< On met une couleur de fond
+		lay.setBackgroundDrawable(c.getResources().getDrawable(R.drawable.fond_item_liste)); //< On met un fond à l'item
 		photo.setOnLongClickListener(new OnLongClickListener() {
 			public boolean onLongClick(View v) {
 				CameraActivity Cam = new CameraActivity();
@@ -493,9 +498,6 @@ public class Pupil {
 		 * @return Toujours true mais devrait retourner false en cas d'érreur.
 		 */
 		public boolean onLongClick(View v) {
-			
-			
-			
 			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
 			final AlertDialog.Builder r = new AlertDialog.Builder(v.getContext());
 			TextView titre = null;              //< Le titre de la boite de dialogue
@@ -536,8 +538,6 @@ public class Pupil {
 					EditText txtdateNaissance = null;
 					TextView titre = null;              //< Le titre de la boite de dialogue
 					
-					
-					
 					sousLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null); //< On récupère le layoutglobal a partir de la view
 					
 					titre = (TextView) sousLayout.findViewById(R.id.dialogueTitre); //< On modifie le titre de la boite de dialogue
@@ -570,7 +570,7 @@ public class Pupil {
 							prenom = Nprenom.getText().toString();
 							EditText NdateNaissance = (EditText) recupLayout.findViewById(R.id.NewNaissance);
 							dateNaissance = NdateNaissance.getText().toString();
-							ListeActivity.xml.modifEleve(id,nom,prenom,dateNaissance);
+							ListeActivity.ManipulXml.modifEleve(id,nom,prenom,dateNaissance);
 						}
 					});
 					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -583,7 +583,6 @@ public class Pupil {
 				}
 			});
 			
-			
 			//! On démarre la boite de dialogue
 			r.setView(layoutGlobal); //< On y met le layout global à l'interrieur
 			r.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
@@ -593,7 +592,5 @@ public class Pupil {
 			}).show();
 			return true;
 		}
-	
 	}
-	
 }

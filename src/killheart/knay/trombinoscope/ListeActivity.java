@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +43,8 @@ public class ListeActivity extends Activity {
 	// ----- ----- Les classes et variables classiques ----- ----- 
 	private Group listegroupe;                           //< Les groupe contenue dans la classe
 	private Grade classe;                                //< La scolaire a afficher
-	private XmlManipulator ManipulXml;                   //< Le manipulateur du fichier XML
+	public static XmlManipulator ManipulXml;             //< Le manipulateur du fichier XML
+	private int largeurEcran;                            //< La largeur de l'écran pour affichage en mode trombi
 	
 	/**
 	 * @author David et Jonathan
@@ -50,7 +54,8 @@ public class ListeActivity extends Activity {
 	 * 
 	 * @param savedInstanceState L'état de l'application.
 	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	@SuppressWarnings("deprecation") //< On enlève le warning car necessaire pour vieille version d'android
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);          //< Appel au super-constructeur
 		classe = new Grade();
 		listegroupe = new Group();
@@ -87,7 +92,11 @@ public class ListeActivity extends Activity {
 		AndroidTree.CreateFolder(classe.getNom(), "trombiscol/photos"); //< On crée le dossier pour les photos des scolaires
 		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
 		
-		classe.afficher(listeEleve, this, Pupil.MODE_LISTE);
+		WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		largeurEcran = display.getWidth();
+		
+		classe.afficher(listeEleve, this, Pupil.MODE_LISTE, largeurEcran);
 		
 		setContentView(layoutGlobal);
 	}
@@ -159,7 +168,7 @@ public class ListeActivity extends Activity {
         		e.setId(classe.trouverDernierId()+1); //< On définie l'id de l'élève qu'on a ajouté
         		
         		classe.ajouterEleveAuGroupe(e, classe.getGroupes().get(0).getNom()); //< On ajoutes l'élève au premier groupe de la classe
-        		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On rafraichit l'affichage de la liste
+        		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE, largeurEcran); //< On rafraichit l'affichage de la liste
         } });
  
         
@@ -231,7 +240,7 @@ public class ListeActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, datas);
 
         if (requestCode == 99) {
-    		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE); //< On rafraichit l'affichage de la liste
+    		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE, largeurEcran); //< On rafraichit l'affichage de la liste
         }
     }
 

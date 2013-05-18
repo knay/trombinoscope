@@ -5,10 +5,12 @@ import java.io.File;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,12 +28,17 @@ import android.widget.RelativeLayout;
  */
 public class TrombiActivity extends Activity {
 	// ----- ----- Les classes Android ----- ----- 
-	RelativeLayout layoutGlobal;
-	LinearLayout trombiEleve;//< Le layout qui affiche juste la liste
-	private XmlManipulator ManipulXml;
+	private RelativeLayout layoutGlobal;                 //< Le layout de l'activité complète
+	private LinearLayout listeEleve;                     //< Le layout qui affiche juste la liste
+	private Button BoutonRetour;                         //< Le bouton retour pour lui ajouter le listener
+	private Button BoutonExporter;                       //< Le bouton pour lancer l'exportation PDF, pour lui ajouter le listener
 	
-	Grade classe;                                //< La scolaire a afficher
-	Group listegroupe;                           //< Les groupe contenue dans la classe
+	// ----- ----- Les classes et variables classiques ----- ----- 
+	private Group listegroupe;                           //< Les groupe contenue dans la classe
+	private Grade classe;                                //< La scolaire a afficher
+	private XmlManipulator ManipulXml;                   //< Le manipulateur du fichier XML
+	private int largeurEcran;                            //< La largeur de l'écran pour afficher
+	
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -40,38 +47,48 @@ public class TrombiActivity extends Activity {
 	 * 
 	 * @param savedInstanceState L'état de l'application.
 	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	@SuppressWarnings("deprecation") //< On enleve le warning car necessaire pour compatibilité ascendante
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);         //< Appel au super-constructeur
-		Pupil e = new Pupil();
 		classe = new Grade();
+		listegroupe = new Group();
 		
 		/*Test*/
 		File Racine = Environment.getExternalStorageDirectory();
 		String chemin = ""+Racine+"/trombiscol/Xml/classe.xml";//< Chemin en fonction de la racine de la sdcard
-		XmlManipulator xml = new XmlManipulator(chemin);
-		this.ManipulXml = xml;
-		listegroupe = xml.LireEleve();
+		ManipulXml = new XmlManipulator(chemin);
+		listegroupe = ManipulXml.LireEleve();
 		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_trombi, null);
-		Button BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourTrombi); //< On recupère le bouton de retour
+
+		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourTrombi); //< On recupère le bouton de retour
 		BoutonRetour.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
-			    finish();
+				finish();
 			}
 		});
 		
-		Button BoutonApercue = (Button)layoutGlobal.findViewById(R.id.btn_lancerapercue); //< On recupère le bouton de l'aperçue
-		BoutonApercue.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
+		BoutonExporter = (Button)layoutGlobal.findViewById(R.id.btn_exporter); //< On recupère le bouton d'exportation
+		BoutonExporter.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
-				Intent intent = new Intent(TrombiActivity.this, ListeActivity.class); //< On fait un lient entre l'activité et celle que va lancer
-				startActivity(intent); //< On lance l'activité trombinoscope
+			// TODO ajouter exportation PDF
 			}
 		});
 		
-		trombiEleve = (LinearLayout)layoutGlobal.findViewById(R.id.trombilayout);
+		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.trombilayout);
+
+		WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		largeurEcran = display.getWidth();
 		
 		classe.ajouterGroup(listegroupe);
-		classe.afficher(trombiEleve, this, Pupil.MODE_TROMBI);
+		classe.getGroupes().get(0).setNom("Groupe 1");
+		
+		AndroidTree.CreateFolder(classe.getNom(), "trombiscol/photos"); //< On crée le dossier pour les photos des scolaires
+		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
+		
+		classe.afficher(listeEleve, this, Pupil.MODE_TROMBI, largeurEcran);
+		
 		setContentView(layoutGlobal);
 	}
 

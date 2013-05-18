@@ -8,7 +8,8 @@
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/fond_trombi">
         <RelativeLayout 
             android:layout_width="fill_parent"
             android:layout_height="0dp"
@@ -21,7 +22,7 @@
                     android:id="@+id/trombilayout"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
                     
                 </LinearLayout>
             </ScrollView>
@@ -40,17 +41,21 @@
                 android:drawableLeft="@drawable/ic_menu_back"
                 android:drawablePadding="-15sp"
                 android:layout_weight=".50"
-                android:textColor="@color/ColorBtWhite"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn"
+                android:textColor="@color/Noir"
                 android:text="@string/retour_str"/>
             <Button 
-                android:id="@+id/btn_lancerapercue"
+                android:id="@+id/btn_exporter"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:drawableLeft="@drawable/verstrombi"
                 android:layout_weight=".50"
                 android:drawablePadding="-15sp"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn_apercue"
                 android:textColor="@color/ColorBtWhite"
-                android:text="@string/versliste_str"/>
+                android:text="@string/btnexporter_str"/>
                     
         </LinearLayout>
     

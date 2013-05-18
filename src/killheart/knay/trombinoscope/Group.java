@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -143,33 +144,52 @@ public class Group {
 	 * @param layout Le layout sur lequel on souhaite afficher le groupe.
 	 * @param c Le contexte Android pour l'affichage.
 	 * @param mode Le mode d'affichage de l'élève : MODE_LISTE ou MODE_TROMBI accépté.
+	 * @param largeurEcran La largeur de l'écran pour savoir combien mettre d'élève par ligne en mode trombi.
 	 * 
 	 * @return Pupil.FAILLURE Si une erreur s'est produite.
 	 * @return Pupil.SUCCESS Si tout va bien.
 	 */
-	public int afficher (LinearLayout layout, Context c, int mode) {
+	public int afficher (LinearLayout layout, Context c, int mode, int largeurEcran) {
+		LinearLayout ligne = null;
+		
 		if ((mode != Pupil.MODE_LISTE && mode != Pupil.MODE_TROMBI) || layout == null)
 			return Pupil.FAILLURE;
 		
-		TextView txt = new TextView(c);
-		LinearLayout souslay = new LinearLayout(c);
+		//! Si on est en mode liste on affiche le nom du groupe.
+		if (mode == Pupil.MODE_LISTE) {
+			TextView txt = new TextView(c);
+			LinearLayout souslay = new LinearLayout(c);
 		
-		
-		txt.setText(nom);
-		txt.setTextColor(c.getResources().getColor(R.color.ColorBtWhite));
-		txt.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 40)); 
-		
-		souslay.setOrientation(LinearLayout.VERTICAL); //< On met orientation horizontal sur la ligne
-		souslay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); 
-		souslay.setBackgroundColor(c.getResources().getColor(R.color.bgListeTitreGroupe)); //< On met une couleur de fond
-		souslay.setGravity(Gravity.CENTER); //< On centre le tout
-		
-		souslay.addView(txt);
-		
-		layout.addView(souslay);
-		
+			txt.setText(nom);
+			txt.setTextColor(c.getResources().getColor(R.color.ColorBtWhite));
+			txt.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 40)); 
+			
+			souslay.setOrientation(LinearLayout.VERTICAL); //< On met orientation horizontal sur la ligne
+			souslay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); 
+			souslay.setBackgroundColor(c.getResources().getColor(R.color.bgListeTitreGroupe)); //< On met une couleur de fond
+			souslay.setGravity(Gravity.CENTER); //< On centre le tout
+			
+			souslay.addView(txt);
+			
+			layout.addView(souslay);
+		}
 		for (int i = 0; i < eleves.size(); i++) {
-			int cr = eleves.get(i).afficher(layout, c, mode);     //< On affiche un élève sur le layout
+			int cr = Pupil.FAILLURE;
+			if (mode == Pupil.MODE_LISTE) {
+				cr = eleves.get(i).afficher(layout, c, mode);     //< On affiche un élève sur le layout
+			}
+			else if (mode == Pupil.MODE_TROMBI) {
+				if (i % (largeurEcran/100) == 0) {
+					ligne = new LinearLayout(c);
+					ligne.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
+					ligne.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)); 
+					ligne.setGravity(Gravity.CENTER); //< On centre le tout
+				
+					layout.addView(ligne);
+				}
+				cr = eleves.get(i).afficher(ligne, c, mode);     //< On affiche un élève sur le layout
+			}
+			
 			if (cr == Pupil.FAILLURE)
 				return cr;
 		}

@@ -352,14 +352,6 @@ public class Pupil {
 		lay.setOrientation(LinearLayout.VERTICAL); //< On met orientation vertical sur le layout trombi
 		lay.setLayoutParams(new LayoutParams(100, 150)); //< On définie la taille d'une 'case' pour l'élève
 		lay.setBackgroundDrawable(c.getResources().getDrawable(R.drawable.fond_item_liste)); //< On met un fond à l'item
-		photo.setOnLongClickListener(new OnLongClickListener() {
-			public boolean onLongClick(View v) {
-				CameraActivity Cam = new CameraActivity();
-				Intent intent = new Intent(c, Cam.getClass());
-				c.startActivity(intent);
-                return false;
-            }
-		});
 		
 		layout.addView(lay); //< On ajoute la ligne sur le layout demandé
 		

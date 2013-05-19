@@ -291,7 +291,7 @@ public class Pupil {
 		lay.setGravity(Gravity.CENTER); //< On centre le tout
 		
 		lay.setOnTouchListener(new ListeOnTouch()); //< Mise en place d'un ontouchlistener pour changer la couleur du layout quand on le touche
-		lay.setOnLongClickListener(new ListeOnLongClick()); //< Mise en place du onlongclicklistener pour afficher le détail de l'élève
+		lay.setOnClickListener(new ListeOnClick()); //< Mise en place du onlongclicklistener pour afficher le détail de l'élève
 		
 		bordure.setOrientation(LinearLayout.HORIZONTAL); //< On met orientation horizontal sur la ligne
 		bordure.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 90)); //< On fait une ligne de 70dp de hauteur
@@ -480,7 +480,7 @@ public class Pupil {
 	 * Elle permet de réagir lorsque l'on clique sur un élève. Elle 
 	 * affiche le détails sur l'élève dans un popup.
 	 */
-	public class ListeOnLongClick implements OnLongClickListener {
+	public class ListeOnClick implements OnClickListener {
 		/**
 		 * @author David et Jonathan
 		 * 
@@ -489,7 +489,7 @@ public class Pupil {
 		 * 
 		 * @return Toujours true mais devrait retourner false en cas d'érreur.
 		 */
-		public boolean onLongClick(View v) {
+		public void onClick(View v) {
 			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
 			final AlertDialog.Builder r = new AlertDialog.Builder(v.getContext());
 			TextView titre = null;              //< Le titre de la boite de dialogue
@@ -519,7 +519,9 @@ public class Pupil {
 				photo.buildDrawingCache();
 				imgPhoto.setImageBitmap(photo.getDrawingCache());
 			}
-			
+			/**
+			 * Modification de l'eleve
+			 */
 			Button BoutonModif = (Button)layoutGlobal.findViewById(R.id.bt_ModifierEleve); //< On recupère le bouton de retour
 			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 				public void onClick(View w) {
@@ -575,6 +577,17 @@ public class Pupil {
 				}
 			});
 			
+			/**
+			 * Suppresion de cette eleve
+			 */
+			Button BoutonSupp = (Button)layoutGlobal.findViewById(R.id.bt_SupprimerEleve); //< On recupère le bouton de retour
+			BoutonSupp.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
+				public void onClick(View w) {
+					
+				}
+			});
+			
+			
 			//! On démarre la boite de dialogue
 			r.setView(layoutGlobal); //< On y met le layout global à l'interrieur
 			r.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
@@ -582,7 +595,6 @@ public class Pupil {
 					
 				}
 			}).show();
-			return true;
 		}
 	}
 }

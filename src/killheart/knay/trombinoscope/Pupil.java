@@ -50,7 +50,8 @@ public class Pupil {
 	private String dateNaissance = null;         //< La date de naissance de l'élève
 	private String urlImage = null;              //< Le chemin vers l'image
 	private int id = 0;                          //< L'identifiant unique d'un élève
-	
+	private static Grade classe = new Grade();	 //< Object de la class Grade
+	private int largeurEcran;   				 //< Taille de l'écran pour le trombi.
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -476,7 +477,7 @@ public class Pupil {
 	/**
 	 * @author David et Jonathan
 	 * 
-	 * Classe implémentant OnClickLongListener pour la vue en mode liste.
+	 * Classe implémentant OnClickListener pour la vue en mode liste.
 	 * Elle permet de réagir lorsque l'on clique sur un élève. Elle 
 	 * affiche le détails sur l'élève dans un popup.
 	 */
@@ -487,9 +488,9 @@ public class Pupil {
 		 * Fonction permettant de réagir lorsqu'on clique sur un élève.
 		 * Elle lance un popup détaillant l'élève.
 		 * 
-		 * @return Toujours true mais devrait retourner false en cas d'érreur.
 		 */
 		public void onClick(View v) {
+			
 			LinearLayout layoutGlobal = null;   //< Le layout global de la boite de dialogue
 			final AlertDialog.Builder r = new AlertDialog.Builder(v.getContext());
 			TextView titre = null;              //< Le titre de la boite de dialogue
@@ -522,8 +523,8 @@ public class Pupil {
 			/**
 			 * Modification de l'eleve
 			 */
-			Button BoutonModif = (Button)layoutGlobal.findViewById(R.id.bt_ModifierEleve); //< On recupère le bouton de retour
-			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
+			Button BoutonModif = (Button)layoutGlobal.findViewById(R.id.bt_ModifierEleve); //< On recupère le bouton de modification
+			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour modifier
 				public void onClick(View w) {
 					LinearLayout sousLayout = null;     //< Le layout de modification d'un eleve
 					
@@ -580,11 +581,16 @@ public class Pupil {
 			/**
 			 * Suppresion de cette eleve
 			 */
-			Button BoutonSupp = (Button)layoutGlobal.findViewById(R.id.bt_SupprimerEleve); //< On recupère le bouton de retour
-			BoutonSupp.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
+			
+			Button BoutonSupp = (Button) layoutGlobal.findViewById(R.id.bt_SupprimerEleve); //< On recupère le bouton de suppression
+			BoutonSupp.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour supprimer
 				public void onClick(View w) {
-					
+					int idEleve = id;//< on recupere l'id de l'eleve selectioner.
+					ListeActivity.ManipulXml.DeletePupil(idEleve);//< appel a la fonction de suppression d'un eleve
+					//< On close le Layout.
+					//< On actualise l'affichage.
 				}
+				
 			});
 			
 			

@@ -258,8 +258,8 @@ public class XmlManipulator {
 	 * 
 	 * @param objet de la class Pupil pour acceder aux methodes.
 	 */
-	public void DeletePupil(Pupil eleve){
-		int IdEleve = eleve.getId();
+	public void DeletePupil(int id){
+		//int IdEleve = eleve.getId();
 		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = Id.getLength();//< calcul de la taille de nodelist.
@@ -272,7 +272,7 @@ public class XmlManipulator {
             	
 	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
 	            IdEleveTmp = Integer.parseInt(tmp);
-				if(IdEleveTmp == IdEleve){
+				if(IdEleveTmp == id){
 					firstPersonElement.getParentNode().removeChild(firstPersonElement);
 				}
             }

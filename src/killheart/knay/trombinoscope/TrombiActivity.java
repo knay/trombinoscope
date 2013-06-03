@@ -1,11 +1,15 @@
 package killheart.knay.trombinoscope;
 
 import java.io.File;
+import java.util.ArrayList;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
@@ -71,7 +75,23 @@ public class TrombiActivity extends Activity {
 		BoutonExporter = (Button)layoutGlobal.findViewById(R.id.btn_exporter); //< On recupère le bouton d'exportation
 		BoutonExporter.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
-			// TODO ajouter exportation PDF
+				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+		        //emailIntent.setType("plain/text");
+				emailIntent.setType("application/image");
+				File Racine = Environment.getExternalStorageDirectory();
+				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});
+		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "test");
+		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "bonjour");
+		        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        
+		        ArrayList<Uri> uris = new ArrayList<Uri>();
+		        for(int i=0;i<10;i++){
+		        	Uri fil = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+i+".jpg");
+		        	uris.add(fil);
+		        }
+				emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+		        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+Racine+"/sdcard/trombiscol/photos/Classe_sansnom/12.jpg"));
+		        TrombiActivity.this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 			}
 		});
 		

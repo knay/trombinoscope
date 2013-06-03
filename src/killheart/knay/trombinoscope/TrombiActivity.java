@@ -1,6 +1,10 @@
 package killheart.knay.trombinoscope;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.net.Uri;
@@ -77,20 +81,74 @@ public class TrombiActivity extends Activity {
 			public void onClick(View v) {
 				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
 		        //emailIntent.setType("plain/text");
-				emailIntent.setType("application/image");
-				File Racine = Environment.getExternalStorageDirectory();
+				emailIntent.setType("plain/text");
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});
 		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "test");
 		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "bonjour");
 		        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        
-		        ArrayList<Uri> uris = new ArrayList<Uri>();
-		        for(int i=0;i<10;i++){
-		        	Uri fil = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+i+".jpg");
-		        	uris.add(fil);
-		        }
-				emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-		        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+Racine+"/sdcard/trombiscol/photos/Classe_sansnom/12.jpg"));
+		       /* FileWriter content = null;
+				try {
+					content = new FileWriter("index.txt");
+					BufferedWriter output = new BufferedWriter(content);
+					output.write("<HTML>");
+					output.write("<HEAD>");
+					output.write("<TITLE> NomPromotion </TITLE>");
+					output.write("</HEAD>");
+					output.write("<BODY>");
+					//ArrayList<Uri> uris = new ArrayList<Uri>();
+			        //for(int i=0;i<10;i++){
+			        	//Uri fil = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+i+".jpg");
+			        	//content.write("<img src=file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/0.jpg");
+			        	//content.write("<h3>"+i+"</h3>");
+			        	//uris.add(fil);
+			        //}
+					output.write("<h1>test un deux</h1>");
+					output.write("</BODY>");
+					output.write("</HTML>");
+					output.flush();
+					output.close();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        */
+		        FileOutputStream fop = null;
+				File file;
+				String content = "<HTML><HEAD><TITLE> NomPromotion </TITLE></HEAD><BODY><h1>test un deux</h1><img src='file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/0.jpg'></BODY></HTML>";
+				try {
+		 
+					file = new File("/mnt/sdcard/trombiscol/index.html");
+					fop = new FileOutputStream(file);
+		 
+					// if file doesnt exists, then create it
+					if (!file.exists()) {
+						file.createNewFile();
+					}
+		 
+					// get the content in bytes
+					byte[] contentInBytes = content.getBytes();
+		 
+					fop.write(contentInBytes);
+					fop.flush();
+					fop.close();
+		 
+					System.out.println("Done");
+		 
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (fop != null) {
+							fop.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				//emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+		        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/index.html"));
 		        TrombiActivity.this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 			}
 		});

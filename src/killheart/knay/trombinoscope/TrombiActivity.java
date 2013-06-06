@@ -1,19 +1,15 @@
 package killheart.knay.trombinoscope;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.res.Configuration;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
@@ -78,7 +74,6 @@ public class TrombiActivity extends Activity {
 		
 		BoutonExporter = (Button)layoutGlobal.findViewById(R.id.btn_exporter); //< On recupère le bouton d'exportation
 		BoutonExporter.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
-			@SuppressWarnings("null")
 			public void onClick(View v) {
 				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
 		        emailIntent.setType("text/html");
@@ -142,9 +137,15 @@ public class TrombiActivity extends Activity {
 		
 		listeEleve = (LinearLayout)layoutGlobal.findViewById(R.id.trombilayout);
 
+		Configuration config = getResources().getConfiguration();
 		WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		largeurEcran = display.getWidth();
+		if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			largeurEcran = display.getWidth()*70/100;
+	    } 
+		else if (config.orientation == Configuration.ORIENTATION_PORTRAIT){	
+			largeurEcran = display.getWidth();
+	    }
 		
 		classe.ajouterGroup(listegroupe);
 		classe.getGroupes().get(0).setNom("Groupe 1");

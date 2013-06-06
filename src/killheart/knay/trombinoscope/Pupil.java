@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ImageView;
 
@@ -50,8 +51,7 @@ public class Pupil {
 	private String dateNaissance = null;         //< La date de naissance de l'élève
 	private String urlImage = null;              //< Le chemin vers l'image
 	private int id = 0;                          //< L'identifiant unique d'un élève
-	private static Grade classe = new Grade();	 //< Object de la class Grade
-	private int largeurEcran;   				 //< Taille de l'écran pour le trombi.
+
 	/**
 	 * @author David et Jonathan
 	 * 
@@ -525,15 +525,15 @@ public class Pupil {
 			 */
 			Button BoutonModif = (Button)layoutGlobal.findViewById(R.id.bt_ModifierEleve); //< On recupère le bouton de modification
 			BoutonModif.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour modifier
-				public void onClick(View w) {
-					LinearLayout sousLayout = null;     //< Le layout de modification d'un eleve
+				public void onClick(final View w) {
+					final LinearLayout sousLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);     //< Le layout de modification d'un eleve
 					
 					EditText txtnom = null;             //< Le texte contenant le nom de l'élève
 					EditText txtprenom = null;          //< Le texte contenant le prénom de l'élève
-					EditText txtdateNaissance = null;
+					EditText txtdateNaissance = null;   //< Le texte contenant la date de naissance de l'élève
 					TextView titre = null;              //< Le titre de la boite de dialogue
 					
-					sousLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null); //< On récupère le layoutglobal a partir de la view
+					//sousLayout =  //< On récupère le layoutglobal a partir de la view
 					
 					titre = (TextView) sousLayout.findViewById(R.id.dialogueTitre); //< On modifie le titre de la boite de dialogue
 					titre.setText("Modification");
@@ -541,25 +541,21 @@ public class Pupil {
 					txtnom = (EditText) sousLayout.findViewById(R.id.NewNom); //< On modifie le nom de l'élève de la boite de dialogue
 					txtnom.setText(nom);
 					
-					
 					txtprenom = (EditText) sousLayout.findViewById(R.id.NewPrenom); //< On modifie le prénom de l'élève de la boite de dialogue
 					txtprenom.setText(prenom);
-					
 					
 					txtdateNaissance = (EditText) sousLayout.findViewById(R.id.NewNaissance); //< On modifie la date de naissance de l'élève de la boite de dialogue
 					txtdateNaissance.setText(dateNaissance);
 					
 					r.setView(sousLayout);
 					r.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-						@SuppressWarnings("null")
-						
 						public void onClick(DialogInterface dialog, int which) { 
-							final LinearLayout recupLayout = null;	//< Le layout qui permet de recupe le nom.. lors de lappui sur valider
-							//------>recupLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);    
+							//LinearLayout recupLayout = null;	//< Le layout qui permet de recupe le nom.. lors de lappui sur valider
+							//recupLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);    
 							//< Le texte contenant le nom de l'élève
 							    //< Le texte contenant le prénom de l'élève
 							
-							EditText Nnom = (EditText) recupLayout.findViewById(R.id.NewNom);
+							EditText Nnom = (EditText) sousLayout.findViewById(R.id.NewNom);
 							nom = Nnom.getText().toString();
 							/*
 							EditText Nprenom = (EditText) recupLayout.findViewById(R.id.NewPrenom);
@@ -569,6 +565,8 @@ public class Pupil {
 							dateNaissance = NdateNaissance.getText().toString();
 							*/
 				 			ListeActivity.ManipulXml.modifEleve(Pupil.this);
+				 			Toast.makeText(w.getContext().getApplicationContext(), "Nouveau nom : " + nom, Toast.LENGTH_LONG).show();
+				 			
 						}
 					});
 					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

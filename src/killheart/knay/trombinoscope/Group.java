@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 

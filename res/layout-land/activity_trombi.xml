@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".TrombiActivity" >
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:background="@color/Noir">
+        <RelativeLayout 
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".70" 
+            android:orientation="vertical">
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <LinearLayout 
+                    android:id="@+id/trombilayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+                    
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+     
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.32"
+            android:orientation="vertical"
+            android:background="@color/Noir"
+            android:gravity="bottom">
+            <Button 
+                android:id="@+id/btn_exporter"
+                android:layout_width="fill_parent"
+                android:layout_height="50sp"
+                android:drawableLeft="@drawable/verstrombi"
+                android:drawablePadding="-15sp"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn_apercue"
+                android:textColor="@color/ColorBtWhite"
+                android:text="@string/btnexporter_str"/>
+            
+            <Button 
+                android:id="@+id/btn_retourTrombi"
+                android:layout_width="fill_parent"
+                android:layout_height="50sp"
+                android:drawableLeft="@drawable/ic_menu_back"
+                android:drawablePadding="-15sp"
+                android:layout_margin="3sp"
+                android:background="@drawable/fond_btn"
+                android:textColor="@color/Noir"
+                android:text="@string/retour_str"/>
+                    
+        </LinearLayout>
+    
+    </LinearLayout>
+
+</RelativeLayout>

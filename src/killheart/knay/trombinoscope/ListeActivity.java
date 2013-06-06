@@ -210,7 +210,7 @@ public class ListeActivity extends Activity {
         		/*Test*/
         		String idSuppInt ;
         		idSuppInt = ManipulXml.EleveId(NouveauNom.getText().toString(), NouveauPrenom.getText().toString());
-        		//ManipulXml.DeletePupil(idSuppInt);
+        		
         } });
  
         
@@ -243,5 +243,4 @@ public class ListeActivity extends Activity {
     		classe.actualiserAffichage(listeEleve, layoutGlobal.getContext(), Pupil.MODE_LISTE, largeurEcran); //< On rafraichit l'affichage de la liste
         }
     }
-
 }

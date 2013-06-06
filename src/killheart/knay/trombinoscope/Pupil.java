@@ -555,17 +555,20 @@ public class Pupil {
 						
 						public void onClick(DialogInterface dialog, int which) { 
 							final LinearLayout recupLayout = null;	//< Le layout qui permet de recupe le nom.. lors de lappui sur valider
-							//recupLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);    
+							//------>recupLayout = (LinearLayout) View.inflate(w.getContext(), R.layout.modif_eleve, null);    
 							//< Le texte contenant le nom de l'élève
 							    //< Le texte contenant le prénom de l'élève
 							
 							EditText Nnom = (EditText) recupLayout.findViewById(R.id.NewNom);
 							nom = Nnom.getText().toString();
+							/*
 							EditText Nprenom = (EditText) recupLayout.findViewById(R.id.NewPrenom);
 							prenom = Nprenom.getText().toString();
+							
 							EditText NdateNaissance = (EditText) recupLayout.findViewById(R.id.NewNaissance);
 							dateNaissance = NdateNaissance.getText().toString();
-							ListeActivity.ManipulXml.modifEleve(id,nom,prenom,dateNaissance);
+							*/
+				 			ListeActivity.ManipulXml.modifEleve(Pupil.this);
 						}
 					});
 					r.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

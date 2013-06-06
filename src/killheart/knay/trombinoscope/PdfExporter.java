@@ -1,32 +1,29 @@
 package killheart.knay.trombinoscope;
-import javax.xml.parsers.*; 
-import org.w3c.dom.*; 
-import org.xml.sax.*; 
-import javax.xml.transform.*; 
-import javax.xml.transform.sax.*; 
-import javax.xml.transform.dom.*; 
-import javax.xml.transform.stream.*; 
+
+import android.content.Intent;
+import android.provider.ContactsContract.CommonDataKinds.Email;
+
 import java.io.*; 
 import java.util.*; 
-import org.apache.fop.apps.Driver;
+//import org.apache.fop.apps.Driver;
 
 public class PdfExporter {
-	public static void creerPDF(String xml, String xsl, String pdf) throws Exception{
-		// création du résultat (pdf)
-		Driver driver = new Driver();
-		driver.setRenderer(Driver.RENDER_PDF);
-		driver.setOutputStream(new java.io.FileOutputStream(pdf));
-		Result resultat = new SAXResult(driver.getContentHandler());
-		
-		// récupération de la source xml
-		Source source = new StreamSource(xml);
-		
-		// création du transformer en fonction du xsl
-		Source style = new StreamSource(xsl);
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
-		Transformer transformer = transformerFactory.newTransformer(style);
-		
-		// transformation
-		transformer.transform(source, resultat);
+	public void SendEmail(){
+		/*Button send;
+	    //EditText address, subject, emailtext;
+	    
+       //setContentView(R.layout.email);
+       //send=(Button) findViewById(R.id.btn_exporter);
+       //address=(EditText) findViewById(R.id.emailaddress);
+       //subject=(EditText) findViewById(R.id.emailsubject);
+       //emailtext=(EditText) findViewById(R.id.emailtext);
+        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "test");
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "bonjour");
+        PdfExporter.this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+    */
 	}
 }

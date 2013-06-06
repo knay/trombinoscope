@@ -259,7 +259,6 @@ public class XmlManipulator {
 	 * @param objet de la class Pupil pour acceder aux methodes.
 	 */
 	public void DeletePupil(int id){
-		//int IdEleve = eleve.getId();
 		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
 		int taille = Id.getLength();//< calcul de la taille de nodelist.
@@ -371,10 +370,10 @@ public class XmlManipulator {
 	 * 
 	 * @param Objet de la class Pupil
 	 */
-	public void modifEleve(int IdEleve,String NomEleve,String PrenomEleve,String DateEleve){
-		/*
+	public void modifEleve(Pupil eleve){
+		
 		int IdEleve = eleve.getId();
-		String NomEleve = eleve.getNom();
+		/*String NomEleve = eleve.getNom();
 		String PrenomEleve = eleve.getPrenom();
 		String DateEleve = eleve.getDateNaissance();
 		*/
@@ -389,30 +388,30 @@ public class XmlManipulator {
             if(firstPersonNode.getNodeType() == Node.ELEMENT_NODE){//< si le node est un Element.
             	Element firstPersonElement = (Element)firstPersonNode;//< converti le Node en Element.
             	
-	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du nom.
-	            IdEleveTmp = Integer.parseInt(tmp);
-				if(IdEleveTmp == IdEleve){
-					/*On récupère le nom d'un eleve*/
+	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du de l'id.
+	            IdEleveTmp = Integer.parseInt(tmp);//< conversion de du string en int
+				if(IdEleveTmp == IdEleve){/*
+					//On récupère le nom d'un eleve
 		            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
 		
 		            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
 		            ((Node) textNom).setTextContent(NomEleve);//< On récupère la valeur du nom.
 					
-					/*On récupère le prenom d'un eleve*/
+					//On récupère le prenom d'un eleve
 					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
 		            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
 		
 		            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
 		            ((Node) textPrenom).setTextContent(PrenomEleve);//< On récupère la valeur du nom.
 					
-					/*On recupere la date de naissance*/
+					//On recupere la date de naissance
 					NodeList DateList = firstPersonElement.getElementsByTagName("date");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element DateElement = (Element)DateList.item(0);//< Convertion en Element.
 		
 		            NodeList textDate = DateElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
 		            ((Node) textDate).setTextContent(DateEleve);//< On récupère la valeur du nom.
-					
+					*/
 					
 				}
             }
@@ -421,11 +420,5 @@ public class XmlManipulator {
 		
 	}
 	
-	/**
-	 * @author David et Jonathan
-	 * 
-	 * Fonction qui permet d'exporter le trombinoscope au format pdf.
-	 */
-	public void Pdf(){}
 	
 }

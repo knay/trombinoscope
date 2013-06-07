@@ -1,5 +1,6 @@
 package killheart.knay.trombinoscope;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -62,6 +63,21 @@ public class Grade {
 	 */
 	public ArrayList<Group> getGroupes() {
 		return groupes;
+	}
+
+	/**
+	 * @author David et Jonathan
+	 * 
+	 * Permet de récupérer tous les élèves de la classe.
+	 * 
+	 * @return La liste des élèves de la classe.
+	 */
+	public ArrayList<Pupil> getEleves() {
+		ArrayList<Pupil> e = new ArrayList<Pupil>();
+		for (int i = 0; i < groupes.size(); i++) {
+			e.addAll(groupes.get(i).getEleves());
+		}
+		return e;
 	}
 	
 	/**

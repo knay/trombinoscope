@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal" >
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight=".90" >
-
+    android:layout_height="fill_parent" >
+        
         <SurfaceView
             android:id="@+id/surfaceViewCamera"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </SurfaceView>
+            android:layout_height="fill_parent" />
 
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
         <ImageView
-            android:layout_width="fill_parent"
+            android:layout_width="0sp"
             android:layout_height="fill_parent"
+            android:layout_weight="0.97"
             android:layout_gravity="center"
             android:contentDescription="@string/limite_tete_str"
             android:src="@drawable/limite_tete_photo" />
-    </RelativeLayout>
-
-    <ImageButton
-        android:id="@+id/boutonPhoto"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight=".10"
-        android:contentDescription="@string/prendre_Photo_str"
-        android:src="@drawable/iconephoto" >
-    </ImageButton>
-
-</LinearLayout>
+    
+        <ImageButton
+            android:id="@+id/boutonPhoto"
+            android:layout_width="50sp"
+            android:layout_height="150sp"
+            android:layout_weight="0.03"
+            android:contentDescription="@string/prendre_Photo_str"
+            android:src="@drawable/iconephoto" 
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>

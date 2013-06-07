@@ -3,6 +3,8 @@ package killheart.knay.trombinoscope;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -87,14 +89,31 @@ public class TrombiActivity extends Activity {
 				File file;
 				String head = "<HTML>" +
 						"<HEAD><TITLE> NomPromotion </TITLE></HEAD>" +
-						"<BODY>";
+						"<BODY>" +
+						"<table name=eleve>";
 				String body = "";
-				for(int i=0;i<10;i++){
-					body+="<img src=/mnt/sdcard/trombiscol/photos/Classe_sansnom/"+i+".jpg>"+
-							"<p>NomPrenom</p>";
-					
-					
+				String table = "<tr>";
+				int colones = 1;
+				ArrayList<Pupil> eleves = new ArrayList<Pupil>();//<Arrayliste de type Pupil
+				eleves = classe.getEleves();//<ArrayList contenant la listes des eleves
+				for (Pupil selectEleve : eleves) {
+					if((colones % 3) == 0){
+					colones++;
+					body+="<td><img src=/mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg>"+
+							"<p>"+selectEleve.getNom()+"</p>"+
+							"<p>"+selectEleve.getPrenom()+"</p></td>"+
+							"</tr>";
+					}
+					else{
+						colones++;
+						body+="<td><img src=/mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg>"+
+								"<p>"+selectEleve.getNom()+"</p>" +
+								"<p>"+selectEleve.getPrenom()+"</p></td>";
+
+					}
 				}
+				
+				
 				String finHtml = "</BODY></HTML>";
 				try {
 		 
@@ -109,10 +128,12 @@ public class TrombiActivity extends Activity {
 					// get the content in bytes
 					byte[] headInBytes = head.getBytes();
 					byte[] bodyInBytes = body.getBytes();
+					byte[] tableInBytes = table.getBytes();
 					byte[] htmlInBytes = finHtml.getBytes();
 					
 					fop.write(headInBytes);
 					fop.write(bodyInBytes);
+					fop.write(tableInBytes);
 					fop.write(htmlInBytes);
 					fop.flush();
 					fop.close();

@@ -557,15 +557,15 @@ public class Pupil {
 							
 							EditText Nnom = (EditText) sousLayout.findViewById(R.id.NewNom);
 							nom = Nnom.getText().toString();
-							/*
-							EditText Nprenom = (EditText) recupLayout.findViewById(R.id.NewPrenom);
+							
+							EditText Nprenom = (EditText) sousLayout.findViewById(R.id.NewPrenom);
 							prenom = Nprenom.getText().toString();
 							
-							EditText NdateNaissance = (EditText) recupLayout.findViewById(R.id.NewNaissance);
+							EditText NdateNaissance = (EditText) sousLayout.findViewById(R.id.NewNaissance);
 							dateNaissance = NdateNaissance.getText().toString();
-							*/
+							
 				 			ListeActivity.ManipulXml.modifEleve(Pupil.this);
-				 			Toast.makeText(w.getContext().getApplicationContext(), "Nouveau nom : " + nom, Toast.LENGTH_LONG).show();
+				 			Toast.makeText(w.getContext().getApplicationContext(), "Nouveau nom : " + nom , Toast.LENGTH_LONG).show();
 				 			
 						}
 					});

@@ -3,6 +3,7 @@ package killheart.knay.trombinoscope;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -162,7 +163,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback {
 		Camera.Parameters parameters = camera.getParameters(); //< On récupère les paramètres de la caméra
 		parameters.setRotation(90); //< On dit à la caméra qu'elle n'est pas droite pour avec une photo dans le bon sens
 
-		parameters.setPreviewSize(width, height); //< On change la taille de la prévisualisation
+		List<Camera.Size> sizes = parameters.getSupportedPreviewSizes(); 
+		Camera.Size previewSize = sizes.get(0);
+		parameters.setPreviewSize(previewSize.width, previewSize.height); //< On change la taille de la prévisualisation
 
 		camera.setParameters(parameters); //< On applique nos nouveaux paramètres
 

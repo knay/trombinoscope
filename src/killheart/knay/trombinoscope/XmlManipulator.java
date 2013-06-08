@@ -373,10 +373,10 @@ public class XmlManipulator {
 	public void modifEleve(Pupil eleve){
 		
 		int IdEleve = eleve.getId();
-		/*String NomEleve = eleve.getNom();
+		String NomEleve = eleve.getNom();
 		String PrenomEleve = eleve.getPrenom();
 		String DateEleve = eleve.getDateNaissance();
-		*/
+		
 		/*Verification*/
 		
 		NodeList Id = ((Element) RacineXml).getElementsByTagName("eleve");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre
@@ -390,15 +390,16 @@ public class XmlManipulator {
             	
 	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du de l'id.
 	            IdEleveTmp = Integer.parseInt(tmp);//< conversion de du string en int
-				if(IdEleveTmp == IdEleve){/*
+				if(IdEleveTmp == IdEleve){
 					//On récupère le nom d'un eleve
 		            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
-		
+		           
 		            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            ((Node) textNom).setTextContent(NomEleve);//< On récupère la valeur du nom.
-					
-					//On récupère le prenom d'un eleve
+		           // ((Node) textNom).setTextContent(NomEleve);//< On récupère la valeur du nom.
+		          
+					/*
+		            //On récupère le prenom d'un eleve
 					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
 		            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
 		

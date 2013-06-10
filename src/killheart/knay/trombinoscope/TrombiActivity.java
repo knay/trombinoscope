@@ -1,17 +1,23 @@
 package killheart.knay.trombinoscope;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.text.Html;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
@@ -78,46 +84,52 @@ public class TrombiActivity extends Activity {
 		BoutonExporter.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
 				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
-		        emailIntent.setType("text/html");
+				emailIntent.setType("text/plain"); 
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});
 		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "test");
-		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "bonjour");
-		       // emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "contenu photo");
+		        //emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        
 		      
 		        FileOutputStream fop = null;
-				File file;
+				File file = null ;
 				String head = "<HTML>" +
 						"<HEAD><TITLE> NomPromotion </TITLE></HEAD>" +
 						"<BODY>" +
 						"<table name=eleve>";
 				String body = "";
-				String table = "<tr>";
 				int colones = 1;
+				ArrayList<Uri> uris = new ArrayList<Uri>();
 				ArrayList<Pupil> eleves = new ArrayList<Pupil>();//<Arrayliste de type Pupil
 				eleves = classe.getEleves();//<ArrayList contenant la listes des eleves
+				body += "<tr>";
 				for (Pupil selectEleve : eleves) {
 					if((colones % 3) == 0){
 					colones++;
-					body+="<td><img src=/mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg>"+
+					body+="<td><img src=\""+selectEleve.getId()+".jpg\">"+
 							"<p>"+selectEleve.getNom()+"</p>"+
 							"<p>"+selectEleve.getPrenom()+"</p></td>"+
-							"</tr>";
+							"</tr><tr>";
+							
 					}
 					else{
 						colones++;
-						body+="<td><img src=/mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg>"+
+						body+="<td><img src=\""+selectEleve.getId()+".jpg\">"+
 								"<p>"+selectEleve.getNom()+"</p>" +
 								"<p>"+selectEleve.getPrenom()+"</p></td>";
 
 					}
+					Uri u = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg");
+					uris.add(u);
 				}
 				
 				
-				String finHtml = "</BODY></HTML>";
+				String finHtml = "</table></BODY></HTML>";
+				
 				try {
 		 
 					file = new File("/mnt/sdcard/trombiscol/index.html");
+
 					fop = new FileOutputStream(file);
 		 
 					// if file doesnt exists, then create it
@@ -128,16 +140,15 @@ public class TrombiActivity extends Activity {
 					// get the content in bytes
 					byte[] headInBytes = head.getBytes();
 					byte[] bodyInBytes = body.getBytes();
-					byte[] tableInBytes = table.getBytes();
 					byte[] htmlInBytes = finHtml.getBytes();
 					
 					fop.write(headInBytes);
 					fop.write(bodyInBytes);
-					fop.write(tableInBytes);
 					fop.write(htmlInBytes);
 					fop.flush();
+
 					fop.close();
-		 
+					
 		 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -150,8 +161,12 @@ public class TrombiActivity extends Activity {
 						e.printStackTrace();
 					}
 				}
-				//emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-		        //emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/trombiscol/index.html"));
+				
+				
+
+			    Uri u = Uri.fromFile(file);
+			    uris.add(u);
+			    emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 		        TrombiActivity.this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 			}
 		});

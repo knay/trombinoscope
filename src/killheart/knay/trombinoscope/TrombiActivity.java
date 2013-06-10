@@ -83,11 +83,11 @@ public class TrombiActivity extends Activity {
 		BoutonExporter = (Button)layoutGlobal.findViewById(R.id.btn_exporter); //< On recupère le bouton d'exportation
 		BoutonExporter.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
-				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
-				emailIntent.setType("text/plain"); 
-				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});
-		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "test");
-		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "contenu photo");
+				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);//< permet d'envoyer plusieur piece jointe
+				emailIntent.setType("text/plain"); //< type du contenu du message
+				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});//< addresse par defaut du recepteur
+		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Trombinoscope de la classe : ");//<Objet du mail
+		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");//< contenu du mail.
 		        //emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        
 		      
@@ -96,52 +96,57 @@ public class TrombiActivity extends Activity {
 				String head = "<HTML>" +
 						"<HEAD><TITLE> NomPromotion </TITLE></HEAD>" +
 						"<BODY>" +
-						"<table name=eleve>";
-				String body = "";
-				int colones = 1;
-				ArrayList<Uri> uris = new ArrayList<Uri>();
-				ArrayList<Pupil> eleves = new ArrayList<Pupil>();//<Arrayliste de type Pupil
+						"<table name=eleve>";//< String qui ecrit le contenu de l'index.html
+				String body = "";//< contenu du body de la page index
+				int colones = 1;//< initialisation variable colonne.
+				ArrayList<Uri> uris = new ArrayList<Uri>();//< creer une arraylist de type uri
+				ArrayList<Pupil> eleves = new ArrayList<Pupil>();//< Arrayliste de type Pupil
 				eleves = classe.getEleves();//<ArrayList contenant la listes des eleves
-				body += "<tr>";
-				for (Pupil selectEleve : eleves) {
-					if((colones % 3) == 0){
-					colones++;
+				body += "<tr>";//< creer la premier ligne du tableau.
+				for (Pupil selectEleve : eleves) {//< pour chaque eleves.
+					if((colones % 3) == 0){//< nombre d'éléments par ligne(nombre de colonnes).
+										//< si c'est la cinqieme colonnes de la ligne
+					colones++;//< incrementation de la colonnes
 					body+="<td><img src=\""+selectEleve.getId()+".jpg\">"+
 							"<p>"+selectEleve.getNom()+"</p>"+
 							"<p>"+selectEleve.getPrenom()+"</p></td>"+
-							"</tr><tr>";
+							"</tr><tr>";//< on recupere l'image en fonction de l'id de l'eleve.
+										//< ainsi que son nom est prenom.
 							
 					}
-					else{
-						colones++;
+					else{//< si l'on est pas a la fin de la ligne(de taille 5par exemple)
+						colones++;//<incremente
 						body+="<td><img src=\""+selectEleve.getId()+".jpg\">"+
 								"<p>"+selectEleve.getNom()+"</p>" +
-								"<p>"+selectEleve.getPrenom()+"</p></td>";
+								"<p>"+selectEleve.getPrenom()+"</p></td>";//< on recupere l'image en fonction de l'id de l'eleve.
+						//< ainsi que son nom est prenom.
 
 					}
+					// ...
 					Uri u = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg");
-					uris.add(u);
+					uris.add(u);//< ajout .. a uris
 				}
 				
 				
-				String finHtml = "</table></BODY></HTML>";
+				String finHtml = "</table></BODY></HTML>";//< fin du fichier html
 				
 				try {
 		 
-					file = new File("/mnt/sdcard/trombiscol/index.html");
+					file = new File("/mnt/sdcard/trombiscol/index.html");//< creer fichier au chemin suivant
 
-					fop = new FileOutputStream(file);
-		 
-					// if file doesnt exists, then create it
+					fop = new FileOutputStream(file);//< creer un FileOutputStream en passant en parametre le fichier creer au dessus.
+					
+					// si le fichier n'existe pas on le creer
 					if (!file.exists()) {
 						file.createNewFile();
 					}
 		 
-					// get the content in bytes
+					// conversion en bytes des string
 					byte[] headInBytes = head.getBytes();
 					byte[] bodyInBytes = body.getBytes();
 					byte[] htmlInBytes = finHtml.getBytes();
 					
+					//ecrit les donner convertie dans le fichier
 					fop.write(headInBytes);
 					fop.write(bodyInBytes);
 					fop.write(htmlInBytes);
@@ -164,9 +169,9 @@ public class TrombiActivity extends Activity {
 				
 				
 
-			    Uri u = Uri.fromFile(file);
-			    uris.add(u);
-			    emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+			    Uri u = Uri.fromFile(file);//<
+			    uris.add(u);//<
+			    emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);//< joindre le contenu du uris en piece jointe
 		        TrombiActivity.this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 			}
 		});

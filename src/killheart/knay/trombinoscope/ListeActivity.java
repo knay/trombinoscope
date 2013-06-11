@@ -57,7 +57,7 @@ public class ListeActivity extends Activity {
 	@SuppressWarnings("deprecation") //< On enlève le warning car necessaire pour vieille version d'android
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);          //< Appel au super-constructeur
-		classe = new Grade();
+		
 		listegroupe = new Group();
 		
 		/*Test*/
@@ -72,7 +72,9 @@ public class ListeActivity extends Activity {
 		 */
 		String nomScolaire = ManipulXml.LireScolaire();
 		Toast.makeText(ListeActivity.this, nomScolaire, Toast.LENGTH_LONG).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
-
+		classe = new Grade(nomScolaire);
+		
+		
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourliste); //< On recupère le bouton de retour

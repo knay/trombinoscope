@@ -67,6 +67,12 @@ public class ListeActivity extends Activity {
 		this.ManipulXml = xml;
 		listegroupe = xml.LireEleve();
 		
+		/**
+		 * test permet de recup le nom de la promo
+		 */
+		String nomScolaire = ManipulXml.LireScolaire();
+		Toast.makeText(ListeActivity.this, nomScolaire, Toast.LENGTH_LONG).show();//< On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
+
 		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_liste, null);
 
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourliste); //< On recupère le bouton de retour
@@ -130,10 +136,19 @@ public class ListeActivity extends Activity {
         	   BoiteDialogueSupprimer();
                return true;
            case R.id.action_search:
+        	   Recherche();
                return true;
         }
         return false;
     }
+	/**
+	 * 
+	 * 
+	 */
+	private void Recherche(){
+		
+
+	}
 	
 	/**
 	 * @author David et Jonathan

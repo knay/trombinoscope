@@ -344,7 +344,7 @@ public class XmlManipulator {
 	 * 
 	 * @param Objet de la class Pupil
 	 */
-	public void modifEleve(Pupil eleve){
+	public boolean modifEleve(Pupil eleve){
 		
 		int IdEleve = eleve.getId();
 		String NomEleve = eleve.getNom();
@@ -365,33 +365,29 @@ public class XmlManipulator {
 	            String tmp = firstPersonElement.getAttribute("id");//< On récupère la valeur du de l'id.
 	            IdEleveTmp = Integer.parseInt(tmp);//< conversion de du string en int
 				if(IdEleveTmp == IdEleve){
-					//On récupère le nom d'un eleve
+					//On récupère le nom de l'eleve
 		            NodeList NameList = firstPersonElement.getElementsByTagName("nom");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element NomElement = (Element)NameList.item(0);//< Convertion en Element.
-		           
-		            NodeList textNom = NomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		           // ((Node) textNom).setTextContent(NomEleve);//< On récupère la valeur du nom.
-		          
-					/*
+		            NomElement.setTextContent(NomEleve);//< modifie le contenu du text par l nouveau nom 
+		    
 		            //On récupère le prenom d'un eleve
 					NodeList PrenomListee = firstPersonElement.getElementsByTagName("prenom");//< Renvoyer une liste des éléments dont le nom est fourni en paramètre 
 		            Element PrenomElement = (Element)PrenomListee.item(0);//< Convertion en Element.
 		
-		            NodeList textPrenom = PrenomElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            ((Node) textPrenom).setTextContent(PrenomEleve);//< On récupère la valeur du nom.
-					
+		            PrenomElement.setTextContent(PrenomEleve);//< modifie le contenu du text par le nouveau prenom 
+		            
 					//On recupere la date de naissance
 					NodeList DateList = firstPersonElement.getElementsByTagName("date");//< On créer une NodeList avec les fils du noeud passer en parametre. 
 		            Element DateElement = (Element)DateList.item(0);//< Convertion en Element.
 		
-		            NodeList textDate = DateElement.getChildNodes();//< Une NodeList qui contient tous les enfants de ce nœud.
-		            ((Node) textDate).setTextContent(DateEleve);//< On récupère la valeur du nom.
-					*/
-					
+		            DateElement.setTextContent(DateEleve);//< modifie le contenu du text par la nouvelle date de naissance 
+		            
+		            EnregistrerXml();//< enregistre les modification apporté
+		            return true;
 				}
             }
 		}
-		EnregistrerXml();
+		return false;
 		
 	}
 	

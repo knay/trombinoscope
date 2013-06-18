@@ -16,7 +16,8 @@ android:orientation="vertical">
 			  android:layout_height="wrap_content"
 			  android:text="Nom du nouvel eleve :"
 			  android:paddingBottom="10dip" 
-			  android:textColor="#FFF"/>
+			  android:textColor="#010101"
+				/>
 			
 			<EditText 
 			  android:id="@+id/NomEleve"
@@ -37,7 +38,7 @@ android:orientation="vertical">
 		  android:layout_height="wrap_content"
 		  android:text="Prenom :"
 		  android:paddingBottom="10dip"
-		  android:textColor="#FFF" />
+		  android:textColor="#010101"/>
 		
 		<EditText 
 		  android:id="@+id/PrenomEleve"
@@ -58,7 +59,7 @@ android:orientation="vertical">
 		  android:layout_height="wrap_content"
 		  android:text="Date de naissance :"
 		  android:paddingBottom="10dip"
-		  android:textColor="#FFF" />
+		  android:textColor="#010101"/>
 		
 		<EditText 
 		  android:id="@+id/DateEleve"

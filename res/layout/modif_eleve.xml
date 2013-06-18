@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:textColor="@color/ColorBtWhite"
+			android:textColor="#FFFFFF"
             android:textIsSelectable="false"
             android:id="@+id/dialogueTitre"/>
     </LinearLayout> 
@@ -37,7 +37,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textSize="20sp"
-	            android:textColor="@color/ColorBtWhite"
+			  android:textColor="#010101"
 	            android:text="Nom :"/>
             <EditText 
                 android:layout_width="150sp"
@@ -49,7 +49,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textSize="20sp"
-	            android:textColor="@color/ColorBtWhite"
+			  android:textColor="#010101"
 	            android:text="Prenom:"/>
             <EditText 
                 android:layout_width="150sp"
@@ -61,7 +61,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textSize="20sp"
-	            android:textColor="@color/ColorBtWhite"
+			  android:textColor="#010101"
 	            android:text="Date de naissance :"/>
             <EditText 
                 android:layout_width="150sp"

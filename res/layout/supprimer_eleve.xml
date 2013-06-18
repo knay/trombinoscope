@@ -16,7 +16,7 @@ android:orientation="vertical">
 			  android:layout_height="wrap_content"
 			  android:text="Nom de l'élève à supprimer:"
 			  android:paddingBottom="10dip" 
-			  android:textColor="#FFF"/>
+			  android:textColor="#010101"/>
 			
 		<EditText 
 		  android:id="@+id/NomEleve"
@@ -36,7 +36,7 @@ android:orientation="vertical">
 		  android:layout_width="wrap_content"
 		  android:layout_height="wrap_content"
 		  android:text="Prenom :"
-		  android:textColor="#FFF"
+			  android:textColor="#010101"
 		  android:paddingBottom="10dip" />
 		
 		<EditText 

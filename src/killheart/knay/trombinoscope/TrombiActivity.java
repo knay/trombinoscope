@@ -62,7 +62,6 @@ public class TrombiActivity extends Activity {
 	@SuppressWarnings("deprecation") //< On enleve le warning car necessaire pour compatibilité ascendante
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);         //< Appel au super-constructeur
-		classe = new Grade();
 		listegroupe = new Group();
 		
 		/*Test*/
@@ -71,8 +70,11 @@ public class TrombiActivity extends Activity {
 		ManipulXml = new XmlManipulator(chemin);
 		listegroupe = ManipulXml.LireEleve();
 		
-		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_trombi, null);
 
+		String nomPromo = ManipulXml.LireScolaire();//< recupere le nom de la promo
+		layoutGlobal = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_trombi, null);
+		classe = new Grade(nomPromo);
+		
 		BoutonRetour = (Button)layoutGlobal.findViewById(R.id.btn_retourTrombi); //< On recupère le bouton de retour
 		BoutonRetour.setOnClickListener(new OnClickListener() {//< On déclare un nouveau “OnClickListener” pour le bouton retour
 			public void onClick(View v) {
@@ -86,15 +88,15 @@ public class TrombiActivity extends Activity {
 				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);//< permet d'envoyer plusieur piece jointe
 				emailIntent.setType("text/plain"); //< type du contenu du message
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "david.ansillon@gmail.com"});//< addresse par defaut du recepteur
-		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Trombinoscope de la classe : ");//<Objet du mail
+		        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Trombinoscope de la classe : "+classe.getNom());//<Objet du mail
 		        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");//< contenu du mail.
 		        //emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        
-		      
+		        
 		        FileOutputStream fop = null;
 				File file = null ;
 				String head = "<HTML>" +
-						"<HEAD><TITLE> NomPromotion </TITLE></HEAD>" +
+						"<HEAD><TITLE>"+  classe.getNom() +"</TITLE></HEAD>" +
 						"<BODY>" +
 						"<table name=eleve>";//< String qui ecrit le contenu de l'index.html
 				String body = "";//< contenu du body de la page index
@@ -123,7 +125,7 @@ public class TrombiActivity extends Activity {
 
 					}
 					// ...
-					Uri u = Uri.parse("file:///mnt/sdcard/trombiscol/photos/Classe_sansnom/"+selectEleve.getId()+".jpg");
+					Uri u = Uri.parse("file:///mnt/sdcard/trombiscol/photos/"+classe.getNom()+"/"+selectEleve.getId()+".jpg");
 					uris.add(u);//< ajout .. a uris
 				}
 				
@@ -192,8 +194,7 @@ public class TrombiActivity extends Activity {
 		classe.getGroupes().get(0).setNom("Groupe 1");
 		
 		AndroidTree.CreateFolder(classe.getNom(), "trombiscol/photos"); //< On crée le dossier pour les photos des scolaires
-		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève
-		
+		classe.setUrlImage(Environment.getExternalStorageDirectory() + "/trombiscol/photos/" + classe.getNom()); //< On définit le chemin vers l'image de chaque élève		
 		classe.afficher(listeEleve, this, Pupil.MODE_TROMBI, largeurEcran);
 		
 		setContentView(layoutGlobal);
